@@ -1,0 +1,32 @@
+<form [formGroup]="registerForm" (ngSubmit)="save()">
+  <div class="form-group">
+    <label>
+      City:
+      <select formControlName="city" class="form-control">
+        <option *ngFor='let city of citiesList' [value]="city"> {{ city }} </option>
+      </select>
+    </label>
+  </div>
+  <div class="form-group">
+    <label>
+      Street:
+      <input type="text" formControlName="street" class="form-control">
+    </label>
+  </div>
+  <div class="form-group">
+    <label>
+      Name:
+      <input type="text" formControlName="name" class="form-control">
+    </label>
+  </div>
+  <div class="form-group">
+    <label>
+      Last Name:
+      <input type="text" formControlName="lastName" class="form-control">
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary">SAVE</button>
+  <div *ngFor='let row of alertArray' id="alertArray">
+    {{ row }}
+  </div>
+</form>

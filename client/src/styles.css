@@ -1,0 +1,11 @@
+.main-page{
+    margin: 1.38%;
+    border: 1px solid black;
+    padding: 2%;
+}
+
+#alertArray{
+    color: red;
+    font-size: small;
+    margin: 10px;
+}
