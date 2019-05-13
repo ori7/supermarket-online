@@ -18,7 +18,7 @@
     <button [disabled]="loginForm.form.invalid" type="submit" class="btn btn-outline-dark" (click)='login()'>Login</button>
     &nbsp;<a href="#" [routerLink]="['/register1']"> Sign up </a>
     <div>
-      <span *ngIf='loginError'>{{ loginError }} </span>
+      <span *ngIf='loginError' class="alert">{{ loginError }} </span>
     </div>
   </form>
 </div>

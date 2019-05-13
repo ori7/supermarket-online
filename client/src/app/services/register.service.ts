@@ -3,6 +3,8 @@ import { Observable, of } from 'rxjs';
 import { UserModel } from '../models/user';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,8 @@ export class RegisterService {
     //carts: "carts"
   };
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+    private loginService: LoginService) {
 
   }
 
@@ -29,7 +32,7 @@ export class RegisterService {
 
   getCities(): object {
 
-    return {1:'Jerusalem', 2:'Tel aviv', 3:'haifa'};
+    return { 1: 'Jerusalem', 2: 'Tel aviv', 3: 'haifa' };
   }
 
   createUser1(details) {
@@ -38,7 +41,6 @@ export class RegisterService {
     this.newUser.id = details.id;
     this.newUser.email = details.email;
     this.newUser.password = details.password;
-    console.log(this.newUser);
   }
 
   createUser2(details) {
@@ -47,13 +49,20 @@ export class RegisterService {
     this.newUser.street = details.street;
     this.newUser.name = details.name;
     this.newUser.lastName = details.lastName;
-    console.log(this.newUser);
   }
 
-  saveUser(): Observable<object>{
+  saveUser(): Observable<string> {
 
-    //return this.httpClient.post<object>(environment.serverUrl + this.ENDPOINT.register, this.newUser);
-    return of(this.newUser);
+    return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINT.register, this.newUser).pipe(
+      map(tokenRes => {
+        if (tokenRes) {
+          window.localStorage.setItem('token', tokenRes);
+          sessionStorage.setItem('token', tokenRes);
+          this.loginService.isLogged.next(true);
+          return tokenRes;
+        }
+      })
+    );
   }
 
 }

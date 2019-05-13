@@ -4,8 +4,9 @@
     padding: 2%;
 }
 
-#alertArray{
+.alert{
     color: red;
     font-size: small;
     margin: 10px;
+    padding: 0;
 }

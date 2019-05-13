@@ -39,8 +39,8 @@ export class RegisterStepTwoComponent implements OnInit {
 
     this.checkValues();
     this.RegisterService.createUser2(this.registerForm.value);
-    this.RegisterService.saveUser().subscribe(res => {
-      if (res)
+    this.RegisterService.saveUser().subscribe(tokenRes => {
+      if (tokenRes)
         this.router.navigate(['/shoping']);
     })
   }

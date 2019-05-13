@@ -24,9 +24,7 @@ export class LoginService {
 
   login(user: UserModel): Observable<object> {
 
-    //return this.httpClient.post(environment.serverUrl + this.ENDPOINT.login, user).pipe(
-
-    return of(this.token).pipe(
+    return this.httpClient.post(environment.serverUrl + this.ENDPOINT.login, user).pipe(
       catchError(errorRes => {
         this.isLogged.next(false);
         return of(undefined);
