@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,8 @@ import { GeneralInformationComponent } from './components/general-information/ge
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { RegisterStepOneComponent } from './components/register/register-step-one/register-step-one.component';
 import { RegisterStepTwoComponent } from './components/register/register-step-two/register-step-two.component';
+import { ShopingComponent } from './components/shoping/shoping.component';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { RegisterStepTwoComponent } from './components/register/register-step-tw
     MainPageComponent,
     RegisterStepOneComponent,
     RegisterStepTwoComponent,
+    ShopingComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,13 @@ import { RegisterStepTwoComponent } from './components/register/register-step-tw
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

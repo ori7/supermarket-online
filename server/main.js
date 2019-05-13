@@ -1,0 +1,48 @@
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const userCtrl = require('./endpoints/users');
+const jwt = require('jsonwebtoken');
+const jwtKey = 'sdfj&*dfg-dlga#$dp3#bnjbg@$84bf4xc/5';
+
+var db = 'mongodb://127.0.0.1/supermarket';
+mongoose.connect(db, { useMongoClient: true });
+var con = mongoose.connection;
+
+con.on('error', console.error.bind(console, 'connection error:'));
+
+con.once('open', function () {
+    console.log("connection created");
+});
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+const PORT = 6789;
+
+app.use(function (req, res, next) {
+
+    if (req.path === '/login' || '/register')
+        next();
+
+    else if (!req.headers.authorization) {
+        return res.status(403).json({ error: 'No credentials sent!' });
+    }
+    else {
+        try {
+            jwt.verify(req.headers.authorization.replace('Bearer ', ''), jwtKey);
+            next();
+        }
+        catch (err) {
+            return res.status(403).json({ error: 'Bad credentials' });
+        }
+    }
+})
+
+app.post('/register', userCtrl.registerNewUser);
+app.post('/login', userCtrl.loginNewUser);
+
+app.listen(PORT, () => {
+    console.log('Listening on ',PORT);
+});

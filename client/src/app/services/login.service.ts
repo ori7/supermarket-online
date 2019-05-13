@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, of } from 'rxjs';
-import { User } from '../models/user';
+import { UserModel } from '../models/user';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, map } from 'rxjs/operators';
@@ -14,28 +14,28 @@ export class LoginService {
     login: "login",
     carts: "carts"
   };
-  //isLoged: BehaviorSubject<boolean>;
+  isLogged: BehaviorSubject<boolean>;
   token = '47v62b7468o765v87';
 
   constructor(private httpClient: HttpClient) {
 
-    //this.isLoged = new BehaviorSubject<boolean>(this.getToken() != null);
+    this.isLogged = new BehaviorSubject<boolean>(this.getToken() != null);
   }
 
-  login(user: User): Observable<object> {
+  login(user: UserModel): Observable<object> {
 
     //return this.httpClient.post(environment.serverUrl + this.ENDPOINT.login, user).pipe(
 
     return of(this.token).pipe(
       catchError(errorRes => {
-        //this.isLoged.next(false);
+        this.isLogged.next(false);
         return of(undefined);
       }),
       map(tokenRes => {
         if (tokenRes) {
           window.localStorage.setItem('token', tokenRes);
           sessionStorage.setItem('token', tokenRes);
-          //this.isLoged.next(true);
+          this.isLogged.next(true);
           return tokenRes;
         }
       })

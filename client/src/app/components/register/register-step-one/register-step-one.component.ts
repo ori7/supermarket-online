@@ -14,7 +14,7 @@ export class RegisterStepOneComponent implements OnInit {
 
   registerForm = new FormGroup({
     id: new FormControl(''),
-    email: new FormControl(''),
+    email: new FormControl('xxx@gmail.com'),
     password: new FormControl(''),
     confirmPassword: new FormControl(''),
   });

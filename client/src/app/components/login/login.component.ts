@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user';
+import { UserModel } from 'src/app/models/user';
 import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
 
@@ -11,12 +11,12 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginError: string;
-  user: User;
+  user: UserModel;
 
   constructor(private loginService: LoginService,
     private router: Router) {
 
-    this.user = <User>{};
+    this.user = <UserModel>{};
   }
 
   ngOnInit() {
@@ -44,4 +44,8 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  goShoping() {
+    
+    this.router.navigate(['/shoping']);
+  }
 }

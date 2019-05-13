@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RegisterService } from 'src/app/services/register.service';
 
@@ -10,47 +10,38 @@ import { RegisterService } from 'src/app/services/register.service';
 })
 export class RegisterStepTwoComponent implements OnInit {
 
-  //user: User;
   alertArray: string[];
   citiesList: string[];
 
   registerForm = new FormGroup({
     city: new FormControl(''),
-    street: new FormControl(''),
-    name: new FormControl(''),
-    lastName: new FormControl(''),
+    street: new FormControl('Meltzer'),
+    name: new FormControl('Dan'),
+    lastName: new FormControl('Cohen'),
   });
 
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(private router: Router,
     private RegisterService: RegisterService) {
 
-  //  this.user = <User>{};
     this.alertArray = [];
     this.citiesList = [];
-
   }
 
   ngOnInit() {
-/*
-    this.activatedRoute.params.subscribe(res => {
-      this.user.id = res.id;
-      this.user.email = res.email;
-      this.user.password = res.password; console.log(res);
-    })
-*/
+
     const cities = this.RegisterService.getCities();
     for (const key in cities) {
       this.citiesList.push(cities[key]);
     }
-    console.log(this.citiesList);
   }
 
   save() {
 
     this.checkValues();
     this.RegisterService.createUser2(this.registerForm.value);
-    this.RegisterService.saveUser().subscribe( res => {
-
+    this.RegisterService.saveUser().subscribe(res => {
+      if (res)
+        this.router.navigate(['/shoping']);
     })
   }
 

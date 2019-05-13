@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, of } from 'rxjs';
-import { User } from '../models/user';
+import { Observable, of } from 'rxjs';
+import { UserModel } from '../models/user';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
@@ -9,11 +9,11 @@ import { environment } from 'src/environments/environment';
 })
 export class RegisterService {
 
-  newUser: User;
+  newUser: UserModel;
 
   ENDPOINT = {
-    login: "login",
-    carts: "carts"
+    register: "register",
+    //carts: "carts"
   };
 
   constructor(private httpClient: HttpClient) {
@@ -24,7 +24,7 @@ export class RegisterService {
 
     return of(false);
 
-    return this.httpClient.post<boolean>(environment.serverUrl + this.ENDPOINT.login, id);
+    return this.httpClient.post<boolean>(environment.serverUrl + this.ENDPOINT.register, id);
   }
 
   getCities(): object {
@@ -34,7 +34,7 @@ export class RegisterService {
 
   createUser1(details) {
 
-    this.newUser = <User>{};
+    this.newUser = <UserModel>{};
     this.newUser.id = details.id;
     this.newUser.email = details.email;
     this.newUser.password = details.password;
@@ -52,6 +52,7 @@ export class RegisterService {
 
   saveUser(): Observable<object>{
 
+    //return this.httpClient.post<object>(environment.serverUrl + this.ENDPOINT.register, this.newUser);
     return of(this.newUser);
   }
 
