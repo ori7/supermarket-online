@@ -4,6 +4,7 @@ import { UserModel } from '../models/user';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, map } from 'rxjs/operators';
+import jwt_decode from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class LoginService {
 
   login(user: UserModel): Observable<object> {
 
-    return this.httpClient.post(environment.serverUrl + this.ENDPOINT.login, user).pipe(
+    return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINT.login, user).pipe(
       catchError(errorRes => {
         this.isLogged.next(false);
         return of(undefined);
@@ -32,9 +33,11 @@ export class LoginService {
       map(tokenRes => {
         if (tokenRes) {
           window.localStorage.setItem('token', tokenRes);
-          sessionStorage.setItem('token', tokenRes);
+          //sessionStorage.setItem('token', tokenRes);
           this.isLogged.next(true);
-          return tokenRes;
+          const decode = jwt_decode(tokenRes);
+          console.log(decode);
+          return decode;
         }
       })
     );

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { LoginService } from './login.service';
+import jwt_decode from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -51,15 +52,16 @@ export class RegisterService {
     this.newUser.lastName = details.lastName;
   }
 
-  saveUser(): Observable<string> {
+  saveUser(): Observable<object> {
 
     return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINT.register, this.newUser).pipe(
       map(tokenRes => {
         if (tokenRes) {
           window.localStorage.setItem('token', tokenRes);
-          sessionStorage.setItem('token', tokenRes);
+          //sessionStorage.setItem('token', tokenRes);
           this.loginService.isLogged.next(true);
-          return tokenRes;
+          const decode = jwt_decode(tokenRes);
+          return decode;
         }
       })
     );

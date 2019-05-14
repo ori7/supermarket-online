@@ -13,15 +13,15 @@ function registerNewUser(req, res) {
         }
         else {
             console.log(user);
-            const token = jwt.sign({ user: newDocument.email, id: newDocument.id }, jwtKey);
+            const token = jwt.sign({ user: newDocument.name, id: newDocument.id }, jwtKey);
             res.json(token);
         }
     });
 }
 
-function buildUser(user){
+function buildUser(user) {
 
-    newDocument = new User; 
+    newDocument = new User;
     newDocument.id = user.id;
     newDocument.name = user.name;
     newDocument.lastName = user.lastNam;
@@ -34,13 +34,15 @@ function buildUser(user){
 
 function loginUser(req, res) {
 
-    User.find({ email: req.body.email, id: req.body.password }).exec(function (error, result) {
-        if (error) {
-            res.status(401).json('no authorized');
+    User.findOne({ email: req.body.email, password: req.body.password }).exec(function (error, result) {
+        if (result) {
+            console.log(result);
+            const token = jwt.sign({ user: result.name, id: result.id }, jwtKey);
+            res.json(token);
         }
         else {
-            const token = jwt.sign({ user: result.email, id: result.id }, jwtKey);
-            res.json(token);
+            console.log('error');
+            res.status(401).json('no authorized');
         }
     });
 };

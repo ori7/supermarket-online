@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserModel } from 'src/app/models/user';
 
 @Component({
   selector: 'app-shoping',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShopingComponent implements OnInit {
 
-  constructor() { }
+  user:UserModel;
+
+  constructor() { 
+
+    this.user = <UserModel>{};
+  }
 
   ngOnInit() {
+
+    this.user.name = sessionStorage.getItem('user');
   }
 
 }
