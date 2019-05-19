@@ -1,11 +1,13 @@
-<div class="col-10">
-  <div *ngIf='name'>
-    <div> welcome {{name}} !</div>
+<div>
+  <div *ngIf='name; else showForm'>
+    <div class="d-flex"> welcome {{name}} ! 
+        <a class="ml-auto" href="#" [routerLink]="['/logOut']"> Log out! </a>
+    </div>
     <br>
     <button type="button" class="btn btn-primary" id="start" (click)='goShoping()'>Start shoping</button>
     <br>
   </div>
-  <div *ngIf='!name'>
+  <ng-template #showForm class="col-10">
     <div>&nbsp; Registered?</div>
     <form #loginForm="ngForm">
       <div class="form-group">
@@ -25,5 +27,5 @@
         <span *ngIf='loginError' class="alert">{{ loginError }} </span>
       </div>
     </form>
-  </div>
+  </ng-template>
 </div>

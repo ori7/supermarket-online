@@ -15,6 +15,12 @@ import { RegisterStepOneComponent } from './components/register/register-step-on
 import { RegisterStepTwoComponent } from './components/register/register-step-two/register-step-two.component';
 import { ShopingComponent } from './components/shoping/shoping.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { LogOutComponent } from './components/log-out/log-out.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { ProductItemComponent } from './components/products/product-item/product-item.component';
+import { ProductsListComponent } from './components/products/products-list/products-list.component';
+import { AddProductComponent } from './components/products/add-product/add-product.component';
+import { UpdateProductComponent } from './components/products/update-product/update-product.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +33,12 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     RegisterStepOneComponent,
     RegisterStepTwoComponent,
     ShopingComponent,
+    LogOutComponent,
+    AdminComponent,
+    ProductItemComponent,
+    ProductsListComponent,
+    AddProductComponent,
+    UpdateProductComponent,
   ],
   imports: [
     BrowserModule,

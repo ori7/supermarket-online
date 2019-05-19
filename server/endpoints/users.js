@@ -36,12 +36,13 @@ function loginUser(req, res) {
 
     User.findOne({ email: req.body.email, password: req.body.password }).exec(function (error, result) {
         if (result) {
-            console.log(result);
-            const token = jwt.sign({ user: result.name, id: result.id }, jwtKey);
+            if (result.role)
+                var token = jwt.sign({ user: result.name, id: result.id, role: result.role }, jwtKey);
+            else
+                var token = jwt.sign({ user: result.name, id: result.id }, jwtKey);
             res.json(token);
         }
         else {
-            console.log('error');
             res.status(401).json('no authorized');
         }
     });

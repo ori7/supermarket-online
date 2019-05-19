@@ -36,8 +36,10 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(this.user).subscribe(res => {
       if (res) {
-        console.log(res);
         this.saveName(res['user']);
+        if ((res['role']) === 1) {
+          this.loginAdmin();
+        }
         this.loginError = "";
         this.checkStatus(res);
       } else {
@@ -47,17 +49,28 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  loginAdmin() {
+
+    sessionStorage.setItem('role', '1');
+    this.router.navigate(['/admin']);
+  }
+
   saveName(name) {
 
     sessionStorage.setItem('user', name);
-    this.name = name; console.log(this.name);
+    this.name = name;
   }
 
   userComeBack(token) {
 
     const decode = jwt_decode(token);
-    this.saveName(decode.user);
-    this.checkStatus(decode);
+    if (decode.role) {      //    This is admin. He need to login again!
+      this.router.navigate(['/logOut']);
+    }
+    else {     //    This is user. He can continue!
+      this.saveName(decode.user);
+      this.checkStatus(decode);
+    }
   }
 
   checkStatus(user) {
