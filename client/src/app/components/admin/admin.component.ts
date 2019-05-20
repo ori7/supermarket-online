@@ -11,9 +11,15 @@ export class AdminComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    
-    this.sideBar = 'add';
+  ngOnInit() {  }
+
+  addForm() {
+
+    this.sideBar = 'add';console.log(this.sideBar);
   }
 
+  updateProduct(id: number) {
+
+    this.sideBar = 'update'; console.log(id);
+  }
 }

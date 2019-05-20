@@ -1,3 +1,12 @@
 .card {
     margin: 5px;
 }
+
+.design-hides {      
+    background:none!important;
+    color:inherit;
+    border:none; 
+    padding:0!important;
+    font: inherit;
+    cursor: pointer;
+}

@@ -1,5 +1,5 @@
 <section class='row'>
   <div *ngFor='let p of productsArray'>
-    <app-product-item [product]='p'></app-product-item>
+    <app-product-item [product]='p' (updateProduct)="updateProduct($event)"></app-product-item>
   </div>
 </section>

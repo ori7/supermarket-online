@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ProductModel } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -10,6 +10,7 @@ import { ProductsService } from 'src/app/services/products.service';
 export class ProductsListComponent implements OnInit {
 
   productsArray: ProductModel[];
+  @Output() updateProductId: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private productsService: ProductsService) { }
 
@@ -19,6 +20,11 @@ export class ProductsListComponent implements OnInit {
       this.productsArray = res;console.log(res);
     });
 
+  }
+
+  updateProduct(id: number) {
+    console.log(id);
+    this.updateProductId.emit(id);
   }
 
 }
