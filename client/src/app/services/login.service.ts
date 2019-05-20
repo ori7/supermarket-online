@@ -11,7 +11,7 @@ import jwt_decode from "jwt-decode";
 })
 export class LoginService {
 
-  ENDPOINT = {
+  ENDPOINTS = {
     login: "login",
     carts: "carts"
   };
@@ -25,7 +25,7 @@ export class LoginService {
 
   login(user: UserModel): Observable<object> {
 
-    return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINT.login, user).pipe(
+    return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINTS.login, user).pipe(
       catchError(errorRes => {
         this.isLogged.next(false);
         return of(undefined);
@@ -51,7 +51,7 @@ export class LoginService {
   checkCart(user): Observable<boolean> {
     return of(false);
 
-    return this.httpClient.post<number>(environment.serverUrl + this.ENDPOINT.carts, user).pipe(
+    return this.httpClient.post<number>(environment.serverUrl + this.ENDPOINTS.carts, user).pipe(
       map(res => {
         if (res > 0)
           return true;

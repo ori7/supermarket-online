@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const userCtrl = require('./endpoints/users');
+const categoriesCtrl = require('./endpoints/categories');
 
 var db = 'mongodb://127.0.0.1/supermarket';
 mongoose.connect(db);
@@ -40,6 +41,7 @@ app.use(function (req, res, next) {
 
 app.post('/register', userCtrl.registerNewUser);
 app.post('/login', userCtrl.loginUser);
+app.get('/categories', categoriesCtrl.getCategories);
 
 app.listen(PORT, () => {
     console.log('Listening on ',PORT);
