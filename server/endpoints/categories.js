@@ -10,6 +10,6 @@ function getCategories(req, res) {
             res.send(result);
         }
     });
-}
+} 
 
 module.exports.getCategories = getCategories;

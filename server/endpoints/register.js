@@ -32,21 +32,4 @@ function buildUser(user) {
     return newDocument;
 }
 
-function loginUser(req, res) {
-
-    User.findOne({ email: req.body.email, password: req.body.password }).exec(function (error, result) {
-        if (result) {
-            if (result.role)
-                var token = jwt.sign({ user: result.name, id: result.id, role: result.role }, jwtKey);
-            else
-                var token = jwt.sign({ user: result.name, id: result.id }, jwtKey);
-            res.json(token);
-        }
-        else {
-            res.status(401).json('no authorized');
-        }
-    });
-};
-
 module.exports.registerNewUser = registerNewUser;
-module.exports.loginUser = loginUser;

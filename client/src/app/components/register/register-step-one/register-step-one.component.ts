@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RegisterService } from 'src/app/services/register.service';
 import { Router } from '@angular/router';
+import * as bcrypt from 'bcryptjs'; 
 
 @Component({
   selector: 'app-register-step-one',
@@ -36,6 +37,7 @@ export class RegisterStepOneComponent implements OnInit {
     this.checkEmail();
 
     if (this.alertArray.length === 0){
+      this.hashPassword();
       this.RegisterService.createUser1(this.registerForm.value);
       this.router.navigate(['register2']);
     }
@@ -73,5 +75,12 @@ export class RegisterStepOneComponent implements OnInit {
     var expression = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/igm;
     if (!expression.test(this.registerForm.value.email) && (!(this.registerForm.value.email === '')))
       this.alertArray.push('The email in not valid!');
+  }
+
+  hashPassword() {
+
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(this.registerForm.value.password, salt);
+    this.registerForm.value.password = hash;
   }
 }

@@ -41,7 +41,7 @@ export class RegisterService {
     this.newUser = <UserModel>{};
     this.newUser.id = details.id;
     this.newUser.email = details.email;
-    this.newUser.password = details.password;
+    this.newUser.password = details.password;console.log(this.newUser);
   }
 
   createUser2(details) {

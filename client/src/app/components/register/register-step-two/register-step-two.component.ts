@@ -40,8 +40,8 @@ export class RegisterStepTwoComponent implements OnInit {
     this.checkValues();
     this.RegisterService.createUser2(this.registerForm.value);
     this.RegisterService.saveUser().subscribe(res => {
-      if (res){
-        sessionStorage.setItem('user', res['name']);
+      if (res){console.log(res);
+        sessionStorage.setItem('user', res['user']);
         this.router.navigate(['/shoping']);
       }
     })

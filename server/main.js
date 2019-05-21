@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const userCtrl = require('./endpoints/users');
+const loginCtrl = require('./endpoints/login');
+const registerCtrl = require('./endpoints/register');
 const categoriesCtrl = require('./endpoints/categories');
 
 var db = 'mongodb://127.0.0.1/supermarket';
@@ -39,8 +40,8 @@ app.use(function (req, res, next) {
     }
 })
 
-app.post('/register', userCtrl.registerNewUser);
-app.post('/login', userCtrl.loginUser);
+app.post('/register', registerCtrl.registerNewUser);
+app.post('/login', loginCtrl.loginUser);
 app.get('/categories', categoriesCtrl.getCategories);
 
 app.listen(PORT, () => {
