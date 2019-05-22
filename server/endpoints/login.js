@@ -1,13 +1,12 @@
 const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
 const jwtKey = 'sdfj&*dfg-dlga#$dp3#bnjbg@$84bf4xc/5';
-var bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 
 function loginUser(req, res) {
 
     User.findOne({ email: req.body.email }).exec(function (error, result) {
         if (result) {
-            console.log(result);
             checkPassword(req.body.password, result, function (error, token) {
                 if (token)
                     res.json(token);
@@ -25,7 +24,7 @@ function checkPassword(password, user, callback) {
     bcrypt.compare(password, user.password, function (err, success) {
         if (success) {
             console.log('success');
-            var token = createToken(user);
+            const token = createToken(user);
             callback(null, token);
         }
         else

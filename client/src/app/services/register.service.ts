@@ -16,6 +16,7 @@ export class RegisterService {
 
   ENDPOINT = {
     register: "register",
+    email: "email"
     //carts: "carts"
   };
 
@@ -65,6 +66,11 @@ export class RegisterService {
         }
       })
     );
+  }
+
+  checkEmail(email: object):Observable<boolean> {console.log(email);
+
+    return this.httpClient.post<boolean>(environment.serverUrl + this.ENDPOINT.email, email);
   }
 
 }

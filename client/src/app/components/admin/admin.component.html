@@ -4,6 +4,7 @@
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
+  <a href="#" [routerLink]="['/logOut']"> Log out! </a>
 </nav>
 <div class="row" *ngIf='sideBar; else withOut'>
   <div class="col-4">
@@ -17,5 +18,5 @@
   </div>
 </div>
 <ng-template #withOut>
-    <app-products-list (updateProductId)="updateProduct($event)"></app-products-list>
+  <app-products-list (updateProductId)="updateProduct($event)"></app-products-list>
 </ng-template>

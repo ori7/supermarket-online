@@ -41,6 +41,7 @@ app.use(function (req, res, next) {
 })
 
 app.post('/register', registerCtrl.registerNewUser);
+app.post('/email', registerCtrl.checkEmail);
 app.post('/login', loginCtrl.loginUser);
 app.get('/categories', categoriesCtrl.getCategories);
 

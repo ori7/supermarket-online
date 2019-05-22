@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RegisterService } from 'src/app/services/register.service';
 import { Router } from '@angular/router';
-import * as bcrypt from 'bcryptjs'; 
+import * as bcrypt from 'bcryptjs';
 
 @Component({
   selector: 'app-register-step-one',
@@ -32,11 +32,11 @@ export class RegisterStepOneComponent implements OnInit {
 
     this.alertArray = [];
     this.checkValues();
-    this.checkId();
+    this.checkId();     //   need to wate for answer
     this.checkPassword();
-    this.checkEmail();
+    this.checkEmail();   //   need to wate for answer
 
-    if (this.alertArray.length === 0){
+    if (this.alertArray.length === 0) {
       this.hashPassword();
       this.RegisterService.createUser1(this.registerForm.value);
       this.router.navigate(['register2']);
@@ -51,7 +51,7 @@ export class RegisterStepOneComponent implements OnInit {
 
     for (var key in this.registerForm.value) {
       if (this.registerForm.value[key] === '') {
-        this.alertArray.push(key + ' required!');
+        this.alertArray.push('Error:' + key + ' required!');
       }
     }
   }
@@ -60,21 +60,30 @@ export class RegisterStepOneComponent implements OnInit {
 
     this.RegisterService.checkId(this.registerForm.value.id).subscribe(res => {
       if (res)
-        this.alertArray.push('The ID exists in the system!');
+        this.alertArray.push('Error: The ID exists in the system!');
     })
   }
 
   checkPassword() {
+/*
+    var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+    if (!re.test(this.registerForm.value.password))
+      this.alertArray.push('Error: Password do not match the rules!');
 
-    if (!(this.registerForm.value.password === this.registerForm.value.confirmPassword))
-      this.alertArray.push('Password authentication failed!');
+    else */ if (!(this.registerForm.value.password === this.registerForm.value.confirmPassword))
+      this.alertArray.push('Error: Your password and confirmation password do not match!');
   }
 
   checkEmail() {
 
-    var expression = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/igm;
-    if (!expression.test(this.registerForm.value.email) && (!(this.registerForm.value.email === '')))
-      this.alertArray.push('The email in not valid!');
+    var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/igm;
+    if (!re.test(this.registerForm.value.email) && (!(this.registerForm.value.email === '')))
+      this.alertArray.push('Error: The email in not valid!');
+
+    this.RegisterService.checkEmail({ email: this.registerForm.value.email }).subscribe( res => {console.log(res);
+      if (!res)
+        this.alertArray.push('Error: The email Already exists!');
+    });
   }
 
   hashPassword() {
