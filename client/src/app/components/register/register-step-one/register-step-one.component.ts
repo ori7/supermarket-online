@@ -28,13 +28,20 @@ export class RegisterStepOneComponent implements OnInit {
 
   ngOnInit() { }
 
-  nextRegister() {
+  checkForm() {
 
     this.alertArray = [];
     this.checkValues();
-    this.checkId();     //   need to wate for answer
     this.checkPassword();
-    this.checkEmail();   //   need to wate for answer
+    this.checkId();
+    this.checkEmail();
+    if (this.alertArray.length === 0)
+      this.checkIdInTheSystem();
+    else
+      this.emptyPassword();
+  }
+
+  nextRegister() {
 
     if (this.alertArray.length === 0) {
       this.hashPassword();
@@ -42,8 +49,7 @@ export class RegisterStepOneComponent implements OnInit {
       this.router.navigate(['register2']);
     }
     else {
-      this.registerForm.controls.password.reset("");
-      this.registerForm.controls.confirmPassword.reset("");
+      this.emptyPassword();
     }
   }
 
@@ -56,33 +62,51 @@ export class RegisterStepOneComponent implements OnInit {
     }
   }
 
-  checkId() {
-
-    this.RegisterService.checkId(this.registerForm.value.id).subscribe(res => {
-      if (res)
-        this.alertArray.push('Error: The ID exists in the system!');
-    })
-  }
-
   checkPassword() {
 /*
     var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
     if (!re.test(this.registerForm.value.password))
       this.alertArray.push('Error: Password do not match the rules!');
-
     else */ if (!(this.registerForm.value.password === this.registerForm.value.confirmPassword))
       this.alertArray.push('Error: Your password and confirmation password do not match!');
+  }
+
+  checkId() {
+
+    if (isNaN(this.registerForm.value.id) || this.registerForm.value.id == null) {
+      this.alertArray.push('Error: The ID must be a number!');
+    }
   }
 
   checkEmail() {
 
     var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/igm;
-    if (!re.test(this.registerForm.value.email) && (!(this.registerForm.value.email === '')))
+    if (!re.test(this.registerForm.value.email) && !(this.registerForm.value.email === '')) {
       this.alertArray.push('Error: The email in not valid!');
+    }
+  }
 
-    this.RegisterService.checkEmail({ email: this.registerForm.value.email }).subscribe( res => {console.log(res);
-      if (!res)
-        this.alertArray.push('Error: The email Already exists!');
+  checkIdInTheSystem() {
+
+    this.RegisterService.checkId({ id: this.registerForm.value.id }).subscribe(res => {
+      if (!res){
+        this.alertArray.push('Error: The ID exists in the system!');
+        this.emptyPassword();
+      }
+      else
+        this.checkEmailInTheSystem();
+    })
+  }
+
+  checkEmailInTheSystem() {
+
+    this.RegisterService.checkEmail({ email: this.registerForm.value.email }).subscribe(res => {
+      if (!res){
+        this.alertArray.push('Error: The email Already exists in the system!');
+        this.emptyPassword();
+      }
+      else
+        this.nextRegister();
     });
   }
 
@@ -91,5 +115,11 @@ export class RegisterStepOneComponent implements OnInit {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(this.registerForm.value.password, salt);
     this.registerForm.value.password = hash;
+  }
+
+  emptyPassword() {
+
+    this.registerForm.controls.password.reset("");
+    this.registerForm.controls.confirmPassword.reset("");
   }
 }

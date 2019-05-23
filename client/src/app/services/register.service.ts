@@ -16,20 +16,14 @@ export class RegisterService {
 
   ENDPOINT = {
     register: "register",
-    email: "email"
+    email: "/email",
+    id: "/id"
     //carts: "carts"
   };
 
   constructor(private httpClient: HttpClient,
     private loginService: LoginService) {
 
-  }
-
-  checkId(id: number): Observable<boolean> {
-
-    return of(false);
-
-    return this.httpClient.post<boolean>(environment.serverUrl + this.ENDPOINT.register, id);
   }
 
   getCities(): object {
@@ -68,9 +62,14 @@ export class RegisterService {
     );
   }
 
-  checkEmail(email: object):Observable<boolean> {console.log(email);
+  checkEmail(email: object):Observable<boolean> {
 
-    return this.httpClient.post<boolean>(environment.serverUrl + this.ENDPOINT.email, email);
+    return this.httpClient.post<boolean>(environment.serverUrl + this.ENDPOINT.register + this.ENDPOINT.email, email);
+  }
+
+  checkId(id: object):Observable<boolean> {
+
+    return this.httpClient.post<boolean>(environment.serverUrl + this.ENDPOINT.register + this.ENDPOINT.id, id);
   }
 
 }

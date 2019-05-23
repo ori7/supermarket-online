@@ -29,9 +29,19 @@ function buildUser(user) {
     return newDocument;
 }
 
-function checkEmail(req, res) {console.log(req.body);
+function checkEmail(req, res) {
 
-    User.find({ email: req.body.email }).exec(function (error, result) {console.log(result);
+    User.findOne({ email: req.body.email }).exec(function (error, result) {
+        if (result)
+            res.send(false);
+        else
+            res.send(true);
+    });
+}
+
+function checkId(req, res) {console.log(req.body.id);
+
+    User.findOne({ id: req.body.id }).exec(function (error, result) {console.log(result);
         if (result)
             res.send(false);
         else
@@ -41,3 +51,4 @@ function checkEmail(req, res) {console.log(req.body);
 
 module.exports.registerNewUser = registerNewUser;
 module.exports.checkEmail = checkEmail;
+module.exports.checkId = checkId;
