@@ -19,33 +19,38 @@ export class ProductsService {
 
   getProducts(): Observable<ProductModel[]> {
 
-    return  of([
+    return of([
       {
-        id: 1,
+        _id: 1,
         name: 'Egg carton',
-        categoryId: 'Food',
+        categoryId: 2,
         price: 15,
         picture: 'assets/upload/eggs.jpg'
       },
       {
-        id: 2,
+        _id: 2,
         name: 'Bread',
-        categoryId: 'Pastries',
+        categoryId: 3,
         price: 10,
         picture: 'assets/upload/bread.jpg'
       },
       {
-        id: 3,
+        _id: 3,
         name: 'Bottle of water',
-        categoryId: 'Drink',
+        categoryId: 5,
         price: 10,
         picture: 'assets/upload/water.jpg'
       }
-    ]) 
+    ])
   }
 
   getCategories(): Observable<CategoryModel[]> {
 
     return this.httpClient.get<CategoryModel[]>(environment.serverUrl + this.ENDPOINTS.categories);
+  }
+
+  insertProduct(product): Observable<string> {
+
+    return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINTS.products, product);
   }
 }

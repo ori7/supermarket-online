@@ -6,9 +6,9 @@
       required>
   </div>
   <div class="form-group">
-    <label for="category">Select category:</label>
-    <select [(ngModel)]="product.category" name="category" type="number" class="form-control" id="category" required>
-      <option *ngFor='let category of categories' [value]="category.id"> {{ category.name }} </option>
+    <label for="categoryId">Select category:</label>
+    <select [(ngModel)]="product.categoryId" name="categoryId" type="number" class="form-control" id="categoryId" required>
+      <option *ngFor='let category of categories' [value]=category.id> {{ category.name }} </option>
     </select>
   </div>
   <div class="form-group">

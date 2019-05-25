@@ -1,7 +1,7 @@
 export interface ProductModel {
-    id: number,
+    _id: number,
     name: string,
-    categoryId: string,
+    categoryId: number,
     price: number,
     picture: string
 }

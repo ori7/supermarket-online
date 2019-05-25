@@ -16,18 +16,26 @@ export class AddProductComponent implements OnInit {
   constructor(private productsService: ProductsService) {
 
     this.product = <ProductModel>{};
-   }
+  }
 
   ngOnInit() {
 
-    this.productsService.getCategories().subscribe( res => {console.log(res);
+    this.productsService.getCategories().subscribe(res => {
       this.categories = res;
     })
   }
 
   addProduct() {
-
+    
+    this.product.categoryId = Number(this.product.categoryId);
     console.log(this.product);
+
+    this.productsService.insertProduct(this.product).subscribe(res => {
+      if (res)
+        alert('The product ' + res + ' added successfully!');
+      else
+        alert('Failed!');
+    })
   }
 
 }

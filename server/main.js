@@ -5,9 +5,11 @@ const mongoose = require('mongoose');
 const loginCtrl = require('./endpoints/login');
 const registerCtrl = require('./endpoints/register');
 const categoriesCtrl = require('./endpoints/categories');
+const productsCtrl = require('./endpoints/products');
+mongoose.set('useFindAndModify', false);
 
 var db = 'mongodb://127.0.0.1/supermarket';
-mongoose.connect(db);
+mongoose.connect(db, { useNewUrlParser: true });
 var con = mongoose.connection;
 
 con.on('error', console.error.bind(console, 'connection error:'));
@@ -45,6 +47,7 @@ app.post('/register/email', registerCtrl.checkEmail);
 app.post('/register/id', registerCtrl.checkId);
 app.post('/login', loginCtrl.loginUser);
 app.get('/categories', categoriesCtrl.getCategories);
+app.post('/products', productsCtrl.insertNewproduct);
 
 app.listen(PORT, () => {
     console.log('Listening on ',PORT);
