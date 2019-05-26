@@ -8,11 +8,11 @@ async function insertNewproduct(req, res) {
         if (result) {
             newDocument._id = result.seq;
             newDocument.save(function (e, r) {
-                if (e) 
+                if (e)
                     res.status(404);
                 else {
                     updateSequence('productId', function (error, result) {
-                        if (result) 
+                        if (result)
                             res.json(newDocument.name);
                         else
                             res.status(404);
@@ -53,12 +53,29 @@ function updateSequence(name, callback) {
 
 function getId(name, callback) {
 
-    Counter.findOne({ _id: name }).exec(function (error, result) {
+    Counter.findOneAndUpdate({ _id: name }).exec(async function (error, result) {
         if (result)
             callback(null, result);
-        else
-            callback(error);
+        else {
+            const newCounter = await buildNewCounter();
+            newCounter.save(function (err, res) {
+                if (err) {
+                    callback(err);
+                }
+                else {
+                    callback(null, res);
+                }
+            });
+        }
     });
+}
+
+function buildNewCounter() {
+
+    newDocument = new Counter;
+    newDocument._id = 'productId';
+    newDocument.seq = 0;
+    return newDocument;
 }
 
 module.exports.insertNewproduct = insertNewproduct;
