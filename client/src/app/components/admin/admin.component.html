@@ -10,7 +10,7 @@
   <div class="col-4">
     <app-add-product *ngIf="sideBar==='add'; else update"></app-add-product>
     <ng-template #update>
-      <app-update-product></app-update-product>
+      <app-update-product [productId]='updateId'></app-update-product>
     </ng-template>
   </div>
   <div>

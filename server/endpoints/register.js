@@ -39,9 +39,9 @@ function checkEmail(req, res) {
     });
 }
 
-function checkId(req, res) {console.log(req.body.id);
+function checkId(req, res) {
 
-    User.findOne({ id: req.body.id }).exec(function (error, result) {console.log(result);
+    User.findOne({ id: req.body.id }).exec(function (error, result) {
         if (result)
             res.send(false);
         else

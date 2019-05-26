@@ -23,7 +23,6 @@ function checkPassword(password, user, callback) {
 
     bcrypt.compare(password, user.password, function (err, success) {
         if (success) {
-            console.log('success');
             const token = createToken(user);
             callback(null, token);
         }

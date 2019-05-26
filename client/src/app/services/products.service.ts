@@ -12,13 +12,16 @@ export class ProductsService {
 
   ENDPOINTS = {
     products: "products",
-    categories: "categories"
+    categories: "categories",
+    id: "/id",
+    update: "/update"
   };
 
   constructor(private httpClient: HttpClient) { }
 
   getProducts(): Observable<ProductModel[]> {
 
+    return this.httpClient.get<ProductModel[]>(environment.serverUrl + this.ENDPOINTS.products);
     return of([
       {
         _id: 1,
@@ -52,5 +55,15 @@ export class ProductsService {
   insertProduct(product): Observable<string> {
 
     return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINTS.products, product);
+  }
+
+  getById(id: object):Observable<ProductModel> {
+
+    return this.httpClient.post<ProductModel>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.id, id);
+  }
+  
+  updateProduct(product: object):Observable<string> {
+
+    return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.update, product);
   }
 }

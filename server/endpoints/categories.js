@@ -6,7 +6,7 @@ function getCategories(req, res) {
         if (error) {
             res.send(404);
         }
-        else {console.log(result);
+        else {
             res.send(result);
         }
     });

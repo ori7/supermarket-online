@@ -47,7 +47,10 @@ app.post('/register/email', registerCtrl.checkEmail);
 app.post('/register/id', registerCtrl.checkId);
 app.post('/login', loginCtrl.loginUser);
 app.get('/categories', categoriesCtrl.getCategories);
-app.post('/products', productsCtrl.insertNewproduct);
+app.post('/products', productsCtrl.insertNewProduct);
+app.get('/products', productsCtrl.getProducts);
+app.post('/products/id', productsCtrl.getProductById);
+app.post('/products/update', productsCtrl.updateProduct);
 
 app.listen(PORT, () => {
     console.log('Listening on ',PORT);

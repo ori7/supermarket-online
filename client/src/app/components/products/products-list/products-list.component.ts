@@ -23,7 +23,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   updateProduct(id: number) {
-    console.log(id);
+
     this.updateProductId.emit(id);
   }
 

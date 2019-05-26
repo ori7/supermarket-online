@@ -18,7 +18,6 @@ export class ProductItemComponent implements OnInit {
 
   update() {
 
-    console.log(this.product._id);
     this.updateProduct.emit(this.product._id);
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-admin',
@@ -8,18 +8,23 @@ import { Component, OnInit } from '@angular/core';
 export class AdminComponent implements OnInit {
 
   sideBar: string;
+  updateId: number;
 
-  constructor() { }
+  constructor(private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {  }
 
   addForm() {
 
-    this.sideBar = 'add';console.log(this.sideBar);
+    this.sideBar = 'add';
   }
 
   updateProduct(id: number) {
 
-    this.sideBar = 'update'; console.log(id);
+    this.sideBar = '';
+    this.changeDetectorRef.detectChanges();
+    this.updateId = id;
+    this.sideBar = 'update';
   }
+
 }

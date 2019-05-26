@@ -8,6 +8,7 @@ import { LoggedGuard } from './guards/logged.guard';
 import { LogOutComponent } from './components/log-out/log-out.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminGuard } from './guards/admin.guard';
+import { AboutComponent } from './components/about/about.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent, pathMatch: 'full' },
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'register2', component: RegisterStepTwoComponent },
   { path: 'logOut', component: LogOutComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
-  { path: 'shoping', component: ShopingComponent, canActivate: [LoggedGuard] }
+  { path: 'shoping', component: ShopingComponent, canActivate: [LoggedGuard] },
+  { path: 'RefrshComponent', component: AboutComponent }
 ];
 
 @NgModule({
