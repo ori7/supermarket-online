@@ -1,70 +1,27 @@
 const Product = require('../models/product.model');
 const Counter = require('../models/counter.model');
-/*
+
 async function insertNewproduct(req, res) {
 
     const newDocument = await buildProduct(req.body);
-    newDocument.save(function (err, product) {
-        console.log('1' + newDocument);
-        if (err) {
-            console.log('err');
-            res.status(404);
-        }
-        else {
-            console.log('good');
-            res.json(newDocument.name);
-        }
-    });
-}
-
-function buildProduct(product) {
-
-    newDocument = new Product;
-    getNextSequence('productId', function (error, result) {
-        if (result)
-            newDocument._id = result;
-        else
-            res.status(404)
-    });
-    newDocument.name = product.name;
-    newDocument.categoryId = product.categoryId;
-    newDocument.price = product.price;
-    newDocument.picture = product.picture; console.log('2' + newDocument);
-    return newDocument;
-}
-
-function getNextSequence(name, callback) {
-
-    Counter.findOneAndUpdate(
-        { _id: name },
-        { $inc: { seq: 1 } },
-        (err, doc) => {
-            if (err)
-                callback(err);
-            else
-                callback(null, doc.seq);
-        }
-    );
-}
-*/
-async function insertNewproduct(req, res) {
-
-    const newDocument = await buildProduct(req.body);
-
-    getNextSequence('productId', function (error, result) {
+    getId('productId', function (error, result) {
         if (result) {
-            newDocument._id = result;
+            newDocument._id = result.seq;
             newDocument.save(function (e, r) {
-                if (e) {
+                if (e) 
                     res.status(404);
-                }
                 else {
-                    res.json(newDocument.name);
+                    updateSequence('productId', function (error, result) {
+                        if (result) 
+                            res.json(newDocument.name);
+                        else
+                            res.status(404);
+                    });
                 }
             });
         }
         else
-            res.status(404)
+            res.status(404);
     });
 }
 
@@ -78,86 +35,30 @@ function buildProduct(product) {
     return newDocument;
 }
 
-function getNextSequence(name, callback) {
+function updateSequence(name, callback) {
 
     Counter.findOneAndUpdate(
         { _id: name },
         { $inc: { seq: 1 } },
         (err, doc) => {
-            if (err)
+            if (err) {
                 callback(err);
-            else
-                callback(null, doc.seq);
+            }
+            else {
+                callback(null, doc);
+            }
         }
     );
 }
 
-module.exports.insertNewproduct = insertNewproduct;
+function getId(name, callback) {
 
-/*
-function Newproduct(req, res) {
-
-    const newDocument = await buildProduct(req.body);
-
-    getNextSequence('productId', function (error, result) {
-        if (result) {
-            newDocument._id = result;
-            insertNewproduct(newDocument);
-        }
+    Counter.findOne({ _id: name }).exec(function (error, result) {
+        if (result)
+            callback(null, result);
         else
-            res.status(404)
-    }); console.log('3' + newDocument);
-    //return newDocument;
-}
-
-function buildProduct(product) {
-
-    newDocument = new Product;
-    newDocument.name = product.name;
-    newDocument.categoryId = product.categoryId;
-    newDocument.price = product.price;
-    newDocument.picture = product.picture; console.log('2' + newDocument);
-    return newDocument;
-}
-
-
-
-insertNewproduct(newDocument) {
-    newDocument.save(function (err, product) {
-        console.log('1' + newDocument);
-        if (err) {
-            console.log('err');
-            res.status(404);
-        }
-        else {
-            console.log('good');
-            res.json(newDocument.name);
-        }
+            callback(error);
     });
 }
 
-function buildProduct(product) {
-
-    newDocument = new Product;
-    newDocument.name = product.name;
-    newDocument.categoryId = product.categoryId;
-    newDocument.price = product.price;
-    newDocument.picture = product.picture; console.log('2' + newDocument);
-    return newDocument;
-}
-
-function getNextSequence(name, callback) {
-
-    Counter.findOneAndUpdate(
-        { _id: name },
-        { $inc: { seq: 1 } },
-        (err, doc) => {
-            if (err)
-                callback(err);
-            else
-                callback(null, doc.seq);
-        }
-    );
-}
-
-*/
+module.exports.insertNewproduct = insertNewproduct;
