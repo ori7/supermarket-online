@@ -19,9 +19,15 @@
       name="price" required>
   </div>
   <div class="form-group">
-    <label for="picture">Picture:</label>
-    <input [(ngModel)]="product.picture" type="text" class="form-control" id="picture" placeholder="Enter picture"
-      name="picture" required>
+    <label for="picture">Replace picture:</label>
+    <div class="row">
+      <div class="col-7">
+        <input (change)="onFileSelected($event)" type="file" class="form-control" id="picture" name="picture" required>
+      </div>
+      <div class="col-offset-2 col-3">
+        <img [src]="product.picture" width="80px" height="50px">
+      </div>
+    </div>
   </div>
   <button [disabled]="updateForm.form.invalid" type="submit" class="btn btn-primary" (click)='updateProduct()'>Update
     product</button>

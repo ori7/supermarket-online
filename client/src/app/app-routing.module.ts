@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'logOut', component: LogOutComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
   { path: 'shoping', component: ShopingComponent, canActivate: [LoggedGuard] },
-  { path: 'RefrshComponent', component: AboutComponent }
+  { path: 'refrsh', component: AboutComponent }
 ];
 
 @NgModule({

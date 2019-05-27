@@ -102,6 +102,14 @@ function getProductById(req, res) {
     });
 }
 
+/*
+Now, there's no delite option in the app,
+Therefore the caunter can also be used as ID of the products, and also as their sum.
+If this option is added, 
+we will have to split the roles: one variable that updates each deletion that will be the sum of the products, 
+and another that is not updated with the deletions - that will give ID to the next product.
+*/
+
 function updateProduct(req, res) {
 
     const updated = buildProduct(req.body);

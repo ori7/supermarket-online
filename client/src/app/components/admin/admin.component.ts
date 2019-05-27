@@ -9,10 +9,14 @@ export class AdminComponent implements OnInit {
 
   sideBar: string;
   updateId: number;
+  admin: string; 
 
   constructor(private changeDetectorRef: ChangeDetectorRef) { }
 
-  ngOnInit() {  }
+  ngOnInit() { 
+
+    this.admin = sessionStorage.getItem('user');
+   }
 
   addForm() {
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductModel } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
 import { CategoryModel } from 'src/app/models/category';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
@@ -13,7 +14,8 @@ export class AddProductComponent implements OnInit {
   product: ProductModel;
   categories: CategoryModel[];
 
-  constructor(private productsService: ProductsService) {
+  constructor(private productsService: ProductsService,
+    private router: Router) {
 
     this.product = <ProductModel>{};
   }
@@ -31,8 +33,11 @@ export class AddProductComponent implements OnInit {
     console.log(this.product);
 
     this.productsService.insertProduct(this.product).subscribe(res => {
-      if (res)
+      if (res) {
         alert('The product ' + res + ' added successfully!');
+        this.router.navigate(["/refrsh"], { skipLocationChange: true }).then(() =>
+        this.router.navigate(["/admin"]));
+      }
       else
         alert('Failed!');
     })
