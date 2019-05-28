@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
   loginAdmin() {
 
     sessionStorage.setItem('role', '1');
+    this.loginService.header.next([this.name,'admin']);
     this.router.navigate(['/admin']);
   }
 
@@ -85,6 +86,7 @@ export class LoginComponent implements OnInit {
 
   goShoping() {
 
+    this.loginService.header.next([this.name]);
     this.router.navigate(['/shoping']);
   }
 }

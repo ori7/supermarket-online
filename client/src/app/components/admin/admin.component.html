@@ -1,9 +1,8 @@
-<app-internal-header></app-internal-header>
 <div class="row" *ngIf='sideBar; else withOut'>
   <div class="col-4">
     <app-add-product *ngIf="sideBar==='add'; else update"></app-add-product>
     <ng-template #update>
-      <app-update-product [productId]='updateId'></app-update-product>
+      <app-update-product></app-update-product>
     </ng-template>
   </div>
   <div>

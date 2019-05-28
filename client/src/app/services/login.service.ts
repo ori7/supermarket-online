@@ -17,10 +17,12 @@ export class LoginService {
   };
   isLogged: BehaviorSubject<boolean>;
   token = '47v62b7468o765v87';
+  header: BehaviorSubject<string[]>;
 
   constructor(private httpClient: HttpClient) {
 
     this.isLogged = new BehaviorSubject<boolean>(this.getToken() != null);
+    this.header = new BehaviorSubject<string[]>([]);
   }
 
   login(user: UserModel): Observable<object> {

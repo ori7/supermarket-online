@@ -30,7 +30,7 @@ export class ProductsListComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
 
-    if (changes.search.currentValue) {
+    if (changes.search.currentValue != null) {
       this.productsService.getProductsWithfilter({ filter: changes.search.currentValue }).subscribe(res => {
         this.productsArray = res;
       });

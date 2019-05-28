@@ -22,7 +22,6 @@ import { ProductsListComponent } from './components/products/products-list/produ
 import { AddProductComponent } from './components/products/add-product/add-product.component';
 import { UpdateProductComponent } from './components/products/update-product/update-product.component';
 import { CartComponent } from './components/main-shoping/cart/cart.component';
-import { InternalHeaderComponent } from './components/headers/internal-header/internal-header.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +41,6 @@ import { InternalHeaderComponent } from './components/headers/internal-header/in
     AddProductComponent,
     UpdateProductComponent,
     CartComponent,
-    InternalHeaderComponent,
   ],
   imports: [
     BrowserModule,

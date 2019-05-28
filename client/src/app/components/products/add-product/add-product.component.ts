@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductModel } from 'src/app/models/product';
-import { ProductsService } from 'src/app/services/products.service';
 import { CategoryModel } from 'src/app/models/category';
 import { Router } from '@angular/router';
+import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
   selector: 'app-add-product',
@@ -14,7 +14,7 @@ export class AddProductComponent implements OnInit {
   product: ProductModel;
   categories: CategoryModel[];
 
-  constructor(private productsService: ProductsService,
+  constructor(private adminService: AdminService,
     private router: Router) {
 
     this.product = <ProductModel>{};
@@ -22,7 +22,7 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit() {
 
-    this.productsService.getCategories().subscribe(res => {
+    this.adminService.getCategories().subscribe(res => {
       this.categories = res;
     })
   }
@@ -32,7 +32,7 @@ export class AddProductComponent implements OnInit {
     this.product.categoryId = Number(this.product.categoryId);
     console.log(this.product);
 
-    this.productsService.insertProduct(this.product).subscribe(res => {
+    this.adminService.insertProduct(this.product).subscribe(res => {
       if (res) {
         alert('The product ' + res + ' added successfully!');
         this.router.navigate(["/refrsh"], { skipLocationChange: true }).then(() =>
