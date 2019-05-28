@@ -23,7 +23,7 @@ export class LoginService {
     this.isLogged = new BehaviorSubject<boolean>(this.getToken() != null);
   }
 
-  login(user: UserModel): Observable<object> {console.log(user);
+  login(user: UserModel): Observable<object> {
 
     return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINTS.login, user).pipe(
       catchError(errorRes => {

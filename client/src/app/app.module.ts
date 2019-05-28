@@ -6,21 +6,22 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
-import { LoginComponent } from './components/login/login.component';
+import { HeaderComponent } from './components/headers/header/header.component';
+import { LoginComponent } from './components/login-registration/login/login.component';
 import { AboutComponent } from './components/about/about.component';
 import { GeneralInformationComponent } from './components/general-information/general-information.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
-import { RegisterStepOneComponent } from './components/register/register-step-one/register-step-one.component';
-import { RegisterStepTwoComponent } from './components/register/register-step-two/register-step-two.component';
-import { ShopingComponent } from './components/shoping/shoping.component';
+import { RegisterStepOneComponent } from './components/login-registration/register/register-step-one/register-step-one.component';
+import { RegisterStepTwoComponent } from './components/login-registration/register/register-step-two/register-step-two.component';
+import { ShopingComponent } from './components/main-shoping/shoping/shoping.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
-import { LogOutComponent } from './components/log-out/log-out.component';
+import { LogOutComponent } from './components/login-registration/log-out/log-out.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { ProductItemComponent } from './components/products/product-item/product-item.component';
 import { ProductsListComponent } from './components/products/products-list/products-list.component';
 import { AddProductComponent } from './components/products/add-product/add-product.component';
 import { UpdateProductComponent } from './components/products/update-product/update-product.component';
+import { InternalHeaderComponent } from './components/headers/internal-header/internal-header.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { UpdateProductComponent } from './components/products/update-product/upd
     ProductsListComponent,
     AddProductComponent,
     UpdateProductComponent,
+    InternalHeaderComponent,
   ],
   imports: [
     BrowserModule,
