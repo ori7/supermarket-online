@@ -126,7 +126,20 @@ function updateProduct(req, res) {
     });
 }
 
+function getProductsWithfilter(req, res) {
+
+    Product.find({name:  { "$regex": req.body.filter }}).exec(function (error, result) {
+        if (error) {
+            res.send(404);
+        }
+        else {
+            res.send(result);
+        }
+    });
+}
+
 module.exports.insertNewProduct = insertNewProduct;
 module.exports.getProducts = getProducts;
 module.exports.getProductById = getProductById;
 module.exports.updateProduct = updateProduct;
+module.exports.getProductsWithfilter = getProductsWithfilter;

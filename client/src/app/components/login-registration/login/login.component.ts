@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(this.user).subscribe(res => {
       if (res) {
-        this.saveName(res['user']);
+        this.saveUser(res['user']);
         if ((res['role']) === 1) {
           this.loginAdmin();
         }
@@ -55,9 +55,9 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/admin']);
   }
 
-  saveName(name) {
+  saveUser(name) {
 
-    sessionStorage.setItem('user', name);
+    sessionStorage.setItem('name', name);
     this.name = name;
   }
 
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/logOut']);
     }
     else {     //    This is user. He can continue!
-      this.saveName(decode.user);
+      this.saveUser(decode.user);
       this.checkStatus(decode);
     }
   }

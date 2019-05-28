@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-internal-header',
@@ -8,12 +9,18 @@ import { Component, OnInit } from '@angular/core';
 export class InternalHeaderComponent implements OnInit {
 
   name: string;
+  searchInput: string;
 
-  constructor() { }
+  constructor(private productsService: ProductsService) { }
 
   ngOnInit() {
 
-    this.name = sessionStorage.getItem('user');
+    this.name = sessionStorage.getItem('name');
+  }
+
+  filter() {
+
+    this.productsService.filter.next(this.searchInput);
   }
 
 }

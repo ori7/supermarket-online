@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from 'src/app/models/user';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-shoping',
@@ -9,15 +10,17 @@ import { UserModel } from 'src/app/models/user';
 export class ShopingComponent implements OnInit {
 
   user:UserModel;
+  search: string;
 
-  constructor() { 
+  constructor(private productsService: ProductsService) { 
 
-    this.user = <UserModel>{};
   }
 
   ngOnInit() {
 
-    this.user.name = sessionStorage.getItem('user');
+    this.productsService.filter.subscribe( res => {
+      this.search = res;
+    })
   }
 
 }

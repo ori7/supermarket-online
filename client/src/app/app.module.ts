@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/headers/header/header.component';
+import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login-registration/login/login.component';
 import { AboutComponent } from './components/about/about.component';
 import { GeneralInformationComponent } from './components/general-information/general-information.component';
@@ -21,6 +21,7 @@ import { ProductItemComponent } from './components/products/product-item/product
 import { ProductsListComponent } from './components/products/products-list/products-list.component';
 import { AddProductComponent } from './components/products/add-product/add-product.component';
 import { UpdateProductComponent } from './components/products/update-product/update-product.component';
+import { CartComponent } from './components/main-shoping/cart/cart.component';
 import { InternalHeaderComponent } from './components/headers/internal-header/internal-header.component';
 
 @NgModule({
@@ -40,6 +41,7 @@ import { InternalHeaderComponent } from './components/headers/internal-header/in
     ProductsListComponent,
     AddProductComponent,
     UpdateProductComponent,
+    CartComponent,
     InternalHeaderComponent,
   ],
   imports: [

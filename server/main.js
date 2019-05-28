@@ -51,6 +51,7 @@ app.post('/products', productsCtrl.insertNewProduct);
 app.get('/products', productsCtrl.getProducts);
 app.post('/products/id', productsCtrl.getProductById);
 app.post('/products/update', productsCtrl.updateProduct);
+app.post('/products/filter', productsCtrl.getProductsWithfilter);
 
 app.listen(PORT, () => {
     console.log('Listening on ',PORT);

@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-admin',
@@ -9,13 +10,18 @@ export class AdminComponent implements OnInit {
 
   sideBar: string;
   updateId: number;
-  admin: string; 
+  name: string; 
+  search: string;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private productsService: ProductsService,
+    private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() { 
 
-    this.admin = sessionStorage.getItem('user');
+    this.name = sessionStorage.getItem('name');
+    this.productsService.filter.subscribe( res => {
+      this.search = res;
+    })
    }
 
   addForm() {
@@ -30,5 +36,5 @@ export class AdminComponent implements OnInit {
     this.updateId = id;
     this.sideBar = 'update';
   }
-
+  
 }

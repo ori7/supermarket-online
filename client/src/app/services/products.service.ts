@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { ProductModel } from '../models/product';
 import { HttpClient } from '@angular/common/http';
 import { CategoryModel } from '../models/category';
@@ -14,10 +14,15 @@ export class ProductsService {
     products: "products",
     categories: "categories",
     id: "/id",
-    update: "/update"
+    update: "/update",
+    filter: "/filter"
   };
+  filter: BehaviorSubject<string>;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+
+    this.filter = new BehaviorSubject<string>(null);
+   }
 
   getProducts(): Observable<ProductModel[]> {
 
@@ -65,5 +70,10 @@ export class ProductsService {
   updateProduct(product: object):Observable<string> {
 
     return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.update, product);
+  }
+
+  getProductsWithfilter(filter: object):Observable<ProductModel[]> {
+
+    return this.httpClient.post<ProductModel[]>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.filter, filter);
   }
 }
