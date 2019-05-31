@@ -1,0 +1,5 @@
+<nav class="nav nav-pills nav-fill">
+  <a class="nav-item nav-link" href="javascript:void(null)" *ngFor='let category of categories'
+    (click)='filter(category.id)'>{{ category.name }}</a>
+  <a class="nav-item nav-link" href="javascript:void(null)" (click)='filter("all")'>All products</a>
+</nav>

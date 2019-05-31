@@ -15,11 +15,14 @@ export class ProductsService {
     categories: "categories",
     filter: "/filter"
   };
-  filter: BehaviorSubject<string>;
+  filterProducts: BehaviorSubject<string>;
+  filterCategories: BehaviorSubject<number | string>;
+  filter: object;
 
   constructor(private httpClient: HttpClient) {
 
-    this.filter = new BehaviorSubject<string>(null);
+    this.filterProducts = new BehaviorSubject<string>(null);
+    this.filterCategories = new BehaviorSubject<number | string>(null);
    }
 
   getProducts(): Observable<ProductModel[]> {
@@ -55,8 +58,17 @@ export class ProductsService {
     return this.httpClient.get<CategoryModel[]>(environment.serverUrl + this.ENDPOINTS.categories);
   }
 
-  getProductsWithfilter(filter: object):Observable<ProductModel[]> {
+  getProductsWithfilter():Observable<ProductModel[]> {
 
-    return this.httpClient.post<ProductModel[]>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.filter, filter);
+    this.filter = {};
+
+    if (this.filterProducts.getValue()) {
+      this.filter['products'] = this.filterProducts.getValue();
+    }
+    if (this.filterCategories.getValue() != null && this.filterCategories.getValue() != 'all') {
+      this.filter['category'] = this.filterCategories.getValue();
+    }
+
+    return this.httpClient.post<ProductModel[]>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.filter, this.filter);
   }
 }

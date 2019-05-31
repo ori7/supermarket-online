@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-    this.loginService.header.subscribe(res => {
+    this.loginService.dstails.subscribe(res => {
       this.name = res[0];  
       if (res[1] === 'admin')
         this.admin = true;
@@ -34,9 +34,7 @@ export class HeaderComponent implements OnInit {
 
   filter() {
 
-    this.productsService.filter.next(this.searchInput);
+    this.productsService.filterProducts.next(this.searchInput);
   }
-
-
 
 }

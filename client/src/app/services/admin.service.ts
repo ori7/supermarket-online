@@ -10,12 +10,11 @@ import { ProductModel } from '../models/product';
 })
 export class AdminService {
 
- ENDPOINTS = {
+  ENDPOINTS = {
     products: "products",
     categories: "categories",
     id: "/id",
-    update: "/update",
-    filter: "/filter"
+    update: "/update"
   };
   adminPage: BehaviorSubject<string>;
   updateId: BehaviorSubject<number>;
@@ -24,7 +23,7 @@ export class AdminService {
 
     this.adminPage = new BehaviorSubject<string>('');
     this.updateId = new BehaviorSubject<number>(null);
-   }
+  }
 
   getCategories(): Observable<CategoryModel[]> {
 
@@ -36,12 +35,12 @@ export class AdminService {
     return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINTS.products, product);
   }
 
-  getById(id: object):Observable<ProductModel> {
+  getById(id: object): Observable<ProductModel> {
 
     return this.httpClient.post<ProductModel>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.id, id);
   }
-  
-  updateProduct(product: object):Observable<string> {
+
+  updateProduct(product: object): Observable<string> {
 
     return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.update, product);
   }

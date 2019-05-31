@@ -22,6 +22,7 @@ import { ProductsListComponent } from './components/products/products-list/produ
 import { AddProductComponent } from './components/products/add-product/add-product.component';
 import { UpdateProductComponent } from './components/products/update-product/update-product.component';
 import { CartComponent } from './components/main-shoping/cart/cart.component';
+import { CategoriesNavComponent } from './components/main-shoping/categories-nav/categories-nav.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { CartComponent } from './components/main-shoping/cart/cart.component';
     AddProductComponent,
     UpdateProductComponent,
     CartComponent,
+    CategoriesNavComponent,
   ],
   imports: [
     BrowserModule,

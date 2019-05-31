@@ -15,17 +15,18 @@ export class LoginComponent implements OnInit {
   user: UserModel;
   token: string;
   name: string;
-  continueShopping: boolean;
+  shoppingButtton: string;
 
   constructor(private loginService: LoginService,
-    private router: Router,
-    private changeDetectorRef: ChangeDetectorRef) {
+    private router: Router) {
 
     this.user = <UserModel>{};
+    this.shoppingButtton = 'Start shoping';
   }
 
   ngOnInit() {
 
+    this.loginService.dstails.next([]);  //  If the user returns to the 'login' page, clears user details to hide the 'shoping' nav.
     this.token = localStorage.getItem('token');
     if (this.token) {
       this.userComeBack(this.token);
@@ -52,7 +53,7 @@ export class LoginComponent implements OnInit {
   loginAdmin() {
 
     sessionStorage.setItem('role', '1');
-    this.loginService.header.next([this.name,'admin']);
+    this.loginService.dstails.next([this.name,'admin']);
     this.router.navigate(['/admin']);
   }
 
@@ -78,15 +79,14 @@ export class LoginComponent implements OnInit {
 
     this.loginService.checkCart(user).subscribe(res => {
       if (res) {
-        this.changeDetectorRef.detectChanges();
-        document.getElementById("start").innerHTML = 'Resume shoping';
+        this.shoppingButtton = 'Resume shoping';
       }
     });
   }
 
   goShoping() {
 
-    this.loginService.header.next([this.name]);
+    this.loginService.dstails.next([this.name]);
     this.router.navigate(['/shoping']);
   }
 }

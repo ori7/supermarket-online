@@ -128,7 +128,9 @@ function updateProduct(req, res) {
 
 function getProductsWithfilter(req, res) {
 
-    Product.find({name:  { "$regex": req.body.filter }}).exec(function (error, result) {
+    const filter = buildFilter(req.body);
+
+    Product.find(filter).exec(function (error, result) {
         if (error) {
             res.send(404);
         }
@@ -136,6 +138,18 @@ function getProductsWithfilter(req, res) {
             res.send(result);
         }
     });
+}
+
+function buildFilter(params) {
+
+    let filter = {};
+    if (params.products && params.category)
+        filter = { name: { "$regex": params.products },categoryId: params.category };
+    else if (params.products)
+        filter = { name: { "$regex": params.products } };
+    else if (params.category)
+        filter = { categoryId: params.category };
+    return filter;
 }
 
 module.exports.insertNewProduct = insertNewProduct;
