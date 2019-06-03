@@ -13,7 +13,10 @@ export class ProductsService {
   ENDPOINTS = {
     products: "products",
     categories: "categories",
-    filter: "/filter"
+    info: "info",
+    filter: "/filter",
+    quantity: "/quantity",
+    id: "/id"
   };
   filterProducts: BehaviorSubject<string>;
   filterCategories: BehaviorSubject<number | string>;
@@ -70,5 +73,15 @@ export class ProductsService {
     }
 
     return this.httpClient.post<ProductModel[]>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.filter, this.filter);
+  }
+
+  getById(id: object): Observable<ProductModel> {
+
+    return this.httpClient.post<ProductModel>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.id, id);
+  }
+
+  getQuantity(id): Observable<number> {
+
+    return this.httpClient.post<number>(environment.serverUrl + this.ENDPOINTS.info + this.ENDPOINTS.quantity, id);
   }
 }

@@ -11,9 +11,11 @@ import { ProductModel } from '../models/product';
 export class AdminService {
 
   ENDPOINTS = {
+    admin: "admin",
     products: "products",
     categories: "categories",
     id: "/id",
+    insert: "/insert",
     update: "/update"
   };
   adminPage: BehaviorSubject<string>;
@@ -32,7 +34,7 @@ export class AdminService {
 
   insertProduct(product): Observable<string> {
 
-    return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINTS.products, product);
+    return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINTS.admin + this.ENDPOINTS.insert, product);
   }
 
   getById(id: object): Observable<ProductModel> {
@@ -42,7 +44,7 @@ export class AdminService {
 
   updateProduct(product: object): Observable<string> {
 
-    return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.update, product);
+    return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINTS.admin + this.ENDPOINTS.update, product);
   }
 
 }
