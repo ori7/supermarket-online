@@ -75,13 +75,13 @@ export class ProductsService {
     return this.httpClient.post<ProductModel[]>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.filter, this.filter);
   }
 
-  getById(id: object): Observable<ProductModel> {
+  getById(id: number): Observable<ProductModel> {
 
-    return this.httpClient.post<ProductModel>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.id, id);
+    return this.httpClient.post<ProductModel>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.id, {id: id});
   }
 
-  getQuantity(id): Observable<number> {
+  getQuantity(id: string): Observable<number> {
 
-    return this.httpClient.post<number>(environment.serverUrl + this.ENDPOINTS.info + this.ENDPOINTS.quantity, id);
+    return this.httpClient.post<number>(environment.serverUrl + this.ENDPOINTS.info + this.ENDPOINTS.quantity, {id: id});
   }
 }

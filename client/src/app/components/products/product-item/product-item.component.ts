@@ -9,16 +9,16 @@ import { ProductModel } from 'src/app/models/product';
 export class ProductItemComponent implements OnInit {
 
   @Input() product: ProductModel;
-  @Output() updateProduct: EventEmitter<number> = new EventEmitter<number>();
+  @Output() productId: EventEmitter<number> = new EventEmitter<number>();
   
   constructor() { }
 
   ngOnInit() {
   }
 
-  update() {
+  passId() {
 
-    this.updateProduct.emit(this.product._id);
+    this.productId.emit(this.product._id);
   }
 
 }

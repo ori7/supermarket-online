@@ -10,8 +10,8 @@ import { ProductsService } from 'src/app/services/products.service';
 export class ProductsListComponent implements OnInit {
 
   productsArray: ProductModel[];
-  @Output() updateProductId: EventEmitter<number> = new EventEmitter<number>();
-  @Input() search: string;
+  @Output() productId: EventEmitter<number> = new EventEmitter<number>();
+  @Input() search: string | number;
 
   constructor(private productsService: ProductsService) { }
 
@@ -23,9 +23,9 @@ export class ProductsListComponent implements OnInit {
 
   }
 
-  updateProduct(id: number) {
+  passId(id: number) {
 
-    this.updateProductId.emit(id);
+    this.productId.emit(id);
   }
 
   ngOnChanges(changes: SimpleChanges) {   //   catch changes in the input of search and Filter by this

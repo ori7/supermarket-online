@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'register2', component: RegisterStepTwoComponent },
   { path: 'logOut', component: LogOutComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
-  { path: 'shoping', component: ShopingComponent, canActivate: [LoggedGuard] },
+  { path: 'shoping/:id', component: ShopingComponent, canActivate: [LoggedGuard] },
   { path: 'refrsh', component: AboutComponent }
 ];
 

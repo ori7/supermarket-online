@@ -9,14 +9,19 @@ import { ProductsService } from 'src/app/services/products.service';
 export class GeneralInformationComponent implements OnInit {
 
   QuantityOfProducts: number;
+  QuantityOfOrders: number;
 
   constructor(private productsService: ProductsService) { }
 
   ngOnInit() {
 
-    this.productsService.getQuantity({ id: 'productId' }).subscribe( res => {
+    this.productsService.getQuantity('productId').subscribe( res => {
       this.QuantityOfProducts = res;
-    })
+    });
+
+    this.productsService.getQuantity('orderId').subscribe( res => {
+      this.QuantityOfOrders = res;
+    });
   }
 
 }

@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.user).subscribe(res => {
       if (res) {
         this.saveUser(res['user']);
+        this.user.id = res['id'];
         if ((res['role']) === 1) {
           this.loginAdmin();
         }
@@ -87,6 +88,6 @@ export class LoginComponent implements OnInit {
   goShoping() {
 
     this.loginService.dstails.next([this.name]);
-    this.router.navigate(['/shoping']);
+    this.router.navigate(['/shoping', this.user.id]);
   }
 }

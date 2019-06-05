@@ -1,6 +1,6 @@
 <section class='row'>
   <div  *ngIf='productsArray?.length > 0; else noProducrs'>
-    <app-product-item *ngFor='let p of productsArray' [product]='p' (updateProduct)="updateProduct($event)"></app-product-item>
+    <app-product-item *ngFor='let p of productsArray' [product]='p' (productId)="passId($event)"></app-product-item>
   </div>
   <ng-template #noProducrs><strong> There are no products! </strong></ng-template>
 </section>

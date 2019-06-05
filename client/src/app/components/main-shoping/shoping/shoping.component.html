@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-4">
-        <app-cart></app-cart>
+        <app-cart [cart]='cart'></app-cart>
     </div>
     <div class="col-8">
         <app-categories-nav></app-categories-nav>
-        <app-products-list [search]='search'></app-products-list>
+        <app-products-list [search]='search' (productId)="openPopupWindow($event)"></app-products-list>
     </div>
 </div>

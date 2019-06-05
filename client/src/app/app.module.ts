@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +24,8 @@ import { AddProductComponent } from './components/products/add-product/add-produ
 import { UpdateProductComponent } from './components/products/update-product/update-product.component';
 import { CartComponent } from './components/main-shoping/cart/cart.component';
 import { CategoriesNavComponent } from './components/main-shoping/categories-nav/categories-nav.component';
+import { CartItemComponent } from './components/main-shoping/cart-item/cart-item.component';
+import { PopupAddComponent } from './components/main-shoping/popup-add/popup-add.component';
 
 @NgModule({
   declarations: [
@@ -43,13 +46,16 @@ import { CategoriesNavComponent } from './components/main-shoping/categories-nav
     UpdateProductComponent,
     CartComponent,
     CategoriesNavComponent,
+    CartItemComponent,
+    PopupAddComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [
     {

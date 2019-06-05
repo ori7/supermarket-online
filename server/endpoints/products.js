@@ -1,5 +1,5 @@
 const Product = require('../models/product.model');
-const Counter = require('../models/counter.model');
+
 function getProducts(req, res) {
 
     Product.find({}).exec(function (error, result) {
@@ -42,9 +42,9 @@ function buildFilter(params) {
 
     let filter = {};
     if (params.products && params.category)
-        filter = { name: { "$regex": params.products },categoryId: params.category };
+        filter = { name: { "$regex": params.products, $options: "i" },categoryId: params.category };
     else if (params.products)
-        filter = { name: { "$regex": params.products } };
+        filter = { name: { "$regex": params.products, $options: "i" } };
     else if (params.category >= 0)
         filter = { categoryId: params.category };
     return filter;

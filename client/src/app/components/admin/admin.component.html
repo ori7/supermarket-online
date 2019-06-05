@@ -7,10 +7,10 @@
   </div>
   <div class="col-8">
     <app-categories-nav></app-categories-nav>
-    <app-products-list [search]='search' (updateProductId)="updateProduct($event)"></app-products-list>
+    <app-products-list [search]='search' (productId)="updateProduct($event)"></app-products-list>
   </div>
 </div>
 <ng-template #withOut>
   <app-categories-nav></app-categories-nav>
-  <app-products-list [search]='search' (updateProductId)="updateProduct($event)"></app-products-list>
+  <app-products-list [search]='search' (productId)="updateProduct($event)"></app-products-list>
 </ng-template>

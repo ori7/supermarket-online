@@ -10,6 +10,7 @@ const categoriesCtrl = require('./endpoints/categories');
 const productsCtrl = require('./endpoints/products');
 const adminCtrl = require('./endpoints/admin');
 const infoCtrl = require('./endpoints/general-information');
+const cartCtrl = require('./endpoints/cart');
 
 mongoose.set('useFindAndModify', false);
 
@@ -61,6 +62,7 @@ app.post('/products/id', productsCtrl.getProductById);
 app.post('/admin/update', adminCtrl.updateProduct);
 app.post('/products/filter', productsCtrl.getProductsWithfilter);
 app.post('/info/quantity', infoCtrl.getQuantity);
+app.delete('cart/cartItem/:cartId/:itemId', cartCtrl.deleteCartItem);
 
 app.listen(PORT, () => {
     console.log('Listening on ',PORT);
