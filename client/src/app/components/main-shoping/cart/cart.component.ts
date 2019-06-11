@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { cartModel } from 'src/app/models/cart';
+import { CartService } from 'src/app/services/cart.service';
+import { productCartModel } from 'src/app/models/productCart';
 
 @Component({
   selector: 'app-cart',
@@ -8,11 +10,31 @@ import { cartModel } from 'src/app/models/cart';
 })
 export class CartComponent implements OnInit {
 
-  @Input() cart: cartModel;
+  @Input() userId: number;
+  cart: cartModel;
+  products: productCartModel[];
+  emptyCart: string;
 
-  constructor() { }
+  constructor(private cartService: CartService) { }
 
   ngOnInit() {
+
+    this.cartService.getCart(this.userId).subscribe(res => {
+      this.cart = res; console.log(this.cart);
+      this.cartService.getProducts(this.cart._id).subscribe(resProducts => {
+        this.products = resProducts; console.log(this.products);
+      })
+    })
+
+    this.cartService.productsInCart.subscribe(res => {
+      if (res) {
+        this.emptyCart = null;
+        this.products = res;
+      }
+      else {
+        this.emptyCart = 'Your cart is empty!'
+      }
+    })
   }
 
 }

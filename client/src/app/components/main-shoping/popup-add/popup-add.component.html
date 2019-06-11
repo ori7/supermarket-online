@@ -1,3 +1,22 @@
-<p>
-  popup-add works!
-</p>
+<div role="document" class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Buy now!</h4>
+    </div>
+    <div class="modal-body row">
+      <div class="col-5">
+        <app-product-item [product]='product'></app-product-item>
+      </div>
+      <div class="col-5">
+        <label for="quantity">Enter quantity:</label>
+        <input [(ngModel)]="quantity" type="number" class="form-control" placeholder="quantity" id="quantity">
+      </div>
+      <ng-content></ng-content>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="addToCart(); activeModal.close('Close click')">Add to
+        cart</button>
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancel</button>
+    </div>
+  </div>
+</div>

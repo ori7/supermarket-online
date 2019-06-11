@@ -3,10 +3,9 @@ import { UserModel } from 'src/app/models/user';
 import { ProductsService } from 'src/app/services/products.service';
 import { LoginService } from 'src/app/services/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { cartModel } from 'src/app/models/cart';
 import { CartService } from 'src/app/services/cart.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
 import { PopupAddComponent } from '../popup-add/popup-add.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-shoping',
@@ -17,15 +16,13 @@ export class ShopingComponent implements OnInit {
 
   user: UserModel;
   search: string | number;
-  cart: cartModel;
-  addProductDialogRef: MatDialogRef<PopupAddComponent>;
+  userId: number;
 
   constructor(private productsService: ProductsService,
     private loginService: LoginService,
-    private cartService: CartService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private matDialog: MatDialog) { 
+    private ngbModal: NgbModal) { 
 
       this.user = <UserModel>{};
   }
@@ -48,19 +45,15 @@ export class ShopingComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 
-    this.cartService.currentCart.subscribe( res => {
-      this.cart = res;
-    });
-
     this.activatedRoute.params.subscribe( p => {
-      this.cartService.getCart(p.id).subscribe( res => {
-        this.cartService.currentCart.next(res);
-      })
+      this.userId = p.id;
     })
   }
 
   openPopupWindow(id: number) {console.log(id);
 
-    this.addProductDialogRef = this.matDialog.open(PopupAddComponent);
+    const modalRef = this.ngbModal.open(PopupAddComponent);
+    modalRef.componentInstance.id = id;
   }
+
 }

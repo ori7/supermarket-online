@@ -14,7 +14,7 @@ function getProducts(req, res) {
 
 function getProductById(req, res) {
 
-    Product.findOne({ _id: req.body.id }).exec(function (error, result) {
+    Product.findOne({ _id: req.params.id }).exec(function (error, result) {
         if (result) {
             res.send(result);
         }

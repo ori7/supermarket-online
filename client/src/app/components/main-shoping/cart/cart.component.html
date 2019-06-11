@@ -1,4 +1,6 @@
 <div class="frame">
-  <div *ngFor='let product of cart.products' product='product'>
+  <div *ngIf='emptyCart' class="alert text-center">{{ emptyCart }} </div>
+  <div *ngFor='let product of products' product='product'>
+    <app-cart-item [product]='product'></app-cart-item>
   </div>
 </div>

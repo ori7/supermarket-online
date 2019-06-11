@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,20 +49,23 @@ import { PopupAddComponent } from './components/main-shoping/popup-add/popup-add
     CartItemComponent,
     PopupAddComponent,
   ],
+  entryComponents: [PopupAddComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatDialogModule
+    NgbModule.forRoot()
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
-    }
+    },
+    NgbActiveModal
   ],
   bootstrap: [AppComponent]
 })

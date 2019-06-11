@@ -37,8 +37,9 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(this.user).subscribe(res => {
       if (res) {
-        this.saveUser(res['user']);
-        this.user.id = res['id'];
+        this.saveUser(res);
+        //this.saveUser(res['user']);
+        //this.user.id = res['id'];
         if ((res['role']) === 1) {
           this.loginAdmin();
         }
@@ -58,12 +59,19 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/admin']);
   }
 
+  saveUser(user) {
+
+    sessionStorage.setItem('name', user.user);
+    this.name = user.user;
+    this.user.id = user.id;
+  }
+/*
   saveUser(name) {
 
     sessionStorage.setItem('name', name);
     this.name = name;
   }
-
+*/
   userComeBack(token) {
 
     const decode = jwt_decode(token);
@@ -71,7 +79,8 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/logOut']);
     }
     else {     //    This is user. He can continue!
-      this.saveUser(decode.user);
+      //this.saveUser(decode.user);
+      this.saveUser(decode);
       this.checkStatus(decode);
     }
   }

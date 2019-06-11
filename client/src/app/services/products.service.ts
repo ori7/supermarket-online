@@ -16,7 +16,7 @@ export class ProductsService {
     info: "info",
     filter: "/filter",
     quantity: "/quantity",
-    id: "/id"
+    id: "/id/"
   };
   filterProducts: BehaviorSubject<string>;
   filterCategories: BehaviorSubject<number | string>;
@@ -77,7 +77,7 @@ export class ProductsService {
 
   getById(id: number): Observable<ProductModel> {
 
-    return this.httpClient.post<ProductModel>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.id, {id: id});
+    return this.httpClient.get<ProductModel>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.id + id);
   }
 
   getQuantity(id: string): Observable<number> {
