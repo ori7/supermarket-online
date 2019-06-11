@@ -1,6 +1,9 @@
 <div class="frame">
-  <div *ngIf='emptyCart' class="alert text-center">{{ emptyCart }} </div>
-  <div *ngFor='let product of products' product='product'>
-    <app-cart-item [product]='product'></app-cart-item>
-  </div>
+  <h4 class="font-weight-bold text-center"><u>Shopping cart</u></h4>
+  <div *ngIf='!products' class="alert text-center">{{ emptyCart }} </div>
+  <ul *ngFor='let product of products'>
+    <li>
+      <app-cart-item [product]='product'></app-cart-item>
+    </li>
+  </ul>
 </div>

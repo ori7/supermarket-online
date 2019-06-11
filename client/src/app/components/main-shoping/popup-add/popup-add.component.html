@@ -1,7 +1,7 @@
 <div role="document" class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
-      <h4 class="modal-title">Buy now!</h4>
+      <h4 class="modal-title">&nbsp;&nbsp; Buy now!</h4>
     </div>
     <div class="modal-body row">
       <div class="col-5">
@@ -9,9 +9,8 @@
       </div>
       <div class="col-5">
         <label for="quantity">Enter quantity:</label>
-        <input [(ngModel)]="quantity" type="number" class="form-control" placeholder="quantity" id="quantity">
+        <input [(ngModel)]="quantity" type="number" class="form-control" placeholder="1" id="quantity">
       </div>
-      <ng-content></ng-content>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="addToCart(); activeModal.close('Close click')">Add to

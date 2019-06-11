@@ -6,7 +6,7 @@ function getCart(req, res) {
 
     Cart.findOne({ userId: req.params.id }).exec(function (error, result) {
         if (result) {
-            saveCart(result, function (e, r) {
+            saveObject(result, function (e, r) {
                 if (e)
                     res.status(404);
                 else
@@ -18,7 +18,7 @@ function getCart(req, res) {
                 if (error)
                     res.status(404);
                 else {
-                    saveCart(result, function (e, r) {
+                    saveObject(result, function (e, r) {
                         if (e)
                             res.status(404);
                         else
@@ -30,9 +30,9 @@ function getCart(req, res) {
     });
 }
 
-function saveCart(cart, callback) {
+function saveObject(object, callback) {
 
-    cart.save(function (err, res) {
+    object.save(function (err, res) {
         if (err) {
             callback(err);
         }
@@ -49,7 +49,6 @@ function createCart(userId, callback) {
     newCart.createdDate = new Date;
     getId('cartId', async function (error, result) {
         if (result) {
-            console.log('rrr' + result);
             newCart._id = result.seq;
             await updateSequence('cartId', function (e, r) {
                 if (e)
@@ -58,31 +57,27 @@ function createCart(userId, callback) {
             callback(null, newCart);
         }
         else {
-            console.log('eee');
             callback(error);
         }
     })
 }
 
-function buildNewCounter() {
+function buildNewCounter(id) {
 
     newDocument = new Counter;
-    newDocument._id = 'cartId';
+    newDocument._id = id;
     newDocument.seq = 0;
     return newDocument;
 }
 
 function getId(name, callback) {
-    console.log(name);
 
     Counter.findOne({ _id: name }).exec(async function (error, result) {
-        console.log(result);
         if (result)
             callback(null, result);
         else {
-            const newCounter = await buildNewCounter();
+            const newCounter = await buildNewCounter(name);
             newCounter.save(function (err, res) {
-                console.log('cc' + res);
                 if (err) {
                     callback(err);
                 }
@@ -122,6 +117,39 @@ function getCartItems(req, res) {
     });
 }
 
+function buildProductCart(productCart) {
+
+    newProductCart = new ProductCart;
+    newProductCart.productId = productCart.productId;
+    newProductCart.quantity = productCart.quantity;
+    newProductCart.price = productCart.price;
+    newProductCart.cartId = productCart.cartId;
+    return newProductCart;
+}
+
+function addToCart(req, res) {
+
+    let newProductCart = buildProductCart(req.body);
+    getId('ProductCartId', async function (error, result) {
+        if (result) {
+            newProductCart._id = result.seq;
+            await updateSequence('ProductCartId', function (e, r) {
+                if (e)
+                    res.status(404);
+            })
+            saveObject(newProductCart, function (e, r) {
+                if (e)
+                    res.status(404);
+                else
+                    res.send(r);
+            });
+        }
+        else {
+            res.status(404);
+        }
+    })
+}
+
 function deleteCartItem(req, res) {
 
     console.log(req.params.cartId);
@@ -130,4 +158,5 @@ function deleteCartItem(req, res) {
 
 module.exports.getCart = getCart;
 module.exports.getCartItems = getCartItems;
+module.exports.addToCart = addToCart;
 module.exports.deleteCartItem = deleteCartItem;

@@ -16,7 +16,7 @@ export class CartItemComponent implements OnInit {
   constructor(private productsService: ProductsService,
     private cartService: CartService) { }
 
-  ngOnInit() {
+  ngOnInit() {console.log(this.product);
 
     this.productsService.getById(this.product.productId).subscribe( res => {
       this.name = res.name;

@@ -54,6 +54,7 @@ export class ShopingComponent implements OnInit {
 
     const modalRef = this.ngbModal.open(PopupAddComponent);
     modalRef.componentInstance.id = id;
+    modalRef.componentInstance.userId = this.userId;
   }
 
 }

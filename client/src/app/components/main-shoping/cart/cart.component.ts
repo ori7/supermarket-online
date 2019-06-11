@@ -27,14 +27,10 @@ export class CartComponent implements OnInit {
     })
 
     this.cartService.productsInCart.subscribe(res => {
-      if (res) {
-        this.emptyCart = null;
         this.products = res;
-      }
-      else {
-        this.emptyCart = 'Your cart is empty!'
-      }
     })
+
+    this.emptyCart = 'Your cart is empty!';
   }
 
 }
