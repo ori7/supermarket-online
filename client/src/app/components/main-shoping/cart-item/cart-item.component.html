@@ -5,6 +5,6 @@
         <span> Price: {{ product.quantity * product.price }}$ </span>
     </div>
     <div>
-        <button *ngIf='!orderStart' type="button" class="btn btn-outline-dark btn-sm" (click)='delete()'>Delite</button>
+        <button *ngIf='!onlyView' type="button" class="btn btn-outline-dark btn-sm" (click)='delete()'>Delite</button>
     </div>
 </div>

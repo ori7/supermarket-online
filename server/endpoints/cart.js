@@ -4,15 +4,9 @@ const Counter = require('../models/counter.model');
 
 function getCart(req, res) {
 
-    Cart.findOne({ userId: req.params.id }).exec(function (error, result) {
-        if (result) {
-            saveObject(result, function (e, r) {
-                if (e)
-                    res.status(404);
-                else
-                    res.send(r);
-            });
-        }
+    Cart.findOne({ userId: req.params.id, status: 'open' }).exec(function (error, result) {
+        if (result)
+            res.send(result);
         else {
             createCart(req.params.id, function (error, result) {
                 if (error)
@@ -30,6 +24,16 @@ function getCart(req, res) {
     });
 }
 
+function getCarts(req, res) {
+
+    Cart.find({ userId: req.params.id }).exec(function (error, result) {
+        if (result)
+            res.send(result);
+        else
+            res.status(404);
+    })
+}
+
 function saveObject(object, callback) {
 
     object.save(function (err, res) {
@@ -42,11 +46,9 @@ function saveObject(object, callback) {
     });
 }
 
-function createCart(userId, callback) {
+async function createCart(userId, callback) {
 
-    let newCart = new Cart;
-    newCart.userId = userId;
-    newCart.createdDate = new Date;
+    let newCart = await buildNewCart(userId);
     getId('cartId', async function (error, result) {
         if (result) {
             newCart._id = result.seq;
@@ -60,6 +62,15 @@ function createCart(userId, callback) {
             callback(error);
         }
     })
+}
+
+function buildNewCart(userId) {
+
+    let newCart = new Cart;
+    newCart.userId = userId;
+    newCart.createdDate = new Date;
+    newCart.status = 'open';
+    return newCart;
 }
 
 function buildNewCounter(id) {
@@ -166,6 +177,7 @@ function deleteCartItem(req, res) {
 }
 
 module.exports.getCart = getCart;
+module.exports.getCarts = getCarts;
 module.exports.getCartItems = getCartItems;
 module.exports.addToCart = addToCart;
 module.exports.deleteCartItem = deleteCartItem;

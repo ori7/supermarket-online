@@ -14,6 +14,7 @@ export class CartService {
   productsInCart: BehaviorSubject<productCartModel[]>
   ENDPOINTS = {
     cart: "cart/",
+    carts: "carts/",
     cartItem: "cartItem/",
     cartItems: "cartItems/"
   }
@@ -68,6 +69,11 @@ export class CartService {
     this.getProducts(cartId).subscribe( res => {
       this.productsInCart.next(res);
     })
+  }
+
+  getCarts(id: number): Observable<cartModel> {
+
+    return this.httpClient.get<cartModel>(environment.serverUrl + this.ENDPOINTS.carts + id);
   }
 
 }

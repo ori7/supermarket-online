@@ -3,6 +3,8 @@ import { UserModel } from 'src/app/models/user';
 import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
 import jwt_decode from "jwt-decode";
+import { CartService } from 'src/app/services/cart.service';
+import { cartModel } from 'src/app/models/cart';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +18,14 @@ export class LoginComponent implements OnInit {
   token: string;
   name: string;
   shoppingButtton: string;
+  cart: cartModel;
+  ViewCart: boolean;
+  welcome: string;
+  currentPrice: number;
 
   constructor(private loginService: LoginService,
-    private router: Router) {
+    private router: Router,
+    private cartService: CartService) {
 
     this.user = <UserModel>{};
     this.shoppingButtton = 'Start shoping';
@@ -31,6 +38,7 @@ export class LoginComponent implements OnInit {
     if (this.token) {
       this.userComeBack(this.token);
     }
+    this.ViewCart = true;
   }
 
   login() {
@@ -38,13 +46,12 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.user).subscribe(res => {
       if (res) {
         this.saveUser(res);
-        //this.saveUser(res['user']);
-        //this.user.id = res['id'];
+        this.loginError = "";
         if ((res['role']) === 1) {
           this.loginAdmin();
         }
-        this.loginError = "";
-        this.checkStatus(res);
+        else
+          this.checkUser(res['id']);
       } else {
         this.user.email = this.user.password = '';
         this.loginError = "Error with login!";
@@ -55,7 +62,7 @@ export class LoginComponent implements OnInit {
   loginAdmin() {
 
     sessionStorage.setItem('role', '1');
-    this.loginService.dstails.next([this.name,'admin']);
+    this.loginService.dstails.next([this.name, 'admin']);
     this.router.navigate(['/admin']);
   }
 
@@ -65,13 +72,7 @@ export class LoginComponent implements OnInit {
     this.name = user.user;
     this.user.id = user.id;
   }
-/*
-  saveUser(name) {
 
-    sessionStorage.setItem('name', name);
-    this.name = name;
-  }
-*/
   userComeBack(token) {
 
     const decode = jwt_decode(token);
@@ -79,19 +80,41 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/logOut']);
     }
     else {     //    This is user. He can continue!
-      //this.saveUser(decode.user);
       this.saveUser(decode);
-      this.checkStatus(decode);
+      this.checkUser(decode.id);
     }
   }
 
-  checkStatus(user) {
+  checkUser(userId) {
 
-    this.loginService.checkCart(user).subscribe(res => {
-      if (res) {
-        this.shoppingButtton = 'Resume shoping';
+    this.cartService.getCarts(userId).subscribe(res => { 
+      if (Array.isArray(res)) {
+        for (let i = 0; i < res.length; i++) {
+          if (res[i].status === 'open') {
+            this.cartService.getProducts(res[i]._id).subscribe(resProducts => {
+              if (Array.isArray(resProducts)) {
+                if (resProducts.length > 0) {
+                  this.currentPrice = this.getCurrentPrice(resProducts);
+                  this.cart = res[i];
+                  this.shoppingButtton = 'Resume shoping';
+                }
+              }
+            })
+          }
+        }
       }
+      else
+        this.welcome = 'Welcome to your first shoping!'
     });
+  }
+
+  getCurrentPrice(products) {
+
+    let price = 0;
+    for (let i = 0; i < products.length; i++) {
+      price += products[i].price * products[i].quantity;
+    }
+    return price;
   }
 
   goShoping() {

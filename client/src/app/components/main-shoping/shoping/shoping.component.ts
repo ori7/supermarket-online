@@ -18,7 +18,7 @@ export class ShopingComponent implements OnInit {
   search: string | number;
   userId: number;
   totalPrice: number;
-  orderStart: boolean;
+  onlyView: boolean;
 
   constructor(private productsService: ProductsService,
     private loginService: LoginService,
@@ -61,7 +61,7 @@ export class ShopingComponent implements OnInit {
 
   openOrder(totalPrice) {
 
-    this.orderStart = true;
+    this.onlyView = true;
     this.totalPrice = totalPrice;
   }
 }

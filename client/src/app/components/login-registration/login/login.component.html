@@ -1,11 +1,27 @@
 <div>
   <div *ngIf='name; else showForm'>
-    <div class="d-flex"> welcome {{name}} ! 
-        <a class="ml-auto" href="#" [routerLink]="['/logOut']"> Log out! </a>
+    <div class="d-flex"> welcome {{name}} !
+      <a class="ml-auto" href="#" [routerLink]="['/logOut']"> Log out! </a>
+    </div>
+    <hr>
+    <div class="text-warning">
+      <div *ngIf='cart'>
+        <h5>You have an active shopping cart!</h5>
+        <div>Current price: {{ currentPrice }}$</div>
+        <div>Date: {{ cart.createdDate }}</div>
+      </div>
+      <div *ngIf='!welcome && !cart'>
+        <h5>This is your last shopping cart:</h5>
+      </div>
+      <div *ngIf='welcome'>
+        <h5> {{ welcome }}</h5>
+      </div>
+    </div>
+    <div *ngIf='!welcome' class="cart">
+      <app-cart [userId]='user.id' [onlyView]='ViewCart'></app-cart>
     </div>
     <br>
     <button type="button" class="btn btn-primary" id="start" (click)='goShoping()'>{{ shoppingButtton }}</button>
-
     <br>
   </div>
   <ng-template #showForm class="col-10">

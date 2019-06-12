@@ -11,7 +11,7 @@ import { productCartModel } from 'src/app/models/productCart';
 export class CartComponent implements OnInit {
 
   @Input() userId: number;
-  @Input() orderStart: boolean;
+  @Input() onlyView: boolean;
   cart: cartModel;
   products: productCartModel[];
   emptyCart: string;
@@ -20,7 +20,7 @@ export class CartComponent implements OnInit {
 
   constructor(private cartService: CartService) { }
 
-  ngOnInit() {console.log(this.orderStart);
+  ngOnInit() {
 
     this.products = <productCartModel[]>[];
 
@@ -46,7 +46,7 @@ export class CartComponent implements OnInit {
 
     this.totalPrice = 0;
     for (let i = 0; i < products.length; i++) {
-      this.totalPrice += products[i].price;
+      this.totalPrice += products[i].price * products[i].quantity;
     }
   }
 
