@@ -28,14 +28,24 @@ export class CartService {
     return this.httpClient.get<cartModel>(environment.serverUrl + this.ENDPOINTS.cart + id);
   }
 
-  getProducts(id: number): Observable<productCartModel[]> {console.log(id);
+  getProducts(id: number): Observable<productCartModel[]> {
 
     return this.httpClient.get<productCartModel[]>(environment.serverUrl + this.ENDPOINTS.cart + this.ENDPOINTS.cartItems + id);
   }
 
   deleteItem(cartId: number, itemId: number): Observable<object> {
 
-    return this.httpClient.delete<object>(environment.serverUrl + this.ENDPOINTS.cart + this.ENDPOINTS.cartItem + cartId + '/' + itemId);
+    return this.httpClient.delete<object>(environment.serverUrl + this.ENDPOINTS.cart + this.ENDPOINTS.cartItem + itemId).pipe(
+      catchError(errorRes => {
+        return of(undefined);
+      }),
+      map( res => {
+        if (res) {
+          this.updateProductsInCart(cartId);
+          return res;
+        }
+      })
+    );
   }
 
   addToCart(product: productCartModel): Observable<object> {
@@ -46,13 +56,18 @@ export class CartService {
       }),
       map( res => {
         if (res) {
-          this.getProducts(product.cartId).subscribe( res => {console.log(res);
-            this.productsInCart.next(res);
-          })
+          this.updateProductsInCart(product.cartId);
           return res;
         }
       })
     );
+  }
+
+  updateProductsInCart(cartId): void {
+
+    this.getProducts(cartId).subscribe( res => {
+      this.productsInCart.next(res);
+    })
   }
 
 }

@@ -16,17 +16,17 @@ export class CartItemComponent implements OnInit {
   constructor(private productsService: ProductsService,
     private cartService: CartService) { }
 
-  ngOnInit() {console.log(this.product);
+  ngOnInit() {
 
     this.productsService.getById(this.product.productId).subscribe( res => {
       this.name = res.name;
     })
   }
 
-  delete() {
+  delete() {console.log(this.product.cartId + this.product._id);
 
-    this.cartService.deleteItem(this.product.cartId, this.product.id).subscribe( res => {
-      console.log(res);
+    this.cartService.deleteItem(this.product.cartId, this.product._id).subscribe( res => {
+      alert('The product deleted!');
     })
   }
 

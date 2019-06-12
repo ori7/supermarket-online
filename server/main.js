@@ -64,7 +64,7 @@ app.post('/products/filter', productsCtrl.getProductsWithfilter);
 app.post('/info/quantity', infoCtrl.getQuantity);
 app.get('/cart/:id', cartCtrl.getCart);
 app.get('/cart/cartItems/:id', cartCtrl.getCartItems);
-app.delete('/cart/cartItem/:cartId/:itemId', cartCtrl.deleteCartItem);
+app.delete('/cart/cartItem/:itemId', cartCtrl.deleteCartItem);
 app.post('/cart/cartItem', cartCtrl.addToCart);
 
 app.listen(PORT, () => {

@@ -1,5 +1,5 @@
 export interface productCartModel {
-    id: number,
+    _id: number,
     productId: number,
     quantity: number,
     price: number,

@@ -152,8 +152,17 @@ function addToCart(req, res) {
 
 function deleteCartItem(req, res) {
 
-    console.log(req.params.cartId);
-    console.log(req.params.itemId);
+    ProductCart.findOneAndDelete(
+        { _id: req.params.itemId },
+        (err, doc) => {
+            if (err) {
+                res.status(404);
+            }
+            else {
+                res.send(doc);
+            }
+        }
+    );
 }
 
 module.exports.getCart = getCart;
