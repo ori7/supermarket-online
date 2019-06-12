@@ -1,9 +1,15 @@
 <div class="row">
-    <div class="col-4">
-        <app-cart [userId]='userId'></app-cart>
+    <div class="col-5">
+        <app-cart *ngIf='!totalPrice; else order' [userId]='userId' (orderView)="openOrder($event)"></app-cart>
+        <ng-template #order>
+            <app-cart [userId]='userId' [orderStart]='orderStart'></app-cart>
+        </ng-template>
     </div>
-    <div class="col-8">
+    <div class="col-7" *ngIf='!totalPrice'>
         <app-categories-nav></app-categories-nav>
         <app-products-list [search]='search' (productId)="openPopupWindow($event)"></app-products-list>
+    </div>
+    <div class="col-7" *ngIf='totalPrice'>
+        <app-order [totalPrice]='totalPrice'></app-order>
     </div>
 </div>

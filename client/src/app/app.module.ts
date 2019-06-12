@@ -26,6 +26,7 @@ import { CartComponent } from './components/main-shoping/cart/cart.component';
 import { CategoriesNavComponent } from './components/main-shoping/categories-nav/categories-nav.component';
 import { CartItemComponent } from './components/main-shoping/cart-item/cart-item.component';
 import { PopupAddComponent } from './components/main-shoping/popup-add/popup-add.component';
+import { OrderComponent } from './components/main-shoping/order/order.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { PopupAddComponent } from './components/main-shoping/popup-add/popup-add
     CategoriesNavComponent,
     CartItemComponent,
     PopupAddComponent,
+    OrderComponent,
   ],
   entryComponents: [PopupAddComponent
   ],

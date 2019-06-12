@@ -1,4 +1,10 @@
-<span> {{ name }} , </span>
-<span> Quantity: {{ product.quantity }} , </span>
-<span> Price: {{ product.quantity * product.price }}$ , </span>
-<button type="button" class="btn btn-outline-dark btn-sm" (click)='delete()'>Delite</button>
+<div class="row">
+    <div class="col-10">
+        <span> {{ name }} , </span>
+        <span> Quantity: {{ product.quantity }} , </span>
+        <span> Price: {{ product.quantity * product.price }}$ </span>
+    </div>
+    <div>
+        <button *ngIf='!orderStart' type="button" class="btn btn-outline-dark btn-sm" (click)='delete()'>Delite</button>
+    </div>
+</div>

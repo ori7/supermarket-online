@@ -11,6 +11,7 @@ import { CartService } from 'src/app/services/cart.service';
 export class CartItemComponent implements OnInit {
 
   @Input() product: productCartModel;
+  @Input() orderStart: boolean;
   name: string;
   
   constructor(private productsService: ProductsService,

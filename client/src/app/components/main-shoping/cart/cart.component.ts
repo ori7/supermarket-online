@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { cartModel } from 'src/app/models/cart';
 import { CartService } from 'src/app/services/cart.service';
 import { productCartModel } from 'src/app/models/productCart';
@@ -11,14 +11,16 @@ import { productCartModel } from 'src/app/models/productCart';
 export class CartComponent implements OnInit {
 
   @Input() userId: number;
+  @Input() orderStart: boolean;
   cart: cartModel;
   products: productCartModel[];
   emptyCart: string;
   totalPrice: number;
+  @Output() orderView: EventEmitter<number> = new EventEmitter<number>(); 
 
   constructor(private cartService: CartService) { }
 
-  ngOnInit() {
+  ngOnInit() {console.log(this.orderStart);
 
     this.products = <productCartModel[]>[];
 
@@ -46,5 +48,10 @@ export class CartComponent implements OnInit {
     for (let i = 0; i < products.length; i++) {
       this.totalPrice += products[i].price;
     }
+  }
+
+  order() {
+
+    this.orderView.emit(this.totalPrice);
   }
 }

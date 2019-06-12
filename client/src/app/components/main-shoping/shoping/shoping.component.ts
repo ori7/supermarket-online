@@ -17,6 +17,8 @@ export class ShopingComponent implements OnInit {
   user: UserModel;
   search: string | number;
   userId: number;
+  totalPrice: number;
+  orderStart: boolean;
 
   constructor(private productsService: ProductsService,
     private loginService: LoginService,
@@ -57,4 +59,9 @@ export class ShopingComponent implements OnInit {
     modalRef.componentInstance.userId = this.userId;
   }
 
+  openOrder(totalPrice) {
+
+    this.orderStart = true;
+    this.totalPrice = totalPrice;
+  }
 }
