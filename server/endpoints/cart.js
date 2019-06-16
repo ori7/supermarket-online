@@ -4,31 +4,28 @@ const Counter = require('../models/counter.model');
 
 function getCart(req, res) {
 
-    Cart.findOne({ userId: req.params.id, status: 'open' }).exec(function (error, result) {
+    Cart.findOne({ userId: req.params.userId, status: req.body.status }).exec(function (error, result) {
         if (result)
             res.send(result);
-        else {
-            createCart(req.params.id, function (error, result) {
-                if (error)
-                    res.status(404);
-                else {
-                    saveObject(result, function (e, r) {
-                        if (e)
-                            res.status(404);
-                        else
-                            res.send(r);
-                    });
-                }
-            });
-        }
-    });
+        else
+            res.status(404);
+    })
 }
 
-function getCarts(req, res) {
+async function createCart(req, res) {
 
-    Cart.find({ userId: req.params.id }).exec(function (error, result) {
-        if (result)
-            res.send(result);
+    let newCart = await buildNewCart(req.params.userId);
+    getId('cartId', async function (error, result) {
+        if (result) {
+            await updateSequence('cartId', function (e, r) {
+                if (e)
+                    res.status(404);
+                else {
+                    newCart._id = result.seq;
+                    res.send(newCart);
+                }
+            })
+        }
         else
             res.status(404);
     })
@@ -44,24 +41,6 @@ function saveObject(object, callback) {
             callback(null, res);
         }
     });
-}
-
-async function createCart(userId, callback) {
-
-    let newCart = await buildNewCart(userId);
-    getId('cartId', async function (error, result) {
-        if (result) {
-            newCart._id = result.seq;
-            await updateSequence('cartId', function (e, r) {
-                if (e)
-                    callback(e);
-            })
-            callback(null, newCart);
-        }
-        else {
-            callback(error);
-        }
-    })
 }
 
 function buildNewCart(userId) {
@@ -177,7 +156,7 @@ function deleteCartItem(req, res) {
 }
 
 module.exports.getCart = getCart;
-module.exports.getCarts = getCarts;
+module.exports.createCart = createCart;
 module.exports.getCartItems = getCartItems;
 module.exports.addToCart = addToCart;
 module.exports.deleteCartItem = deleteCartItem;

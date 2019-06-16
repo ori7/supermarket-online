@@ -5,20 +5,20 @@
     </div>
     <hr>
     <div class="text-warning">
-      <div *ngIf='cart'>
+      <div *ngIf='cart.status === "open"'>
         <h5>You have an active shopping cart!</h5>
         <div>Current price: {{ currentPrice }}$</div>
         <div>Date: {{ cart.createdDate }}</div>
       </div>
-      <div *ngIf='!welcome && !cart'>
+      <div *ngIf='cart.status === "close"'>
         <h5>This is your last shopping cart:</h5>
       </div>
-      <div *ngIf='welcome'>
+      <div *ngIf='!cart'>
         <h5> {{ welcome }}</h5>
       </div>
     </div>
-    <div *ngIf='!welcome' class="cart">
-      <app-cart [userId]='user.id' [onlyView]='ViewCart'></app-cart>
+    <div *ngIf='cart' class="cart frame">
+      <app-cart [userId]='user.id' [onlyView]='cart.status'></app-cart>
     </div>
     <br>
     <button type="button" class="btn btn-primary" id="start" (click)='goShoping()'>{{ shoppingButtton }}</button>

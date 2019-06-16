@@ -24,9 +24,14 @@ export class CartService {
     this.productsInCart = new BehaviorSubject<productCartModel[]>(null);
   }
 
-  getCart(id: number): Observable<cartModel> {
+  getCart(userId: number, status: string): Observable<cartModel> {
 
-    return this.httpClient.get<cartModel>(environment.serverUrl + this.ENDPOINTS.cart + id);
+    return this.httpClient.post<cartModel>(environment.serverUrl + this.ENDPOINTS.cart + userId, {status: status} );
+  }
+
+  createCart(userId: number): Observable<cartModel> {
+
+    return this.httpClient.get<cartModel>(environment.serverUrl + this.ENDPOINTS.cart + userId);
   }
 
   getProducts(id: number): Observable<productCartModel[]> {
@@ -69,11 +74,6 @@ export class CartService {
     this.getProducts(cartId).subscribe( res => {
       this.productsInCart.next(res);
     })
-  }
-
-  getCarts(id: number): Observable<cartModel> {
-
-    return this.httpClient.get<cartModel>(environment.serverUrl + this.ENDPOINTS.carts + id);
   }
 
 }

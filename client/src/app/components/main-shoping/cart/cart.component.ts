@@ -11,12 +11,12 @@ import { productCartModel } from 'src/app/models/productCart';
 export class CartComponent implements OnInit {
 
   @Input() userId: number;
-  @Input() onlyView: boolean;
+  @Input() onlyView: string;
   cart: cartModel;
   products: productCartModel[];
   emptyCart: string;
   totalPrice: number;
-  @Output() orderView: EventEmitter<number> = new EventEmitter<number>(); 
+  @Output() orderView: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private cartService: CartService) { }
 
@@ -24,13 +24,26 @@ export class CartComponent implements OnInit {
 
     this.products = <productCartModel[]>[];
 
-    this.cartService.getCart(this.userId).subscribe(res => {
-      this.cart = res; console.log(this.cart);
-      this.cartService.getProducts(this.cart._id).subscribe(resProducts => {
-        this.products = resProducts; console.log(this.products);
-        this.getTotalPrice(this.products);
+    if (this.onlyView) {
+      this.cartService.getCart(this.userId, this.onlyView).subscribe(res => {
+        this.cart = res; console.log(this.cart);
+        this.getProducts(this.cart._id);
       })
-    })
+    }
+    else {
+      this.cartService.getCart(this.userId, 'open').subscribe(res => {
+        if (res) {
+          this.cart = res; console.log(this.cart);
+          this.getProducts(this.cart._id);
+        }
+        else {
+          this.cartService.createCart(this.userId).subscribe(newCart => {
+            this.cart = newCart; console.log(this.cart);
+            this.getProducts(this.cart._id);
+          })
+        }
+      })
+    }
 
     this.cartService.productsInCart.subscribe(res => {
       this.products = res;
@@ -42,11 +55,18 @@ export class CartComponent implements OnInit {
     this.emptyCart = 'Your cart is empty!';
   }
 
+  getProducts(id) {
+
+    this.cartService.getProducts(id).subscribe(resProducts => {
+      this.products = resProducts; console.log(this.products);
+      this.getTotalPrice(this.products);
+    })
+  }
   getTotalPrice(products) {
 
     this.totalPrice = 0;
     for (let i = 0; i < products.length; i++) {
-      this.totalPrice += products[i].price * products[i].quantity;
+      this.totalPrice += products[i].price;
     }
   }
 

@@ -1,14 +1,12 @@
-<div class="frame">
-  <h4 class="font-weight-bold text-center"><u>Shopping cart</u></h4>
-  <div *ngIf='!products' class="alert text-center">{{ emptyCart }} </div>
-  <ul class="list-group list-group-item-action" *ngFor='let product of products'>
-    <li class="list-group-item list-group-item-action list-group-item-light">
-      <app-cart-item [product]='product' [onlyView]='onlyView'></app-cart-item>
-    </li>
-  </ul>
-  <hr>
-  <div class="row">
-    <div class="col-9 font-weight-bold">Total price: {{ totalPrice }}$ </div>
-    <button *ngIf='!onlyView' class="btn btn-outline-dark" (click)="order()">Order</button>
-  </div>
+<h4 class="font-weight-bold text-center"><u>Shopping cart</u></h4>
+<div *ngIf='!products' class="alert text-center">{{ emptyCart }} </div>
+<ul class="list-group list-group-item-action" *ngFor='let product of products'>
+  <li class="list-group-item list-group-item-action list-group-item-light">
+    <app-cart-item [product]='product' [onlyView]='onlyView'></app-cart-item>
+  </li>
+</ul>
+<hr>
+<div class="row">
+  <div class="col-9 font-weight-bold">Total price: {{ totalPrice }}$ </div>
+  <button *ngIf='!onlyView' class="btn btn-outline-dark" (click)="order()">Order</button>
 </div>

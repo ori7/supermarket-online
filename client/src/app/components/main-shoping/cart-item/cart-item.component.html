@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-10">
-        <span> {{ name }} , </span>
+        <img [src]="productDetails.picture" width="40px" height="25px"> 
+        <span> {{ productDetails.name }} , </span>
         <span> Quantity: {{ product.quantity }} , </span>
         <span> Price: {{ product.quantity * product.price }}$ </span>
     </div>

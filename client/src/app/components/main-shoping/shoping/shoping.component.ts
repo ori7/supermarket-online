@@ -3,7 +3,6 @@ import { UserModel } from 'src/app/models/user';
 import { ProductsService } from 'src/app/services/products.service';
 import { LoginService } from 'src/app/services/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CartService } from 'src/app/services/cart.service';
 import { PopupAddComponent } from '../popup-add/popup-add.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,7 +17,7 @@ export class ShopingComponent implements OnInit {
   search: string | number;
   userId: number;
   totalPrice: number;
-  onlyView: boolean;
+  onlyView: string;
 
   constructor(private productsService: ProductsService,
     private loginService: LoginService,
@@ -61,7 +60,7 @@ export class ShopingComponent implements OnInit {
 
   openOrder(totalPrice) {
 
-    this.onlyView = true;
+    this.onlyView = 'open';
     this.totalPrice = totalPrice;
   }
 }

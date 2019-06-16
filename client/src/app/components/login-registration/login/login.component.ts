@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
   name: string;
   shoppingButtton: string;
   cart: cartModel;
-  ViewCart: boolean;
   welcome: string;
   currentPrice: number;
 
@@ -28,6 +27,7 @@ export class LoginComponent implements OnInit {
     private cartService: CartService) {
 
     this.user = <UserModel>{};
+    this.cart = <cartModel>{};
     this.shoppingButtton = 'Start shoping';
   }
 
@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
     if (this.token) {
       this.userComeBack(this.token);
     }
-    this.ViewCart = true;
   }
 
   login() {
@@ -87,32 +86,43 @@ export class LoginComponent implements OnInit {
 
   checkUser(userId) {
 
-    this.cartService.getCarts(userId).subscribe(res => { 
-      if (Array.isArray(res)) {
-        for (let i = 0; i < res.length; i++) {
-          if (res[i].status === 'open') {
-            this.cartService.getProducts(res[i]._id).subscribe(resProducts => {
-              if (Array.isArray(resProducts)) {
-                if (resProducts.length > 0) {
-                  this.currentPrice = this.getCurrentPrice(resProducts);
-                  this.cart = res[i];
-                  this.shoppingButtton = 'Resume shoping';
-                }
-              }
-            })
+    /*
+    לפצל get וcreate בserver
+    כאן: לבדוק אם יש עגלה ומה הסטטוס שלה ולבדוק אם יש מוצרים להביא אותה
+    בתוך app-cart, אם זה רק לצפייה להביא עגלה קיימת, ואם לא - להביא עגלה פתוחה בלבד ואם אין למחוק סגורה וליצור חדשה
+    */
+    this.cartService.getCart(userId, 'open').subscribe(res => {
+      if (res) {
+        this.cartService.getProducts(res._id).subscribe(resProducts => {
+          if (resProducts.length > 0) {
+            this.currentPrice = this.getCurrentPrice(resProducts);
+            this.cart = res;
+            this.shoppingButtton = 'Resume shoping';
           }
-        }
+          else
+            this.getCloseCart(userId);
+        })
       }
       else
-        this.welcome = 'Welcome to your first shoping!'
-    });
+        this.getCloseCart(userId);
+    })
+  }
+
+  getCloseCart(userId) {
+
+    this.cartService.getCart(userId, 'close').subscribe(res => {
+      if (res)
+        this.cart = res;
+      else
+        this.cart = null;
+    })
   }
 
   getCurrentPrice(products) {
 
     let price = 0;
     for (let i = 0; i < products.length; i++) {
-      price += products[i].price * products[i].quantity;
+      price += products[i].price;
     }
     return price;
   }

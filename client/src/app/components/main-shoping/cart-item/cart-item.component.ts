@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { productCartModel } from 'src/app/models/productCart';
 import { ProductsService } from 'src/app/services/products.service';
 import { CartService } from 'src/app/services/cart.service';
+import { ProductModel } from 'src/app/models/product';
 
 @Component({
   selector: 'app-cart-item',
@@ -11,15 +12,19 @@ import { CartService } from 'src/app/services/cart.service';
 export class CartItemComponent implements OnInit {
 
   @Input() product: productCartModel;
-  @Input() onlyView: boolean;
+  @Input() onlyView: string;
+  productDetails: ProductModel;
   name: string;
   
   constructor(private productsService: ProductsService,
-    private cartService: CartService) { }
+    private cartService: CartService) { 
+      this.productDetails = <ProductModel>{};
+    }
 
   ngOnInit() {
 
     this.productsService.getById(this.product.productId).subscribe( res => {
+      this.productDetails = res;
       this.name = res.name;
     })
   }
