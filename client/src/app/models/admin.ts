@@ -1,7 +1,6 @@
-export interface AdminModel {
-    id: number,
-    name: string,
-    lastName: string,
-    email: string,
-    password: string
+import { PersonModel } from './person';
+
+export interface AdminModel extends PersonModel {
+
+    role: number;
 }

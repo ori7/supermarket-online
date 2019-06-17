@@ -18,7 +18,7 @@ export class LogOutComponent implements OnInit {
     sessionStorage.removeItem('role');
     localStorage.removeItem('token');
     this.loginService.isLogged.next(false);
-    this.loginService.dstails.next([]);
+    this.loginService.details.next([]);
     this.router.navigate(['/login']);
   }
 

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { cartModel } from '../models/cart';
+import { CartModel } from '../models/cart';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { productCartModel } from '../models/productCart';
+import { ProductCartModel } from '../models/productCart';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
@@ -11,7 +11,7 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class CartService {
 
-  productsInCart: BehaviorSubject<productCartModel[]>
+  productsInCart: BehaviorSubject<ProductCartModel[]>
   ENDPOINTS = {
     cart: "cart/",
     carts: "carts/",
@@ -21,22 +21,22 @@ export class CartService {
 
   constructor(private httpClient: HttpClient) { 
 
-    this.productsInCart = new BehaviorSubject<productCartModel[]>(null);
+    this.productsInCart = new BehaviorSubject<ProductCartModel[]>(null);
   }
 
-  getCart(userId: number, status: string): Observable<cartModel> {
+  getCart(userId: number, status: string): Observable<CartModel> {
 
-    return this.httpClient.post<cartModel>(environment.serverUrl + this.ENDPOINTS.cart + userId, {status: status} );
+    return this.httpClient.post<CartModel>(environment.serverUrl + this.ENDPOINTS.cart + userId, {status: status} );
   }
 
-  createCart(userId: number): Observable<cartModel> {
+  createCart(userId: number): Observable<CartModel> {
 
-    return this.httpClient.get<cartModel>(environment.serverUrl + this.ENDPOINTS.cart + userId);
+    return this.httpClient.get<CartModel>(environment.serverUrl + this.ENDPOINTS.cart + userId);
   }
 
-  getProducts(id: number): Observable<productCartModel[]> {
+  getProducts(id: number): Observable<ProductCartModel[]> {
 
-    return this.httpClient.get<productCartModel[]>(environment.serverUrl + this.ENDPOINTS.cart + this.ENDPOINTS.cartItems + id);
+    return this.httpClient.get<ProductCartModel[]>(environment.serverUrl + this.ENDPOINTS.cart + this.ENDPOINTS.cartItems + id);
   }
 
   deleteItem(cartId: number, itemId: number): Observable<object> {
@@ -54,7 +54,7 @@ export class CartService {
     );
   }
 
-  addToCart(product: productCartModel): Observable<object> {
+  addToCart(product: ProductCartModel): Observable<object> {
 
     return this.httpClient.post<object>(environment.serverUrl + this.ENDPOINTS.cart + this.ENDPOINTS.cartItem, product).pipe(
       catchError(errorRes => {

@@ -42,7 +42,7 @@ export class ShopingComponent implements OnInit {
       this.search = res;
     });
 
-    if (!this.loginService.dstails.getValue().length) {   //  The page refreshes. Navigate to the 'login' page to refresh user data. 
+    if (!this.loginService.details.getValue().length) {   //  The page refreshes. Navigate to the 'login' page to refresh user data. 
       this.router.navigate(['/login']);
     }
 

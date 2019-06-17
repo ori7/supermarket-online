@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-    this.loginService.dstails.subscribe(res => {
+    this.loginService.details.subscribe(res => {
       this.name = res[0];  
       if (res[1] === 'admin')
         this.admin = true;

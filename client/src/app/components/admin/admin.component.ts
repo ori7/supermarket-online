@@ -22,7 +22,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
 
-    if (!this.loginService.dstails.getValue().length) {   //  The page refreshes. The admin needs to reconnect!
+    if (!this.loginService.details.getValue().length) {   //  The page refreshes. The admin needs to reconnect!
       this.router.navigate(['/logOut']);
     }
 

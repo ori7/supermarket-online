@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { productCartModel } from 'src/app/models/productCart';
+import { ProductCartModel } from 'src/app/models/productCart';
 import { ProductsService } from 'src/app/services/products.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductModel } from 'src/app/models/product';
@@ -11,7 +11,7 @@ import { ProductModel } from 'src/app/models/product';
 })
 export class CartItemComponent implements OnInit {
 
-  @Input() product: productCartModel;
+  @Input() product: ProductCartModel;
   @Input() onlyView: string;
   productDetails: ProductModel;
   name: string;

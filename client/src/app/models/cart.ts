@@ -1,6 +1,5 @@
-import { productCartModel } from './productCart';
+export interface CartModel {
 
-export interface cartModel {
     _id: number,
     userId: number,
     createdDate: Date,

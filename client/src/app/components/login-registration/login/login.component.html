@@ -1,6 +1,6 @@
 <div>
   <div *ngIf='name; else showForm'>
-    <div class="d-flex"> welcome {{name}} !
+    <div class="d-flex"> welcome {{ user.name }} !
       <a class="ml-auto" href="#" [routerLink]="['/logOut']"> Log out! </a>
     </div>
     <hr>

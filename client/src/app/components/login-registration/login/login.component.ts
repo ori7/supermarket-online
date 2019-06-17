@@ -1,10 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserModel } from 'src/app/models/user';
 import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
 import jwt_decode from "jwt-decode";
 import { CartService } from 'src/app/services/cart.service';
-import { cartModel } from 'src/app/models/cart';
+import { CartModel } from 'src/app/models/cart';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +16,8 @@ export class LoginComponent implements OnInit {
   loginError: string;
   user: UserModel;
   token: string;
-  name: string;
   shoppingButtton: string;
-  cart: cartModel;
-  welcome: string;
+  cart: CartModel;
   currentPrice: number;
 
   constructor(private loginService: LoginService,
@@ -27,13 +25,13 @@ export class LoginComponent implements OnInit {
     private cartService: CartService) {
 
     this.user = <UserModel>{};
-    this.cart = <cartModel>{};
+    this.cart = <CartModel>{};
     this.shoppingButtton = 'Start shoping';
   }
 
   ngOnInit() {
 
-    this.loginService.dstails.next([]);  //  If the user returns to the 'login' page, clears user details to hide the 'shoping' nav.
+    this.loginService.details.next([]);  //  If the user returns to the 'login' page, clears user details to hide the 'shoping' nav.
     this.token = localStorage.getItem('token');
     if (this.token) {
       this.userComeBack(this.token);
@@ -61,14 +59,14 @@ export class LoginComponent implements OnInit {
   loginAdmin() {
 
     sessionStorage.setItem('role', '1');
-    this.loginService.dstails.next([this.name, 'admin']);
+    this.loginService.details.next([this.user.name, 'admin']);
     this.router.navigate(['/admin']);
   }
 
   saveUser(user) {
 
     sessionStorage.setItem('name', user.user);
-    this.name = user.user;
+    this.user.name = user.user;
     this.user.id = user.id;
   }
 
@@ -90,6 +88,12 @@ export class LoginComponent implements OnInit {
     לפצל get וcreate בserver
     כאן: לבדוק אם יש עגלה ומה הסטטוס שלה ולבדוק אם יש מוצרים להביא אותה
     בתוך app-cart, אם זה רק לצפייה להביא עגלה קיימת, ואם לא - להביא עגלה פתוחה בלבד ואם אין למחוק סגורה וליצור חדשה
+    */
+
+    /*
+    First, check if the user has an active shopping cart with products.
+    If not, bring the latest shopping cart (ordered).
+    Otherwise, this is a first purchase, Welcome!
     */
     this.cartService.getCart(userId, 'open').subscribe(res => {
       if (res) {
@@ -129,7 +133,7 @@ export class LoginComponent implements OnInit {
 
   goShoping() {
 
-    this.loginService.dstails.next([this.name]);
+    this.loginService.details.next([this.user.name]);
     this.router.navigate(['/shoping', this.user.id]);
   }
 }

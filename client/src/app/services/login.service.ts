@@ -16,13 +16,12 @@ export class LoginService {
     carts: "carts"
   };
   isLogged: BehaviorSubject<boolean>;
-  token = '47v62b7468o765v87';
-  dstails: BehaviorSubject<string[]>;
+  details: BehaviorSubject<string[]>;
 
   constructor(private httpClient: HttpClient) {
 
     this.isLogged = new BehaviorSubject<boolean>(this.getToken() != null);
-    this.dstails = new BehaviorSubject<string[]>([]);
+    this.details = new BehaviorSubject<string[]>([]);
   }
 
   login(user: UserModel): Observable<object> {
@@ -35,10 +34,8 @@ export class LoginService {
       map(tokenRes => {
         if (tokenRes) {
           window.localStorage.setItem('token', tokenRes);
-          //sessionStorage.setItem('token', tokenRes);
           this.isLogged.next(true);
           const decode = jwt_decode(tokenRes);
-          console.log(decode);
           return decode;
         }
       })

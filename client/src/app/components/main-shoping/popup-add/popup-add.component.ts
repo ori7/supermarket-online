@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductsService } from 'src/app/services/products.service';
 import { ProductModel } from 'src/app/models/product';
-import { productCartModel } from 'src/app/models/productCart';
+import { ProductCartModel } from 'src/app/models/productCart';
 import { CartService } from 'src/app/services/cart.service';
-import { cartModel } from 'src/app/models/cart';
+import { CartModel } from 'src/app/models/cart';
 
 @Component({
   selector: 'app-popup-add',
@@ -17,8 +17,8 @@ export class PopupAddComponent implements OnInit {
   userId: number;
   product: ProductModel;
   quantity: number;
-  productCart: productCartModel;
-  cart: cartModel;
+  productCart: ProductCartModel;
+  cart: CartModel;
 
   constructor(public activeModal: NgbActiveModal,
     private productsService: ProductsService,
@@ -28,7 +28,7 @@ export class PopupAddComponent implements OnInit {
   ngOnInit() {
 
     this.product = <ProductModel>{};
-    this.productCart = <productCartModel>{};
+    this.productCart = <ProductCartModel>{};
     this.quantity = 1;
 
     this.productsService.getById(this.id).subscribe(res => {

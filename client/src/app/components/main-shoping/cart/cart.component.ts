@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { cartModel } from 'src/app/models/cart';
+import { CartModel } from 'src/app/models/cart';
 import { CartService } from 'src/app/services/cart.service';
-import { productCartModel } from 'src/app/models/productCart';
+import { ProductCartModel } from 'src/app/models/productCart';
 
 @Component({
   selector: 'app-cart',
@@ -12,8 +12,8 @@ export class CartComponent implements OnInit {
 
   @Input() userId: number;
   @Input() onlyView: string;
-  cart: cartModel;
-  products: productCartModel[];
+  cart: CartModel;
+  products: ProductCartModel[];
   emptyCart: string;
   totalPrice: number;
   @Output() orderView: EventEmitter<number> = new EventEmitter<number>();
@@ -22,7 +22,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
 
-    this.products = <productCartModel[]>[];
+    this.products = <ProductCartModel[]>[];
 
     if (this.onlyView) {
       this.cartService.getCart(this.userId, this.onlyView).subscribe(res => {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { ProductModel } from '../models/product';
 import { HttpClient } from '@angular/common/http';
 import { CategoryModel } from '../models/category';
@@ -31,29 +31,6 @@ export class ProductsService {
   getProducts(): Observable<ProductModel[]> {
 
     return this.httpClient.get<ProductModel[]>(environment.serverUrl + this.ENDPOINTS.products);
-    return of([
-      {
-        _id: 1,
-        name: 'Egg carton',
-        categoryId: 2,
-        price: 15,
-        picture: 'assets/upload/eggs.jpg'
-      },
-      {
-        _id: 2,
-        name: 'Bread',
-        categoryId: 3,
-        price: 10,
-        picture: 'assets/upload/bread.jpg'
-      },
-      {
-        _id: 3,
-        name: 'Bottle of water',
-        categoryId: 5,
-        price: 10,
-        picture: 'assets/upload/water.jpg'
-      }
-    ])
   }
 
   getCategories(): Observable<CategoryModel[]> {

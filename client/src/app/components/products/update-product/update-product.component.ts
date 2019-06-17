@@ -11,7 +11,6 @@ import { AdminService } from 'src/app/services/admin.service';
 })
 export class UpdateProductComponent implements OnInit {
 
-    //@Input() productId: number;
     product: ProductModel;
     categories: CategoryModel[];
     file: File;
