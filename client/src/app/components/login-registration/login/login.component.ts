@@ -49,7 +49,8 @@ export class LoginComponent implements OnInit {
         }
         else
           this.checkUser(res['id']);
-      } else {
+      }
+      else {
         this.user.email = this.user.password = '';
         this.loginError = "Error with login!";
       }

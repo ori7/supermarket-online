@@ -11,12 +11,11 @@ import { environment } from 'src/environments/environment';
 export class ProductsService {
 
   ENDPOINTS = {
-    products: "products",
+    products: "products/",
     categories: "categories",
-    info: "info",
-    filter: "/filter",
-    quantity: "/quantity",
-    id: "/id/"
+    info: "info/",
+    filter: "filter",
+    quantity: "quantity"
   };
   filterProducts: BehaviorSubject<string>;
   filterCategories: BehaviorSubject<number | string>;
@@ -54,7 +53,7 @@ export class ProductsService {
 
   getById(id: number): Observable<ProductModel> {
 
-    return this.httpClient.get<ProductModel>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.id + id);
+    return this.httpClient.get<ProductModel>(environment.serverUrl + this.ENDPOINTS.products + id);
   }
 
   getQuantity(id: string): Observable<number> {

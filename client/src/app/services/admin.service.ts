@@ -12,7 +12,7 @@ export class AdminService {
 
   ENDPOINTS = {
     admin: "admin",
-    products: "products",
+    products: "products/",
     categories: "categories",
     id: "/id",
     insert: "/insert",
@@ -37,14 +37,19 @@ export class AdminService {
     return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINTS.admin + this.ENDPOINTS.insert, product);
   }
 
-  getById(id: object): Observable<ProductModel> {
+  getById(id: number): Observable<ProductModel> {
 
-    return this.httpClient.post<ProductModel>(environment.serverUrl + this.ENDPOINTS.products + this.ENDPOINTS.id, id);
+    return this.httpClient.get<ProductModel>(environment.serverUrl + this.ENDPOINTS.products + id);
   }
 
   updateProduct(product: object): Observable<string> {
 
-    return this.httpClient.post<string>(environment.serverUrl + this.ENDPOINTS.admin + this.ENDPOINTS.update, product);
+    return this.httpClient.put<string>(environment.serverUrl + this.ENDPOINTS.admin + this.ENDPOINTS.update, product);
+  }
+
+  saveImage(img: object) { console.log(img);
+
+    return this.httpClient.post<object>(environment.serverUrl + 'saveFile', img);
   }
 
 }

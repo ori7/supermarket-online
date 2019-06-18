@@ -101,5 +101,12 @@ function updateProduct(req, res) {
             res.status(401);
     });
 }
+
+function saveFile(req, res) {
+
+    console.log(req.body);
+}
+
 module.exports.insertNewProduct = insertNewProduct;
 module.exports.updateProduct = updateProduct;
+module.exports.saveFile = saveFile;

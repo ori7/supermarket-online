@@ -35,6 +35,11 @@ export class AddProductComponent implements OnInit {
     this.adminService.insertProduct(this.product).subscribe(res => {
       if (res) {
         alert('The product ' + res + ' added successfully!');
+        /*
+        We need to refresh 'admin' page for it will be updated on the new data.
+        Since we are inside the 'admin' page, we can't navigate to the same page. 
+        So we navigated through another middle address, and when we get back to this page, it refreshes.
+        */
         this.router.navigate(["/refrsh"], { skipLocationChange: true }).then(() =>
         this.router.navigate(["/admin"]));
       }

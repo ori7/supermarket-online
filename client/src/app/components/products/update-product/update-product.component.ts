@@ -22,12 +22,12 @@ export class UpdateProductComponent implements OnInit {
 
         this.product = <ProductModel>{};
 
-        this.adminService.getCategories().subscribe(res => {
+        this.adminService.getCategories().subscribe( res => {
             this.categories = res;
         })
 
-        this.adminService.updateId.subscribe(res => {
-            this.adminService.getById({ id: res }).subscribe(res => {
+        this.adminService.updateId.subscribe( res => {
+            this.adminService.getById( res ).subscribe(res => {
                 this.product = res;
             })
         })
@@ -40,7 +40,7 @@ export class UpdateProductComponent implements OnInit {
             this.product.picture = "assets/upload/" + this.file['name'];
             this.saveImage();
         }
-        this.adminService.updateProduct(this.product).subscribe(res => {
+        this.adminService.updateProduct(this.product).subscribe( res => {
             if (res) {
                 alert('The product ' + res + ' updated successfully!');
                 this.router.navigate(["/refrsh"], { skipLocationChange: true }).then(() =>
@@ -61,6 +61,9 @@ export class UpdateProductComponent implements OnInit {
     saveImage() {
 
       // TODO: Save the image in the assets/upload folder
+      this.adminService.saveImage(this.file).subscribe( res => {
+        console.log('good');
+      })
     }
 
 }
