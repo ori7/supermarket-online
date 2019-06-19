@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UserModel } from 'src/app/models/user';
 import { ProductsService } from 'src/app/services/products.service';
 import { LoginService } from 'src/app/services/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -7,26 +6,20 @@ import { PopupAddComponent } from '../popup-add/popup-add.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-shoping',
-  templateUrl: './shoping.component.html',
-  styleUrls: ['./shoping.component.css']
+  selector: 'app-shoping-view',
+  templateUrl: './shoping-view.component.html',
+  styleUrls: ['./shoping-view.component.css']
 })
-export class ShopingComponent implements OnInit {
+export class ShopingViewComponent implements OnInit {
 
-  user: UserModel;
   search: string | number;
   userId: number;
-  totalPrice: number;
-  onlyView: string;
 
   constructor(private productsService: ProductsService,
     private loginService: LoginService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private ngbModal: NgbModal) { 
-
-      this.user = <UserModel>{};
-  }
+    private ngbModal: NgbModal) { }
 
   ngOnInit() {
 
@@ -60,7 +53,6 @@ export class ShopingComponent implements OnInit {
 
   openOrder(totalPrice) {
 
-    this.onlyView = 'open';
-    this.totalPrice = totalPrice;
+    this.router.navigate(['/order', this.userId]);
   }
 }

@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-6">
+    <div class="frame">
+      <button class="btn btn-outline-dark float-right" (click)="backToShoping()">Back To Shoping</button>
+      <br>
+      <app-cart [userId]='userId' [onlyView]='onlyView'></app-cart>
+    </div>
+  </div>
+  <div class="col-6">
+    <app-order></app-order>
+  </div>
+</div>

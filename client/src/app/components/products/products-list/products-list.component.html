@@ -1,6 +1,6 @@
 <section class='row'>
-  <div  *ngIf='productsArray?.length > 0; else noProducrs'>
+  <div  *ngIf='productsArray?.length > 0; else noProducts'>
     <app-product-item *ngFor='let p of productsArray' [product]='p' (productId)="passId($event)"></app-product-item>
   </div>
-  <ng-template #noProducrs><strong> There are no products! </strong></ng-template>
+  <ng-template #noProducts><strong> There are no products! </strong></ng-template>
 </section>

@@ -62,6 +62,7 @@ export class CartComponent implements OnInit {
       this.getTotalPrice(this.products);
     })
   }
+  
   getTotalPrice(products) {
 
     this.totalPrice = 0;
