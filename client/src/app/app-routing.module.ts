@@ -10,6 +10,7 @@ import { AdminComponent } from './components/main-admin/admin-view/admin.compone
 import { AdminGuard } from './guards/admin.guard';
 import { AboutComponent } from './components/main-page/about/about.component';
 import { OrderViewComponent } from './components/main-order/order-view/order-view.component';
+import { OrderGuard } from './guards/order.guard';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent, pathMatch: 'full' },
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: 'logOut', component: LogOutComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
   { path: 'shoping/:id', component: ShopingViewComponent, canActivate: [LoggedGuard] },
-  { path: 'order/:id', component: OrderViewComponent },
+  { path: 'order/:id', component: OrderViewComponent, canActivate: [OrderGuard] },
   { path: 'refrsh', component: AboutComponent }
 ];
 
