@@ -73,6 +73,6 @@ export class CartComponent implements OnInit {
 
   order() {
 
-    this.orderView.emit(this.totalPrice);
+    this.orderView.emit(this.cart._id);
   }
 }

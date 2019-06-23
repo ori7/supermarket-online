@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
   selector: 'app-order',
@@ -7,11 +9,44 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class OrderComponent implements OnInit {
 
-  @Input() totalPrice: number;
+  alertArray: string[];
+  citiesList: string[];
 
-  constructor() { }
+  orderForm = new FormGroup({
+    city: new FormControl(''),
+    street: new FormControl(''),
+    date: new FormControl(''),
+    creditCard: new FormControl(''),
+  });
+  
+  @Input() cartId: number;
 
-  ngOnInit() {console.log(this.totalPrice);
+  constructor(private registerService: RegisterService) { 
+
+    this.alertArray = [];
+    this.citiesList = [];
+  }
+
+  ngOnInit() {console.log(this.cartId);
+
+    const cities = this.registerService.getCities();
+    for (const key in cities) {
+      this.citiesList.push(cities[key]);
+    }
+  }
+
+  order() {
+
+    this.checkValues();
+  }
+
+  checkValues() {
+
+    for (var key in this.orderForm.value) {
+      if (this.orderForm.value[key] === '') {
+        this.alertArray.push(key + ' required!');
+      }
+    }
   }
 
 }

@@ -21,7 +21,7 @@ export class RegisterStepTwoComponent implements OnInit {
   });
 
   constructor(private router: Router,
-    private RegisterService: RegisterService) {
+    private registerService: RegisterService) {
 
     this.alertArray = [];
     this.citiesList = [];
@@ -29,7 +29,7 @@ export class RegisterStepTwoComponent implements OnInit {
 
   ngOnInit() {
 
-    const cities = this.RegisterService.getCities();
+    const cities = this.registerService.getCities();
     for (const key in cities) {
       this.citiesList.push(cities[key]);
     }
@@ -38,9 +38,9 @@ export class RegisterStepTwoComponent implements OnInit {
   save() {
 
     this.checkValues();
-    this.RegisterService.createUser2(this.registerForm.value);
-    this.RegisterService.saveUser().subscribe(res => {
-      if (res){console.log(res);
+    this.registerService.createUser2(this.registerForm.value);
+    this.registerService.saveUser().subscribe(res => {
+      if (res){
         sessionStorage.setItem('user', res['user']);
         this.router.navigate(['/shoping']);
       }

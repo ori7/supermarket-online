@@ -2,11 +2,16 @@
   <div class="col-6">
     <div class="frame">
       <button class="btn btn-outline-dark float-right" (click)="backToShoping()">Back To Shoping</button>
-      <br>
+      <div class="form-inline">
+        <label for="milk">Search in the shoping cart:</label>
+        <input [(ngModel)]='searce' type="text" (input)="keyPress()" class="form-control" id="milk" placeholder="search"
+          name="milk">
+      </div>
+      <hr>
       <app-cart [userId]='userId' [onlyView]='onlyView'></app-cart>
     </div>
   </div>
   <div class="col-6">
-    <app-order></app-order>
+    <app-order [cartId]='cartId'></app-order>
   </div>
 </div>

@@ -51,8 +51,8 @@ export class ShopingViewComponent implements OnInit {
     modalRef.componentInstance.userId = this.userId;
   }
 
-  openOrder(totalPrice) {
+  openOrder(cartId) {
 
-    this.router.navigate(['/order', this.userId]);
+    this.router.navigate(['/order', this.userId, cartId]);
   }
 }

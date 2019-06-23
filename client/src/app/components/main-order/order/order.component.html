@@ -1,3 +1,38 @@
 <div class="frame">
-  {{totalPrice}}
+  <h3>Order:</h3>
+  <hr>
+  <form [formGroup]="orderForm" (ngSubmit)="order()">
+    <div class="form-group">
+      <label>
+        City:
+        <select formControlName="city" class="form-control">
+          <option *ngFor='let city of citiesList' [value]="city"> {{ city }} </option>
+        </select>
+      </label>
+    </div>
+    <div class="form-group">
+      <label>
+        Street:
+        <input type="text" formControlName="street" class="form-control">
+      </label>
+    </div>
+    <div class="form-group">
+      <label>
+        Shipping Date:
+        <input type="date" formControlName="date" class="form-control">
+      </label>
+    </div>
+    <hr>
+    <h5>Payments:</h5>
+    <div class="form-group">
+      <label>
+        Credit Card:
+        <input type="number" formControlName="creditCard" class="form-control">
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Order</button>
+    <div *ngFor='let row of alertArray' class="alert">
+      {{ row }}
+    </div>
+  </form>
 </div>

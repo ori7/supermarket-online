@@ -3,6 +3,7 @@ import { ProductCartModel } from 'src/app/models/productCart';
 import { ProductsService } from 'src/app/services/products.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductModel } from 'src/app/models/product';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-cart-item',
@@ -17,7 +18,8 @@ export class CartItemComponent implements OnInit {
   name: string;
   
   constructor(private productsService: ProductsService,
-    private cartService: CartService) { 
+    private cartService: CartService,
+    private orderService: OrderService) { 
       this.productDetails = <ProductModel>{};
     }
 
@@ -27,6 +29,12 @@ export class CartItemComponent implements OnInit {
       this.productDetails = res;
       this.name = res.name;
     })
+
+    if (this.onlyView) {
+
+      this.orderService.mark.subscribe( res => {
+      })
+    }
   }
 
   delete() {console.log(this.product.cartId + this.product._id);

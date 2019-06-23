@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'logOut', component: LogOutComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
   { path: 'shoping/:id', component: ShopingViewComponent, canActivate: [LoggedGuard] },
-  { path: 'order/:id', component: OrderViewComponent, canActivate: [OrderGuard] },
+  { path: 'order/:userId/:cartId', component: OrderViewComponent, canActivate: [OrderGuard] },
   { path: 'refrsh', component: AboutComponent }
 ];
 
