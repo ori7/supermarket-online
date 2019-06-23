@@ -2,17 +2,17 @@ const Cart = require('../models/cart.model');
 const ProductCart = require('../models/productCart.model');
 const Counter = require('../models/counter.model');
 
-function getCart(req, res) {
+function getCart(req, res) {console.log('g'+req.params.userId);console.log('g'+req.body.status);
 
     Cart.findOne({ userId: req.params.userId, status: req.body.status }).exec(function (error, result) {
-        if (result)
+        if (result) 
             res.send(result);
         else
             res.status(404);
     })
 }
 
-async function createCart(req, res) {
+async function createCart(req, res) {console.log('c'+req.params.userId);
 
     let newCart = await buildNewCart(req.params.userId);
     getId('cartId', async function (error, result) {

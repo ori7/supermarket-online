@@ -47,17 +47,4 @@ export class LoginService {
     return localStorage.getItem('token');
   }
 
-  checkCart(user): Observable<boolean> {
-    return of(false);
-
-    return this.httpClient.post<number>(environment.serverUrl + this.ENDPOINTS.carts, user).pipe(
-      map(res => {
-        if (res > 0)
-          return true;
-        else
-          return false;
-      })
-    )
-  }
-
 }

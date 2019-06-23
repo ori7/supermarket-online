@@ -57,7 +57,7 @@ export class RegisterStepOneComponent implements OnInit {
 
     for (var key in this.registerForm.value) {
       if (this.registerForm.value[key] === '') {
-        this.alertArray.push('Error:' + key + ' required!');
+        this.alertArray.push('Error: ' + key + ' required!');
       }
     }
   }

@@ -11,6 +11,7 @@ const productsCtrl = require('./endpoints/products');
 const adminCtrl = require('./endpoints/admin');
 const infoCtrl = require('./endpoints/general-information');
 const cartCtrl = require('./endpoints/cart');
+const orderCtrl = require('./endpoints/order');
 
 mongoose.set('useFindAndModify', false);
 
@@ -68,6 +69,7 @@ app.get('/cart/cartItems/:id', cartCtrl.getCartItems);
 app.delete('/cart/cartItem/:itemId', cartCtrl.deleteCartItem);
 app.post('/cart/cartItem', cartCtrl.addToCart);
 app.post('/saveFile', adminCtrl.saveFile);
+app.get('/order/user/:id', orderCtrl.getUserById);
 
 app.listen(PORT, () => {
     console.log('Listening on ',PORT);

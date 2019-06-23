@@ -30,13 +30,13 @@ export class CartComponent implements OnInit {
         this.getProducts(this.cart._id);
       })
     }
-    else {
-      this.cartService.getCart(this.userId, 'open').subscribe(res => {
+    else {console.log(2);
+      this.cartService.getCart(this.userId, 'open').subscribe(res => {console.log(res);
         if (res) {
           this.cart = res; console.log(this.cart);
           this.getProducts(this.cart._id);
         }
-        else {
+        else {console.log('res');
           this.cartService.createCart(this.userId).subscribe(newCart => {
             this.cart = newCart; console.log(this.cart);
             this.getProducts(this.cart._id);

@@ -6,7 +6,7 @@
   </li>
 </ul>
 <br>
-<div class="row">
+<div class="row" *ngIf='totalPrice'>
   <div class="col-9 font-weight-bold">Total price: {{ totalPrice }}$ </div>
   <button *ngIf='!onlyView' class="btn btn-outline-dark" (click)="order()">Order</button>
 </div>

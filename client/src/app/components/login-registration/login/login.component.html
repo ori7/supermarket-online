@@ -13,11 +13,11 @@
       <div *ngIf='cart.status === "close"'>
         <h5>This is your last shopping cart:</h5>
       </div>
-      <div *ngIf='!cart'>
-        <h5> {{ welcome }}</h5>
+      <div *ngIf='!cart.status'>
+        <h5> Welcome to your first shoping!! </h5>
       </div>
     </div>
-    <div *ngIf='cart' class="cart frame">
+    <div *ngIf='cart.status' class="cart frame">
       <app-cart [userId]='user.id' [onlyView]='cart.status'></app-cart>
     </div>
     <br>

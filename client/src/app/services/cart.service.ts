@@ -29,7 +29,7 @@ export class CartService {
     return this.httpClient.post<CartModel>(environment.serverUrl + this.ENDPOINTS.cart + userId, {status: status} );
   }
 
-  createCart(userId: number): Observable<CartModel> {
+  createCart(userId: number): Observable<CartModel> {console.log(userId);
 
     return this.httpClient.get<CartModel>(environment.serverUrl + this.ENDPOINTS.cart + userId);
   }

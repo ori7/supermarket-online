@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RegisterService } from 'src/app/services/register.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-register-step-two',
@@ -21,13 +22,18 @@ export class RegisterStepTwoComponent implements OnInit {
   });
 
   constructor(private router: Router,
-    private registerService: RegisterService) {
+    private registerService: RegisterService,
+    private loginService: LoginService) {
 
     this.alertArray = [];
     this.citiesList = [];
   }
 
   ngOnInit() {
+
+    if (!this.registerService.newUser.getValue()) {
+      this.router.navigate(['/logOut']);
+    }
 
     const cities = this.registerService.getCities();
     for (const key in cities) {
@@ -38,20 +44,23 @@ export class RegisterStepTwoComponent implements OnInit {
   save() {
 
     this.checkValues();
-    this.registerService.createUser2(this.registerForm.value);
-    this.registerService.saveUser().subscribe(res => {
-      if (res){
-        sessionStorage.setItem('user', res['user']);
-        this.router.navigate(['/shoping']);
-      }
-    })
+    if (this.alertArray.length === 0) {
+      this.registerService.createUser2(this.registerForm.value);
+      this.registerService.saveUser().subscribe(res => {
+        if (res) {
+          sessionStorage.setItem('user', res['user']);
+          this.loginService.details.next([res['user']]);
+          this.router.navigate(['/shoping', res['id']]);
+        }
+      })
+    }
   }
 
   checkValues() {
 
     for (var key in this.registerForm.value) {
       if (this.registerForm.value[key] === '') {
-        this.alertArray.push(key + ' required!');
+        this.alertArray.push('Error: ' + key + ' required!');
       }
     }
   }

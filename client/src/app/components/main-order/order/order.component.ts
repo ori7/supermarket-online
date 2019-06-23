@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RegisterService } from 'src/app/services/register.service';
+import { UserModel } from 'src/app/models/user';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-order',
@@ -11,6 +13,7 @@ export class OrderComponent implements OnInit {
 
   alertArray: string[];
   citiesList: string[];
+  user: UserModel;
 
   orderForm = new FormGroup({
     city: new FormControl(''),
@@ -19,9 +22,11 @@ export class OrderComponent implements OnInit {
     creditCard: new FormControl(''),
   });
   
+  @Input() userId: number;
   @Input() cartId: number;
 
-  constructor(private registerService: RegisterService) { 
+  constructor(private registerService: RegisterService,
+    private orderService: OrderService) { 
 
     this.alertArray = [];
     this.citiesList = [];
@@ -33,11 +38,20 @@ export class OrderComponent implements OnInit {
     for (const key in cities) {
       this.citiesList.push(cities[key]);
     }
+
+    this.orderService.getUser(this.userId).subscribe( res => {
+      this.user = res;
+    });
   }
 
   order() {
 
     this.checkValues();
+  }
+
+  enterStreet() {console.log(this.user);
+
+    this.orderForm.patchValue({street: this.user.street});
   }
 
   checkValues() {

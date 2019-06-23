@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-6">
     <div class="frame">
-      <button class="btn btn-outline-dark float-right" (click)="backToShoping()">Back To Shoping</button>
+      <button class="btn btn-outline-dark float-right font-weight-bold" (click)="backToShoping()">Back To Shoping</button>
       <div class="form-inline">
         <label for="milk">Search in the shoping cart:</label>
         <input [(ngModel)]='searce' type="text" (input)="keyPress()" class="form-control" id="milk" placeholder="search"
@@ -12,6 +12,6 @@
     </div>
   </div>
   <div class="col-6">
-    <app-order [cartId]='cartId'></app-order>
+    <app-order [userId]='userId' [cartId]='cartId'></app-order>
   </div>
 </div>
