@@ -67,7 +67,7 @@ app.post('/cart/:userId', cartCtrl.getCart);
 app.get('/cart/:userId', cartCtrl.createCart);
 app.get('/cart/cartItems/:id', cartCtrl.getCartItems);
 app.delete('/cart/cartItem/:itemId', cartCtrl.deleteCartItem);
-app.post('/cart/cartItem', cartCtrl.addToCart);
+app.post('/cartItem', cartCtrl.addToCart);
 app.post('/saveFile', adminCtrl.saveFile);
 app.get('/order/user/:id', orderCtrl.getUserById);
 

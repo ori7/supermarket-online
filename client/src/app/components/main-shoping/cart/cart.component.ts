@@ -44,7 +44,23 @@ export class CartComponent implements OnInit {
         }
       })
     }
-
+    /*
+    else {console.log('8');
+    this.cartService.getCart(this.userId, 'open').subscribe(res => {console.log(res);
+      if (res) {
+        this.cart = res;
+        this.getProducts(this.cart._id);console.log(this.cart);
+      }
+    },
+      (err) => {console.log('t');
+        this.cartService.createCart(this.userId).subscribe(newCart => {
+          this.cart = newCart;
+          this.getProducts(this.cart._id);console.log('this.cart');console.log(this.cart);
+        })
+      }
+    )
+  }
+  */
     this.cartService.productsInCart.subscribe(res => {
       this.products = res;
       if (this.products) {

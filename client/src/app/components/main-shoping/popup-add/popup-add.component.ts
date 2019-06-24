@@ -36,18 +36,18 @@ export class PopupAddComponent implements OnInit {
     })
 
     this.cartService.getCart(this.userId, 'open').subscribe(res => {
-      this.cart = res; console.log('pp' + this.cart);
+      this.cart = res; console.log(this.cart);
     })
   }
 
-  addToCart() {
+  addToCart() {console.log(this.cart);
 
     this.productCart.productId = this.id;
     this.productCart.quantity = this.quantity;
     this.productCart.cartId = this.cart._id;
     this.productCart.price = this.product.price * this.quantity;
     console.log(this.productCart);
-    this.cartService.addToCart(this.productCart).subscribe(res => {
+    this.cartService.addToCart(this.productCart).subscribe(res => {    console.log(res);
       if (res)
         alert('The product added successfully!');
       else

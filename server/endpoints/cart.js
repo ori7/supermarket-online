@@ -2,17 +2,19 @@ const Cart = require('../models/cart.model');
 const ProductCart = require('../models/productCart.model');
 const Counter = require('../models/counter.model');
 
-function getCart(req, res) {console.log('g'+req.params.userId);console.log('g'+req.body.status);
+function getCart(req, res) {
 
     Cart.findOne({ userId: req.params.userId, status: req.body.status }).exec(function (error, result) {
-        if (result) 
+        if (result) {
             res.send(result);
-        else
-            res.status(404);
+        }
+        else {
+            res.sendStatus(404);
+        }
     })
 }
 
-async function createCart(req, res) {console.log('c'+req.params.userId);
+async function createCart(req, res) {
 
     let newCart = await buildNewCart(req.params.userId);
     getId('cartId', async function (error, result) {
@@ -22,6 +24,12 @@ async function createCart(req, res) {console.log('c'+req.params.userId);
                     res.status(404);
                 else {
                     newCart._id = result.seq;
+                    saveObject(newCart, function (e, r) {
+                        if (e)
+                            res.status(404);
+                        else
+                            res.send(r);
+                    });
                     res.send(newCart);
                 }
             })

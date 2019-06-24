@@ -21,27 +21,25 @@ export class OrderComponent implements OnInit {
     date: new FormControl(''),
     creditCard: new FormControl(''),
   });
-  
+
   @Input() userId: number;
   @Input() cartId: number;
 
   constructor(private registerService: RegisterService,
-    private orderService: OrderService) { 
+    private orderService: OrderService) {
 
     this.alertArray = [];
     this.citiesList = [];
   }
 
-  ngOnInit() {console.log(this.cartId);
+  ngOnInit() {
+    console.log(this.cartId);
 
     const cities = this.registerService.getCities();
     for (const key in cities) {
       this.citiesList.push(cities[key]);
     }
 
-    this.orderService.getUser(this.userId).subscribe( res => {
-      this.user = res;
-    });
   }
 
   order() {
@@ -49,9 +47,30 @@ export class OrderComponent implements OnInit {
     this.checkValues();
   }
 
-  enterStreet() {console.log(this.user);
+  enterStreet() {
 
-    this.orderForm.patchValue({street: this.user.street});
+    if (this.user) {
+      this.orderForm.patchValue({ street: this.user.street });
+    }
+    else {
+      this.orderService.getUser(this.userId).subscribe(res => {
+        this.user = res;
+        this.orderForm.patchValue({ street: this.user.street });
+      });
+    }
+  }
+
+  enterCity() {
+
+    if (this.user) {
+      this.orderForm.patchValue({ city: this.user.city });
+    }
+    else {
+      this.orderService.getUser(this.userId).subscribe(res => {
+        this.user = res;
+        this.orderForm.patchValue({ city: this.user.city });
+      });
+    }
   }
 
   checkValues() {

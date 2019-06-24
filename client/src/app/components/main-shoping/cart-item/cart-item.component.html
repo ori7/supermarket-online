@@ -3,7 +3,7 @@
         <img [src]="productDetails.picture" width="40px" height="25px"> 
         <span> {{ productDetails.name }} , </span>
         <span> Quantity: {{ product.quantity }} , </span>
-        <span> Price: {{ product.quantity * product.price }}$ </span>
+        <span> Price: {{ product.price }}$ </span>
     </div>
     <div>
         <button *ngIf='!onlyView' type="button" class="btn btn-outline-dark btn-sm" (click)='delete()'>Delite</button>

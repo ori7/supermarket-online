@@ -5,7 +5,7 @@
     <div class="form-group">
       <label>
         City:
-        <select formControlName="city" class="form-control">
+        <select formControlName="city" class="form-control" (dblclick)="enterCity()">
           <option *ngFor='let city of citiesList' [value]="city"> {{ city }} </option>
         </select>
       </label>

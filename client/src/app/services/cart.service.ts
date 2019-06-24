@@ -54,9 +54,9 @@ export class CartService {
     );
   }
 
-  addToCart(product: ProductCartModel): Observable<object> {
+  addToCart(product: ProductCartModel): Observable<object> {console.log(product);
 
-    return this.httpClient.post<object>(environment.serverUrl + this.ENDPOINTS.cart + this.ENDPOINTS.cartItem, product).pipe(
+    return this.httpClient.post<object>(environment.serverUrl + this.ENDPOINTS.cartItem, product).pipe(
       catchError(errorRes => {
         return of(undefined);
       }),
