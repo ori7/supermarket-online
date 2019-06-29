@@ -44,10 +44,10 @@ export class ShopingViewComponent implements OnInit {
     })
   }
 
-  openPopupWindow(id: number) {console.log(id);
+  openPopupWindow(productId: number) {console.log(productId);
 
     const modalRef = this.ngbModal.open(PopupAddComponent);
-    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.productId = productId;
     modalRef.componentInstance.userId = this.userId;
   }
 

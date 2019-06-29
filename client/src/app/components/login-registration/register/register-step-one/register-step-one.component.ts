@@ -21,16 +21,12 @@ export class RegisterStepOneComponent implements OnInit {
   });
 
   constructor(private RegisterService: RegisterService,
-    private router: Router) {
-
-    this.alertArray = [];
-  }
+    private router: Router) { }
 
   ngOnInit() { }
 
   checkForm() {
 
-    this.alertArray = [];
     this.checkValues();
     this.checkPassword();
     this.checkId();
@@ -55,6 +51,7 @@ export class RegisterStepOneComponent implements OnInit {
 
   checkValues() {
 
+    this.alertArray = [];
     for (var key in this.registerForm.value) {
       if (this.registerForm.value[key] === '') {
         this.alertArray.push('Error: ' + key + ' required!');

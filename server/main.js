@@ -65,11 +65,13 @@ app.post('/products/filter', productsCtrl.getProductsWithfilter);
 app.post('/info/quantity', infoCtrl.getQuantity);
 app.post('/cart/:userId', cartCtrl.getCart);
 app.get('/cart/:userId', cartCtrl.createCart);
-app.get('/cart/cartItems/:id', cartCtrl.getCartItems);
+app.get('/cart/cartItems/:cartId', cartCtrl.getCartItems);
 app.delete('/cart/cartItem/:itemId', cartCtrl.deleteCartItem);
 app.post('/cartItem', cartCtrl.addToCart);
 app.post('/saveFile', adminCtrl.saveFile);
 app.get('/order/user/:id', orderCtrl.getUserById);
+app.get('/order/price/:cartId', orderCtrl.getTotalPrice);
+app.get('/order/:userId/:cartId', orderCtrl.makeOrder);
 
 app.listen(PORT, () => {
     console.log('Listening on ',PORT);

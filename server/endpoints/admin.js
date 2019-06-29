@@ -88,11 +88,11 @@ and another that is not updated with the deletions - that will give ID to the ne
 
 function updateProduct(req, res) {
 
-    const updated = buildProduct(req.body);
-    updated._id = req.body._id;
+    const updatedProduct = buildProduct(req.body);
+    updatedProduct._id = req.body._id;
     Product.findOneAndUpdate(
         { _id: req.body._id },
-        { $set: updated },
+        { $set: updatedProduct },
         { new: true }
     ).exec(function (error, result) {
         if (result)

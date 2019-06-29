@@ -34,9 +34,9 @@ export class CartService {
     return this.httpClient.get<CartModel>(environment.serverUrl + this.ENDPOINTS.cart + userId);
   }
 
-  getProducts(id: number): Observable<ProductCartModel[]> {
+  getProducts(cartId: number): Observable<ProductCartModel[]> {
 
-    return this.httpClient.get<ProductCartModel[]>(environment.serverUrl + this.ENDPOINTS.cart + this.ENDPOINTS.cartItems + id);
+    return this.httpClient.get<ProductCartModel[]>(environment.serverUrl + this.ENDPOINTS.cart + this.ENDPOINTS.cartItems + cartId);
   }
 
   deleteItem(cartId: number, itemId: number): Observable<object> {

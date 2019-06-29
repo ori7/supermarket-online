@@ -30,7 +30,6 @@ async function createCart(req, res) {
                         else
                             res.send(r);
                     });
-                    res.send(newCart);
                 }
             })
         }
@@ -105,7 +104,7 @@ function updateSequence(name, callback) {
 
 function getCartItems(req, res) {
 
-    ProductCart.find({ cartId: req.params.id }).exec(function (error, result) {
+    ProductCart.find({ cartId: req.params.cartId }).exec(function (error, result) {
         if (error) {
             res.status(404);
         }

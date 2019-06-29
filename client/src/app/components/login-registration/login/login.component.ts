@@ -96,8 +96,8 @@ export class LoginComponent implements OnInit {
     If not, bring the latest shopping cart (ordered).
     Otherwise, this is a first purchase, Welcome!
     */
-    this.cartService.getCart(userId, 'open').subscribe(res => {
-      if (res) {
+    this.cartService.getCart(userId, 'open').subscribe(
+      res => {
         this.cartService.getProducts(res._id).subscribe(resProducts => {
           if (resProducts.length > 0) {
             this.currentPrice = this.getCurrentPrice(resProducts);
@@ -107,10 +107,11 @@ export class LoginComponent implements OnInit {
           else
             this.getCloseCart(userId);
         })
-      }
-      else
+      },
+      error => {
         this.getCloseCart(userId);
-    })
+      }
+    )
   }
 
   getCloseCart(userId) {

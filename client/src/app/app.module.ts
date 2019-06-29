@@ -29,6 +29,8 @@ import { PopupAddComponent } from './components/main-shoping/popup-add/popup-add
 import { OrderComponent } from './components/main-order/order/order.component';
 import { OrderViewComponent } from './components/main-order/order-view/order-view.component';
 import { ReceiptComponent } from './components/main-order/receipt/receipt.component';
+import { PopupConfirmComponent } from './components/main-order/popup-confirm/popup-confirm.component';
+import { HighlightPipe } from './pipes/highlight.pipe';
 
 @NgModule({
   declarations: [
@@ -54,8 +56,12 @@ import { ReceiptComponent } from './components/main-order/receipt/receipt.compon
     OrderComponent,
     OrderViewComponent,
     ReceiptComponent,
+    PopupConfirmComponent,
+    HighlightPipe,
   ],
-  entryComponents: [PopupAddComponent
+  entryComponents: [
+    PopupAddComponent,
+    PopupConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +77,8 @@ import { ReceiptComponent } from './components/main-order/receipt/receipt.compon
       useClass: JwtInterceptor,
       multi: true
     },
-    NgbActiveModal
+    NgbActiveModal,
+    HighlightPipe
   ],
   bootstrap: [AppComponent]
 })

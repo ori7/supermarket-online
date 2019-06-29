@@ -1,0 +1,14 @@
+<div role="document" class="modal-dialog">
+  <div class="modal-content text-center">
+    <div class="modal-body font-weight-bold">
+      <h4 class="modal-title"> Your order has been paid successfully! </h4>
+      <hr>
+      <span> To download the receipt click </span>
+      <a (click)="downloadReceipt()" href="javascript:void(0);"> here! </a>
+    </div>
+    <div>
+      <button type="button" class="btn btn-dark"
+        (click)="navigateToMainPaig(); activeModal.close('Close click')">OK</button>
+    </div>
+  </div>
+</div>

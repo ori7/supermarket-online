@@ -14,7 +14,6 @@ export class CartComponent implements OnInit {
   @Input() onlyView: string;
   cart: CartModel;
   products: ProductCartModel[];
-  emptyCart: string;
   totalPrice: number;
   @Output() orderView: EventEmitter<number> = new EventEmitter<number>();
 
@@ -26,41 +25,25 @@ export class CartComponent implements OnInit {
 
     if (this.onlyView) {
       this.cartService.getCart(this.userId, this.onlyView).subscribe(res => {
-        this.cart = res; console.log(this.cart);
+        this.cart = res;
         this.getProducts(this.cart._id);
       })
     }
-    else {console.log(2);
-      this.cartService.getCart(this.userId, 'open').subscribe(res => {console.log(res);
-        if (res) {
-          this.cart = res; console.log(this.cart);
+    else {
+      this.cartService.getCart(this.userId, 'open').subscribe(
+        res => {
+          this.cart = res;
           this.getProducts(this.cart._id);
-        }
-        else {console.log('res');
+        },
+        error => {
           this.cartService.createCart(this.userId).subscribe(newCart => {
-            this.cart = newCart; console.log(this.cart);
+            this.cart = newCart;
             this.getProducts(this.cart._id);
           })
         }
-      })
+      )
     }
-    /*
-    else {console.log('8');
-    this.cartService.getCart(this.userId, 'open').subscribe(res => {console.log(res);
-      if (res) {
-        this.cart = res;
-        this.getProducts(this.cart._id);console.log(this.cart);
-      }
-    },
-      (err) => {console.log('t');
-        this.cartService.createCart(this.userId).subscribe(newCart => {
-          this.cart = newCart;
-          this.getProducts(this.cart._id);console.log('this.cart');console.log(this.cart);
-        })
-      }
-    )
-  }
-  */
+   
     this.cartService.productsInCart.subscribe(res => {
       this.products = res;
       if (this.products) {
@@ -68,17 +51,16 @@ export class CartComponent implements OnInit {
       }
     })
 
-    this.emptyCart = 'Your cart is empty!';
   }
 
-  getProducts(id) {
+  getProducts(cartId) {
 
-    this.cartService.getProducts(id).subscribe(resProducts => {
-      this.products = resProducts; console.log(this.products);
+    this.cartService.getProducts(cartId).subscribe(resProducts => {
+      this.products = resProducts;
       this.getTotalPrice(this.products);
     })
   }
-  
+
   getTotalPrice(products) {
 
     this.totalPrice = 0;

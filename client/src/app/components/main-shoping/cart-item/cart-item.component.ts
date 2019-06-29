@@ -4,6 +4,7 @@ import { ProductsService } from 'src/app/services/products.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductModel } from 'src/app/models/product';
 import { OrderService } from 'src/app/services/order.service';
+import { HighlightPipe } from 'src/app/pipes/highlight.pipe';
 
 @Component({
   selector: 'app-cart-item',
@@ -16,10 +17,12 @@ export class CartItemComponent implements OnInit {
   @Input() onlyView: string;
   productDetails: ProductModel;
   name: string;
+  textToMark: string;
   
   constructor(private productsService: ProductsService,
     private cartService: CartService,
-    private orderService: OrderService) { 
+    private orderService: OrderService,
+    private highlightPipe: HighlightPipe) { 
       this.productDetails = <ProductModel>{};
     }
 
@@ -33,6 +36,7 @@ export class CartItemComponent implements OnInit {
     if (this.onlyView) {
 
       this.orderService.mark.subscribe( res => {
+        this.textToMark = res; console.log(this.textToMark);
       })
     }
   }

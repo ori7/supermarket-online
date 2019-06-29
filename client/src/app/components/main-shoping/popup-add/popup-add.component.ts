@@ -13,7 +13,7 @@ import { CartModel } from 'src/app/models/cart';
 })
 export class PopupAddComponent implements OnInit {
 
-  id: number;
+  productId: number;
   userId: number;
   product: ProductModel;
   quantity: number;
@@ -31,7 +31,7 @@ export class PopupAddComponent implements OnInit {
     this.productCart = <ProductCartModel>{};
     this.quantity = 1;
 
-    this.productsService.getById(this.id).subscribe(res => {
+    this.productsService.getById(this.productId).subscribe(res => {
       this.product = res; console.log(this.product);
     })
 
@@ -40,18 +40,19 @@ export class PopupAddComponent implements OnInit {
     })
   }
 
-  addToCart() {console.log(this.cart);
+  addToCart() {
 
-    this.productCart.productId = this.id;
+    this.productCart.productId = this.productId;
     this.productCart.quantity = this.quantity;
     this.productCart.cartId = this.cart._id;
     this.productCart.price = this.product.price * this.quantity;
-    console.log(this.productCart);
-    this.cartService.addToCart(this.productCart).subscribe(res => {    console.log(res);
-      if (res)
+    this.cartService.addToCart(this.productCart).subscribe(
+      res => {
         alert('The product added successfully!');
-      else
+      },
+      error => {
         alert('Failed! Try again!');
-    })
+      }
+    )
   }
 }

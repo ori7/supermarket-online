@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-10">
         <img [src]="productDetails.picture" width="40px" height="25px"> 
-        <span> {{ productDetails.name }} , </span>
-        <span> Quantity: {{ product.quantity }} , </span>
-        <span> Price: {{ product.price }}$ </span>
+        <span innerHTML=" {{ productDetails.name | highlight : textToMark }} "></span>
+        <span> , Quantity: {{ product.quantity }} </span>
+        <span> , Price: {{ product.price }}$ </span>
     </div>
     <div>
         <button *ngIf='!onlyView' type="button" class="btn btn-outline-dark btn-sm" (click)='delete()'>Delite</button>

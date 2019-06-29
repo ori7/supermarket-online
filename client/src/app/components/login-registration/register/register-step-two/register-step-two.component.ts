@@ -25,7 +25,6 @@ export class RegisterStepTwoComponent implements OnInit {
     private registerService: RegisterService,
     private loginService: LoginService) {
 
-    this.alertArray = [];
     this.citiesList = [];
   }
 
@@ -58,6 +57,7 @@ export class RegisterStepTwoComponent implements OnInit {
 
   checkValues() {
 
+    this.alertArray = [];
     for (var key in this.registerForm.value) {
       if (this.registerForm.value[key] === '') {
         this.alertArray.push('Error: ' + key + ' required!');

@@ -11,7 +11,8 @@ export class OrderService {
 
   ENDPOINTS = {
     order: "order/",
-    user: "user/"
+    user: "user/",
+    price: "price/"
   };
   mark: BehaviorSubject<string>;
 
@@ -23,5 +24,15 @@ export class OrderService {
   getUser(id: number): Observable<UserModel> {
 
     return this.httpClient.get<UserModel>(environment.serverUrl + this.ENDPOINTS.order + this.ENDPOINTS.user + id);
+  }
+
+  getTotalPrice(cartId: number): Observable<number> {
+
+    return this.httpClient.get<number>(environment.serverUrl + this.ENDPOINTS.order + this.ENDPOINTS.price + cartId);
+  }
+
+  makeOrder(userId: number, cartId: number): Observable<boolean> {
+
+    return this.httpClient.get<boolean>(environment.serverUrl + this.ENDPOINTS.order + userId + '/' + cartId);
   }
 }

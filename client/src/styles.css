@@ -12,3 +12,16 @@
     margin: 1.38%;
     background-color: hsla(120, 60%, 70%, 0.2);
 }
+
+.design-hides {      
+    background:none!important;
+    color:inherit;
+    border:none; 
+    padding:0!important;
+    font: inherit;
+    cursor: pointer;
+}
+
+mark {
+    background-color: yellow;
+}
