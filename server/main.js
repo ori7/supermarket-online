@@ -72,6 +72,7 @@ app.post('/saveFile', adminCtrl.saveFile);
 app.get('/order/user/:id', orderCtrl.getUserById);
 app.get('/order/price/:cartId', orderCtrl.getTotalPrice);
 app.get('/order/:userId/:cartId', orderCtrl.makeOrder);
+app.get('/order/receipt/:cartId', orderCtrl.createReceipt);
 
 app.listen(PORT, () => {
     console.log('Listening on ',PORT);

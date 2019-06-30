@@ -12,7 +12,8 @@ export class OrderService {
   ENDPOINTS = {
     order: "order/",
     user: "user/",
-    price: "price/"
+    price: "price/",
+    receipt: "receipt/"
   };
   mark: BehaviorSubject<string>;
 
@@ -35,4 +36,10 @@ export class OrderService {
 
     return this.httpClient.get<boolean>(environment.serverUrl + this.ENDPOINTS.order + userId + '/' + cartId);
   }
+
+  getReceipt(cartId: number): Observable<Blob> {
+
+    return this.httpClient.get(environment.serverUrl + this.ENDPOINTS.order + this.ENDPOINTS.receipt + cartId, {responseType: "blob"});
+  }
+
 }

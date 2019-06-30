@@ -28,7 +28,6 @@ import { CartItemComponent } from './components/main-shoping/cart-item/cart-item
 import { PopupAddComponent } from './components/main-shoping/popup-add/popup-add.component';
 import { OrderComponent } from './components/main-order/order/order.component';
 import { OrderViewComponent } from './components/main-order/order-view/order-view.component';
-import { ReceiptComponent } from './components/main-order/receipt/receipt.component';
 import { PopupConfirmComponent } from './components/main-order/popup-confirm/popup-confirm.component';
 import { HighlightPipe } from './pipes/highlight.pipe';
 
@@ -55,7 +54,6 @@ import { HighlightPipe } from './pipes/highlight.pipe';
     PopupAddComponent,
     OrderComponent,
     OrderViewComponent,
-    ReceiptComponent,
     PopupConfirmComponent,
     HighlightPipe,
   ],

@@ -17,6 +17,7 @@ export class OrderComponent implements OnInit {
   citiesList: string[];
   user: UserModel;
   totalPrice: number;
+  today: string;
 
   orderForm = new FormGroup({
     city: new FormControl(''),
@@ -37,24 +38,25 @@ export class OrderComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.cartId);
 
     const cities = this.registerService.getCities();
     for (const key in cities) {
       this.citiesList.push(cities[key]);
     }
 
-    this.orderService.getTotalPrice(this.cartId).subscribe( res => {
+    this.orderService.getTotalPrice(this.cartId).subscribe(res => {
       this.totalPrice = res;
     })
 
+    this.buildDate();
+    this.orderForm.controls['date'].setValue(this.today);
   }
 
   order() {
 
     this.checkValues();
     if (this.alertArray.length === 0) {
-      this.orderService.makeOrder(this.userId, this.cartId).subscribe( res => {
+      this.orderService.makeOrder(this.userId, this.cartId).subscribe(res => {
         if (res) {
           this.openPopupWindow();
         }
@@ -107,4 +109,12 @@ export class OrderComponent implements OnInit {
     modalRef.componentInstance.cartId = this.cartId;
   }
 
+  buildDate() {
+
+    const d = new Date();
+    const dd = ("0" + (d.getDate())).slice(-2);
+    const mm = ("0" + (d.getMonth() + 1)).slice(-2);
+    const yyyy = d.getFullYear();
+    this.today = yyyy + '-' + mm + '-' + dd;
+  }
 }

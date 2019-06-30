@@ -3,6 +3,8 @@ const ProductCart = require('../models/productCart.model');
 const Cart = require('../models/cart.model');
 const Counter = require('../models/counter.model');
 
+const fs = require('fs-extra');
+
 function getUserById(req, res) {
 
     User.findOne({ id: req.params.id }).exec(function (error, result) {
@@ -74,6 +76,36 @@ function updateSequence(name, callback) {
     );
 }
 
+function createReceipt(req, res) {
+
+    ProductCart.find({ cartId: req.params.cartId }).exec(async function (error, result) {
+        if (error) {
+            res.sendStatus(404);
+        }
+        else {
+            const receipt = await builtReceipt(result, function (e, r) {
+                if (e)
+                    res.sendStatus(500);
+            });
+            res.sendFile('receipt.txt');
+        }
+    })
+}
+
+function builtReceipt(products) {
+
+    for (let i = 0; i < products.length; i++) {
+        const line = 'p: ' + products[i].name;
+        fs.appendFile('receipt.txt', line + "\n", function (err) {
+            if (err) {
+                callback(err);
+            }
+        })
+    }
+    return;
+}
+
 module.exports.getUserById = getUserById;
 module.exports.getTotalPrice = getTotalPrice;
 module.exports.makeOrder = makeOrder;
+module.exports.createReceipt = createReceipt;

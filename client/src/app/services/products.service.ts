@@ -27,7 +27,7 @@ export class ProductsService {
     this.filterCategories = new BehaviorSubject<number | string>(null);
    }
 
-  getProducts(): Observable<ProductModel[]> {
+  getAllProducts(): Observable<ProductModel[]> {
 
     return this.httpClient.get<ProductModel[]>(environment.serverUrl + this.ENDPOINTS.products);
   }
