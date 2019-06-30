@@ -1,0 +1,5 @@
+Receipt:
+  Product: Water, Quantity: 1, Price: 555$
+  Product: Water, Quantity: 1, Price: 555$
+  Product: Bread, Quantity: 1, Price: 12$
+TotalPrice: 1122$

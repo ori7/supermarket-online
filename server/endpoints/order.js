@@ -2,6 +2,7 @@ const User = require('../models/user.model');
 const ProductCart = require('../models/productCart.model');
 const Cart = require('../models/cart.model');
 const Counter = require('../models/counter.model');
+const Product = require('../models/product.model');
 
 const fs = require('fs-extra');
 
@@ -24,10 +25,7 @@ function getTotalPrice(req, res) {
             res.sendStatus(404);
         }
         else {
-            var sum = 0;
-            for (let i = 0; i < result.length; i++) {
-                sum += result[i].price;
-            }
+            const sum = getTotalPrice(result);
             res.json(sum);
         }
     });
@@ -87,22 +85,41 @@ function createReceipt(req, res) {
                 if (e)
                     res.sendStatus(500);
             });
-            res.sendFile('receipt.txt');
+            const path = require('path');
+            res.sendFile(path.resolve(__dirname + '/../files/receipt.txt'));
         }
     })
 }
 
-function builtReceipt(products) {
+function builtReceipt(products, callback) {
 
+    fs.truncate(__dirname + '/../files/receipt.txt', 0, function () { });
+    fs.appendFile(__dirname + '/../files/receipt.txt', 'Receipt:' + "\n", function () { });
     for (let i = 0; i < products.length; i++) {
-        const line = 'p: ' + products[i].name;
-        fs.appendFile('receipt.txt', line + "\n", function (err) {
-            if (err) {
-                callback(err);
+        Product.findOne({ _id: products[i].productId }).exec(function (error, result) {
+            if (error) {
+                callback(error);
             }
-        })
+            const line = '  Product: ' + result.name + ', Quantity: ' + products[i].quantity + ', Price: ' + products[i].price + '$';
+            fs.appendFile(__dirname + '/../files/receipt.txt', line + "\n", function () {
+                if (i === (products.length - 1)) {   //   This is the last product
+                    const totalPrice = getTotalPrice(products);
+                    fs.appendFile(__dirname + '/../files/receipt.txt', 'TotalPrice: ' + totalPrice + '$' + "\n");
+                }
+            })
+        });
     }
-    return;
+    return;   //    this is for 'await' in 'createReceipt' function.
+}
+
+function getTotalPrice(products) {
+
+    var sum = 0;
+    for (let i = 0; i < products.length; i++) {
+        sum += products[i].price;
+    }
+    return sum;
+
 }
 
 module.exports.getUserById = getUserById;

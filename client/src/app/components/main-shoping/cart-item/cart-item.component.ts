@@ -36,12 +36,12 @@ export class CartItemComponent implements OnInit {
     if (this.onlyView) {
 
       this.orderService.mark.subscribe( res => {
-        this.textToMark = res; console.log(this.textToMark);
+        this.textToMark = res;
       })
     }
   }
 
-  delete() {console.log(this.product.cartId + this.product._id);
+  delete() {
 
     this.cartService.deleteItem(this.product.cartId, this.product._id).subscribe( res => {
       alert('The product deleted!');

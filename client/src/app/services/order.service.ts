@@ -37,9 +37,9 @@ export class OrderService {
     return this.httpClient.get<boolean>(environment.serverUrl + this.ENDPOINTS.order + userId + '/' + cartId);
   }
 
-  getReceipt(cartId: number): Observable<Blob> {
+  getReceipt(cartId: number): Observable<any> {
 
-    return this.httpClient.get(environment.serverUrl + this.ENDPOINTS.order + this.ENDPOINTS.receipt + cartId, {responseType: "blob"});
+    return this.httpClient.get<any>(environment.serverUrl + this.ENDPOINTS.receipt + cartId);
   }
 
 }

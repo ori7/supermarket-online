@@ -11,7 +11,6 @@ import { OrderService } from 'src/app/services/order.service';
 export class PopupConfirmComponent implements OnInit {
 
   cartId: number;
-  blob;
 
   constructor(public activeModal: NgbActiveModal,
     private router: Router,
@@ -24,8 +23,8 @@ export class PopupConfirmComponent implements OnInit {
 
     console.log('downloadReceipt' + this.cartId);
     this.orderService.getReceipt(this.cartId).subscribe( res => {
-      this.blob = res;
-      this.blob.revokeObjectURL;
+      console.log(res);
+      //  TODO: download file.
     })
   }
 
