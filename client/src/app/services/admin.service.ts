@@ -11,12 +11,12 @@ import { ProductModel } from '../models/product';
 export class AdminService {
 
   ENDPOINTS = {
-    admin: "admin",
+    admin: "admin/",
     products: "products/",
     categories: "categories",
-    id: "/id",
-    insert: "/insert",
-    update: "/update"
+    insert: "insert",
+    update: "update",
+    saveFile: "saveFile"
   };
   adminPage: BehaviorSubject<string>;
   updateId: BehaviorSubject<number>;
@@ -47,9 +47,9 @@ export class AdminService {
     return this.httpClient.put<string>(environment.serverUrl + this.ENDPOINTS.admin + this.ENDPOINTS.update, product);
   }
 
-  saveImage(img: object) { console.log(img);
+  saveImage(img: object) {
 
-    return this.httpClient.post<object>(environment.serverUrl + 'saveFile', img);
+    return this.httpClient.post<object>(environment.serverUrl + this.ENDPOINTS.saveFile, img);
   }
 
 }

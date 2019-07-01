@@ -15,10 +15,9 @@ export class RegisterService {
   newUser: BehaviorSubject<UserModel>;
 
   ENDPOINT = {
-    register: "register",
-    email: "/email",
-    id: "/id"
-    //carts: "carts"
+    register: "register/",
+    email: "email",
+    id: "id"
   };
 
   constructor(private httpClient: HttpClient,
@@ -34,33 +33,21 @@ export class RegisterService {
 
   createUser1(details) {
 
-    /*
-    this.newUser = <UserModel>{};
-    this.newUser.id = details.id;
-    this.newUser.email = details.email;
-    this.newUser.password = details.password;console.log(this.newUser);
-    */
     var user = <UserModel>{};
     user.id = details.id;
     user.email = details.email;
     user.password = details.password;
-    this.newUser.next(user);console.log(this.newUser);
+    this.newUser.next(user);
   }
 
   createUser2(details) {
 
-    /*
-    this.newUser.city = details.city;
-    this.newUser.street = details.street;
-    this.newUser.name = details.name;
-    this.newUser.lastName = details.lastName;
-    */
     var user = this.newUser.getValue();
     user.city = details.city;
     user.street = details.street;
     user.name = details.name;
     user.lastName = details.lastName;
-    this.newUser.next(user);console.log(this.newUser);
+    this.newUser.next(user);
   }
 
   saveUser(): Observable<object> {
@@ -69,7 +56,6 @@ export class RegisterService {
       map(tokenRes => {
         if (tokenRes) {
           window.localStorage.setItem('token', tokenRes);
-          //sessionStorage.setItem('token', tokenRes);
           this.loginService.isLogged.next(true);
           const decode = jwt_decode(tokenRes);
           return decode;

@@ -124,27 +124,43 @@ function buildProductCart(productCart) {
     return newProductCart;
 }
 
+function checkProductCart(productCart) {
+
+    if (Number.isInteger(productCart.productId) &&
+        Number.isInteger(productCart.quantity) &&
+        Number.isInteger(productCart.price) &&
+        Number.isInteger(productCart.cartId)
+    )
+        return true;
+    else
+        return false;
+}
+
 function addToCart(req, res) {
 
-    let newProductCart = buildProductCart(req.body);
-    getId('ProductCartId', async function (error, result) {
-        if (result) {
-            newProductCart._id = result.seq;
-            await updateSequence('ProductCartId', function (e, r) {
-                if (e)
-                    res.status(404);
-            })
-            saveObject(newProductCart, function (e, r) {
-                if (e)
-                    res.status(404);
-                else
-                    res.send(r);
-            });
-        }
-        else {
-            res.status(404);
-        }
-    })
+    const check = checkProductCart(req.body);
+    if (check) {
+        let newProductCart = buildProductCart(req.body);
+        getId('ProductCartId', async function (error, result) {
+            if (result) {
+                newProductCart._id = result.seq;
+                await updateSequence('ProductCartId', function (e, r) {
+                    if (e)
+                        res.status(404);
+                })
+                saveObject(newProductCart, function (e, r) {
+                    if (e)
+                        res.status(404);
+                    else
+                        res.send(r);
+                });
+            }
+            else
+                res.status(404);
+        })
+    }
+    else
+        res.status(404);
 }
 
 function deleteCartItem(req, res) {

@@ -55,6 +55,7 @@ export class OrderComponent implements OnInit {
   order() {
 
     this.checkValues();
+    this.checkCreditCard();
     if (this.alertArray.length === 0) {
       this.orderService.makeOrder(this.userId, this.cartId).subscribe(res => {
         if (res) {
@@ -64,6 +65,14 @@ export class OrderComponent implements OnInit {
           alert('failed');
         }
       })
+    }
+  }
+
+  checkCreditCard() {
+
+    var re = /^[0-9]{8,16}$/gm;
+    if (!re.test(this.orderForm.value.creditCard) ) {
+      this.alertArray.push('Error: The number of credit card in not valid!');
     }
   }
 

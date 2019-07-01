@@ -16,9 +16,9 @@ export class RegisterStepTwoComponent implements OnInit {
 
   registerForm = new FormGroup({
     city: new FormControl(''),
-    street: new FormControl('Meltzer'),
-    name: new FormControl('Dan'),
-    lastName: new FormControl('Cohen'),
+    street: new FormControl(''),
+    name: new FormControl(''),
+    lastName: new FormControl(''),
   });
 
   constructor(private router: Router,

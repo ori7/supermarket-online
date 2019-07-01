@@ -29,7 +29,7 @@ export class CartService {
     return this.httpClient.post<CartModel>(environment.serverUrl + this.ENDPOINTS.cart + userId, {status: status} );
   }
 
-  createCart(userId: number): Observable<CartModel> {console.log(userId);
+  createCart(userId: number): Observable<CartModel> {
 
     return this.httpClient.get<CartModel>(environment.serverUrl + this.ENDPOINTS.cart + userId);
   }
@@ -54,7 +54,7 @@ export class CartService {
     );
   }
 
-  addToCart(product: ProductCartModel): Observable<object> {console.log(product);
+  addToCart(product: ProductCartModel): Observable<object> {
 
     return this.httpClient.post<object>(environment.serverUrl + this.ENDPOINTS.cartItem, product).pipe(
       catchError(errorRes => {

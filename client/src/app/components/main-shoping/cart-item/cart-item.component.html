@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-10">
-        <img [src]="productDetails.picture" width="40px" height="25px"> 
+        <img [src]="productDetails.picture" width="40px" height="25px" [alt]="productDetails.name"> 
         <span innerHTML=" {{ productDetails.name | highlight : textToMark }} "></span>
         <span> , Quantity: {{ product.quantity }} </span>
         <span> , Price: {{ product.price }}$ </span>

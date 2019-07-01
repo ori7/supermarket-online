@@ -104,7 +104,7 @@ function updateProduct(req, res) {
 
 function saveFile(req, res) {
 
-    console.log(req.body);
+    // TODO: save image
 }
 
 module.exports.insertNewProduct = insertNewProduct;

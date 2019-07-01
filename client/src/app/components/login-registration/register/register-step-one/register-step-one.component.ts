@@ -15,7 +15,7 @@ export class RegisterStepOneComponent implements OnInit {
 
   registerForm = new FormGroup({
     id: new FormControl(''),
-    email: new FormControl('xxx@gmail.com'),
+    email: new FormControl(''),
     password: new FormControl(''),
     confirmPassword: new FormControl(''),
   });
@@ -60,11 +60,11 @@ export class RegisterStepOneComponent implements OnInit {
   }
 
   checkPassword() {
-/*
+
     var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
     if (!re.test(this.registerForm.value.password))
       this.alertArray.push('Error: Password do not match the rules!');
-    else */ if (!(this.registerForm.value.password === this.registerForm.value.confirmPassword))
+    else if (!(this.registerForm.value.password === this.registerForm.value.confirmPassword))
       this.alertArray.push('Error: Your password and confirmation password do not match!');
   }
 
@@ -86,7 +86,7 @@ export class RegisterStepOneComponent implements OnInit {
   checkIdInTheSystem() {
 
     this.RegisterService.checkId({ id: this.registerForm.value.id }).subscribe(res => {
-      if (!res){
+      if (!res) {
         this.alertArray.push('Error: The ID exists in the system!');
         this.emptyPassword();
       }
@@ -98,7 +98,7 @@ export class RegisterStepOneComponent implements OnInit {
   checkEmailInTheSystem() {
 
     this.RegisterService.checkEmail({ email: this.registerForm.value.email }).subscribe(res => {
-      if (!res){
+      if (!res) {
         this.alertArray.push('Error: The email Already exists in the system!');
         this.emptyPassword();
       }

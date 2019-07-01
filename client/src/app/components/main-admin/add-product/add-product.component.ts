@@ -30,7 +30,7 @@ export class AddProductComponent implements OnInit {
   addProduct() {
     
     this.product.categoryId = Number(this.product.categoryId);
-    console.log(this.product);
+    this.product.picture = "assets/upload/" + this.product.picture.replace(/^.*[\\\/]/, '');
 
     this.adminService.insertProduct(this.product).subscribe(res => {
       if (res) {

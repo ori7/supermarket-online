@@ -86,12 +86,6 @@ export class LoginComponent implements OnInit {
   checkUser(userId) {
 
     /*
-    לפצל get וcreate בserver
-    כאן: לבדוק אם יש עגלה ומה הסטטוס שלה ולבדוק אם יש מוצרים להביא אותה
-    בתוך app-cart, אם זה רק לצפייה להביא עגלה קיימת, ואם לא - להביא עגלה פתוחה בלבד ואם אין למחוק סגורה וליצור חדשה
-    */
-
-    /*
     First, check if the user has an active shopping cart with products.
     If not, bring the latest shopping cart (ordered).
     Otherwise, this is a first purchase, Welcome!
