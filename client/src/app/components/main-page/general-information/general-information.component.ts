@@ -15,13 +15,22 @@ export class GeneralInformationComponent implements OnInit {
 
   ngOnInit() {
 
-    this.productsService.getQuantity('productId').subscribe( res => {
-      this.QuantityOfProducts = res;
-    });
+    this.productsService.getQuantity('productId').subscribe(
+      res => {
+        this.QuantityOfProducts = res;
+      },
+      error => {
+        this.QuantityOfProducts = 0;
+      }
+    );
 
-    this.productsService.getQuantity('orderId').subscribe( res => {
-      this.QuantityOfOrders = res;
-    });
+    this.productsService.getQuantity('orderId').subscribe(
+      res => {
+        this.QuantityOfOrders = res;
+      },
+      error => {
+        this.QuantityOfProducts = 0;
+      }
+    );
   }
-
 }

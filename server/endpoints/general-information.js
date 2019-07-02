@@ -7,10 +7,25 @@ function getQuantity(req, res) {
             res.json(result.seq);
         }
         else {
-            res.sendStatus(401);
+            const newCounter = buildNewCounter(req.body.id);
+            newCounter.save(function (e, r) {
+                if (e) {
+                    res.status(404);
+                }
+                else {
+                    res.json(r.seq);
+                }
+            })
         }
     });
+}
 
+function buildNewCounter(id) {
+
+    newDocument = new Counter;
+    newDocument._id = id;
+    newDocument.seq = 0;
+    return newDocument;
 }
 
 module.exports.getQuantity = getQuantity;
