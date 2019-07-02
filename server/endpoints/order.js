@@ -93,8 +93,8 @@ function createReceipt(req, res) {
 
 function builtReceipt(products, callback) {
 
-    fs.truncate(__dirname + '/../files/receipt.txt', 0, function () { });
-    fs.appendFile(__dirname + '/../files/receipt.txt', 'Receipt:' + "\n", function () { });
+    fs.truncate(__dirname + '/../files/receipt.txt', 0, function () { });   //  Clean the contents of the file before starting to write it.
+    fs.appendFile(__dirname + '/../files/receipt.txt', 'Receipt:' + "\n", function () { });   //   Write the title.
     for (let i = 0; i < products.length; i++) {
         Product.findOne({ _id: products[i].productId }).exec(function (error, result) {
             if (error) {
@@ -102,7 +102,7 @@ function builtReceipt(products, callback) {
             }
             const line = '  Product: ' + result.name + ', Quantity: ' + products[i].quantity + ', Price: ' + products[i].price + '$';
             fs.appendFile(__dirname + '/../files/receipt.txt', line + "\n", function () {
-                if (i === (products.length - 1)) {   //   This is the last product
+                if (i === (products.length - 1)) {   //   This is the last product, so we need to write the total price.
                     const totalPrice = getTotalPrice(products);
                     fs.appendFile(__dirname + '/../files/receipt.txt', 'TotalPrice: ' + totalPrice + '$' + "\n");
                 }

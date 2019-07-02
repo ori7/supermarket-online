@@ -28,7 +28,8 @@ export class RegisterService {
 
   getCities(): object {
 
-    return { 1: 'Jerusalem', 2: 'Tel aviv', 3: 'haifa' };
+    //   TODO: Get list of cities from api.
+    return { 1: 'Jerusalem', 2: 'Tel aviv', 3: 'Haifa', 4: 'Rishon Lezion', 5: 'Eilat' };
   }
 
   createUser1(details) {

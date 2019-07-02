@@ -39,7 +39,7 @@ export class OrderViewComponent implements OnInit {
   }
 
   keyPress() {
-    console.log(this.searce);
+
     this.orderService.mark.next(this.searce);
   }
 
@@ -51,7 +51,7 @@ export class OrderViewComponent implements OnInit {
   ngOnDestroy(): void {
 
     this.orderService.mark.next(null);  //   Empty the BehaviorSubject of 'mark' when we leave the page
-    this.loginService.details.next([this.loginService.details.getValue()[0]]);    //   Return the form of searce products to the header
+    this.loginService.details.next([this.loginService.details.getValue()[0]]);    //   Return the form of searce products to the header (by remove from 'details' the second item)
   }
 
 }

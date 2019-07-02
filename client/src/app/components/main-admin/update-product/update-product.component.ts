@@ -40,15 +40,16 @@ export class UpdateProductComponent implements OnInit {
             this.product.picture = "assets/upload/" + this.file['name'];
             this.saveImage();
         }
-        this.adminService.updateProduct(this.product).subscribe(res => {
-            if (res) {
+        this.adminService.updateProduct(this.product).subscribe(
+            res => {
                 alert('The product ' + res + ' updated successfully!');
                 this.router.navigate(["/refrsh"], { skipLocationChange: true }).then(() =>
                     this.router.navigate(["/admin"]));
-            }
-            else
+            },
+            error => {
                 alert('Failed!');
-        })
+            }
+        )
     }
 
     onFileSelected(event) {
@@ -60,7 +61,7 @@ export class UpdateProductComponent implements OnInit {
 
     saveImage() {
 
-        // TODO: Save the image
+        // TODO: Save the image. Now we need to insert the new image into 'assets/upload/', so the app can upload it.
         this.adminService.saveImage(this.file).subscribe(res => {
         })
     }

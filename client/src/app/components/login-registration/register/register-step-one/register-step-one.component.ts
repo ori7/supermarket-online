@@ -32,7 +32,7 @@ export class RegisterStepOneComponent implements OnInit {
     this.checkId();
     this.checkEmail();
     if (this.alertArray.length === 0)
-      this.checkIdInTheSystem();
+      this.checkIdInTheDB();
     else
       this.emptyPassword();
   }
@@ -83,7 +83,7 @@ export class RegisterStepOneComponent implements OnInit {
     }
   }
 
-  checkIdInTheSystem() {
+  checkIdInTheDB() {
 
     this.RegisterService.checkId({ id: this.registerForm.value.id }).subscribe(res => {
       if (!res) {
@@ -91,11 +91,11 @@ export class RegisterStepOneComponent implements OnInit {
         this.emptyPassword();
       }
       else
-        this.checkEmailInTheSystem();
+        this.checkEmailInTheDB();
     })
   }
 
-  checkEmailInTheSystem() {
+  checkEmailInTheDB() {
 
     this.RegisterService.checkEmail({ email: this.registerForm.value.email }).subscribe(res => {
       if (!res) {

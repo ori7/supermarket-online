@@ -30,6 +30,7 @@ import { OrderComponent } from './components/main-order/order/order.component';
 import { OrderViewComponent } from './components/main-order/order-view/order-view.component';
 import { PopupConfirmComponent } from './components/main-order/popup-confirm/popup-confirm.component';
 import { HighlightPipe } from './pipes/highlight.pipe';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { HighlightPipe } from './pipes/highlight.pipe';
     OrderViewComponent,
     PopupConfirmComponent,
     HighlightPipe,
+    FooterComponent,
   ],
   entryComponents: [
     PopupAddComponent,

@@ -32,20 +32,17 @@ export class PopupAddComponent implements OnInit {
     this.quantity = 1;
 
     this.productsService.getById(this.productId).subscribe(res => {
-      this.product = res; console.log(this.product);
+      this.product = res;
     })
 
     this.cartService.getCart(this.userId, 'open').subscribe(res => {
-      this.cart = res; console.log(this.cart);
+      this.cart = res;
     })
   }
 
   addToCart() {
 
-    this.productCart.productId = this.productId;
-    this.productCart.quantity = this.quantity;
-    this.productCart.cartId = this.cart._id;
-    this.productCart.price = this.product.price * this.quantity;
+    this.buildProductCart();
     this.cartService.addToCart(this.productCart).subscribe(
       res => {
         alert('The product added successfully!');
@@ -54,5 +51,13 @@ export class PopupAddComponent implements OnInit {
         alert('Failed! Try again!');
       }
     )
+  }
+
+  buildProductCart() {
+
+    this.productCart.productId = this.productId;
+    this.productCart.quantity = this.quantity;
+    this.productCart.cartId = this.cart._id;
+    this.productCart.price = this.product.price * this.quantity;
   }
 }

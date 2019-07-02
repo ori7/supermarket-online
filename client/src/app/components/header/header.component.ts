@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   name: string;
   admin: boolean;
   order: boolean;
-  searchInput: string;
+  searchInput: string;behavi
   filterCategory: number | string;
 
   constructor(private loginService: LoginService,
@@ -22,10 +22,12 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-    this.loginService.details.subscribe(res => {
+    this.loginService.details.subscribe(res => {   //   Builds the header according to the data it receives from the BehaviorSubject
       this.name = res[0];
+
       if (res[1] === 'admin')
         this.admin = true;
+        
       if (res[1] === 'order')
         this.order = true;
       else

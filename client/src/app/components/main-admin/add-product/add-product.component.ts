@@ -28,12 +28,13 @@ export class AddProductComponent implements OnInit {
   }
 
   addProduct() {
-    
+
     this.product.categoryId = Number(this.product.categoryId);
     this.product.picture = "assets/upload/" + this.product.picture.replace(/^.*[\\\/]/, '');
+    //  TODO: Save the image. Now we need to insert the image into 'assets/upload/', so the app can upload it.
 
-    this.adminService.insertProduct(this.product).subscribe(res => {
-      if (res) {
+    this.adminService.insertProduct(this.product).subscribe(
+      res => {
         alert('The product ' + res + ' added successfully!');
         /*
         We need to refresh 'admin' page for it will be updated on the new data.
@@ -41,11 +42,12 @@ export class AddProductComponent implements OnInit {
         So we navigated through another middle address, and when we get back to this page, it refreshes.
         */
         this.router.navigate(["/refrsh"], { skipLocationChange: true }).then(() =>
-        this.router.navigate(["/admin"]));
-      }
-      else
+          this.router.navigate(["/admin"]));
+      },
+      error => {
         alert('Failed!');
-    })
+      }
+    )
   }
 
 }

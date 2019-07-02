@@ -28,7 +28,7 @@ export class ProductsListComponent implements OnInit {
     this.productId.emit(id);
   }
 
-  ngOnChanges(changes: SimpleChanges) {   //   catch changes in the input of search and Filter by this
+  ngOnChanges(changes: SimpleChanges) {   //   Catch changes in the input of search and Filter by this.
 
     if (changes.search.currentValue != null) {
       this.productsService.getProductsWithfilter().subscribe(res => {

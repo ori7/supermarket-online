@@ -41,7 +41,7 @@ app.use(function (req, res, next) {
     else {
         try {           
             var decoded = jwt.verify(req.headers.authorization.replace('Bearer ', ''), jwtKey);
-            if (!decoded.role === 1  && req.path.startsWith( '/admin')) {
+            if (!decoded.role === 1  && req.path.startsWith( '/admin')) {  //  This is not an admin but he tries to access as admin
                 return res.status(403).json({ error: 'No credentials sent!' });        
             }
             next();

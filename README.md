@@ -9,12 +9,5 @@ to run:
 * Connect the 'mongoDB'.
 
 
-To login:
-
-* admin: 
-    admin@gmail.com 
-    password: Admin77 
-
-* user: 
-    user@gmail.com 
-    password: User55
+To login as administrator - sign up like user and addthe next row to the document:
+ 'role': 1.

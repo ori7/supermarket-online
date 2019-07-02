@@ -30,7 +30,7 @@ export class RegisterStepTwoComponent implements OnInit {
 
   ngOnInit() {
 
-    if (!this.registerService.newUser.getValue()) {
+    if (!this.registerService.newUser.getValue()) {  //   There are no details from the previous page (page refreshes), the registry must be restarted!
       this.router.navigate(['/logOut']);
     }
 

@@ -48,8 +48,8 @@ export class OrderComponent implements OnInit {
       this.totalPrice = res;
     })
 
-    this.buildDate();
-    this.orderForm.controls['date'].setValue(this.today);
+    this.buildDate();  //   Build the date format to match for input with date type.
+    this.orderForm.controls['date'].setValue(this.today);    //   Set a default value that is today.
   }
 
   order() {
@@ -57,47 +57,34 @@ export class OrderComponent implements OnInit {
     this.checkValues();
     this.checkCreditCard();
     if (this.alertArray.length === 0) {
-      this.orderService.makeOrder(this.userId, this.cartId).subscribe(res => {
-        if (res) {
+      this.orderService.makeOrder(this.userId, this.cartId).subscribe(
+        res => {
           this.openPopupWindow();
-        }
-        else {
+        },
+        error => {
           alert('failed');
         }
-      })
+      )
     }
   }
 
   checkCreditCard() {
 
     var re = /^[0-9]{8,16}$/gm;
-    if (!re.test(this.orderForm.value.creditCard) ) {
+    if (!re.test(this.orderForm.value.creditCard)) {
       this.alertArray.push('Error: The number of credit card in not valid!');
     }
   }
 
-  enterStreet() {
+  enterToInput(el) {
 
     if (this.user) {
-      this.orderForm.patchValue({ street: this.user.street });
+      this.orderForm.patchValue({ [el]: this.user[el] });
     }
     else {
       this.orderService.getUser(this.userId).subscribe(res => {
         this.user = res;
-        this.orderForm.patchValue({ street: this.user.street });
-      });
-    }
-  }
-
-  enterCity() {
-
-    if (this.user) {
-      this.orderForm.patchValue({ city: this.user.city });
-    }
-    else {
-      this.orderService.getUser(this.userId).subscribe(res => {
-        this.user = res;
-        this.orderForm.patchValue({ city: this.user.city });
+        this.orderForm.patchValue({ [el]: this.user[el] });
       });
     }
   }
