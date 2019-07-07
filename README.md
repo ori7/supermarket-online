@@ -9,6 +9,6 @@ To run:
 * Connect the 'mongoDB'.
 
 
-To login as administrator:
-  Sign up like user and add the next row to his document (mongoDB):
-  'role': 1.
+To login as administrator:  
+Sign up like user and add the next row to his document (mongoDB):  
+ { role : &nbsp; 1 } .
