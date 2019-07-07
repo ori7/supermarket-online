@@ -1,4 +1,4 @@
-to run:
+To run:
 
 * 'npm install' in the client side and in the server side.
 
@@ -9,5 +9,6 @@ to run:
 * Connect the 'mongoDB'.
 
 
-To login as administrator - sign up like user and addthe next row to the document:
- 'role': 1.
+To login as administrator:
+  Sign up like user and add the next row to his document (mongoDB):
+  'role': 1.
